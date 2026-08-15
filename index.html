@@ -1676,41 +1676,225 @@ submitKasBtn.addEventListener(
               paymentNotes.value.trim() ||
               null,
 
-            p_proof_storage_path:
-              filePath
-          }
-        );
+// ========================================================
+  // SUBMIT KAS MEMBER
+  // ========================================================
 
-      if (error) {
+  const paymentProof =
+    document.getElementById("paymentProof");
 
-        // Jika pengajuan gagal setelah file berhasil
-        // diupload, hapus file agar tidak menjadi sampah.
-        await supabase.storage
-          .from("Bukti pembayaran kas")
-          .remove([filePath]);
+  submitKasBtn.addEventListener(
+    "click",
+    async () => {
 
-        throw error;
+      const file =
+        paymentProof.files[0];
+
+      if (!file) {
+
+        memberDashboardStatus.textContent =
+          "❌ Bukti pembayaran wajib dipilih.";
+
+        return;
       }
 
-      memberStatus.textContent =
-        "✅ Pengajuan KAS berhasil dibuat. ID: " +
-        data;
 
-      paymentNotes.value = "";
-      paymentProof.value = "";
+      // ----------------------------------------------------
+      // CEK UKURAN FILE
+      // ----------------------------------------------------
 
-      await loadMemberDashboard();
+      if (file.size > 5 * 1024 * 1024) {
 
-    } catch (error) {
+        memberDashboardStatus.textContent =
+          "❌ Ukuran file maksimal 5 MB.";
 
-      memberStatus.textContent =
-        "❌ Gagal: " +
-        error.message;
+        return;
+      }
 
-      submitKasBtn.disabled = false;
+
+      // ----------------------------------------------------
+      // CEK FORMAT FILE
+      // ----------------------------------------------------
+
+      const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "application/pdf"
+      ];
+
+
+      if (!allowedTypes.includes(file.type)) {
+
+        memberDashboardStatus.textContent =
+          "❌ Format harus JPG, PNG, WEBP, atau PDF.";
+
+        return;
+      }
+
+
+      submitKasBtn.disabled =
+        true;
+
+
+      memberDashboardStatus.textContent =
+        "Mengupload bukti pembayaran...";
+
+
+      try {
+
+        // --------------------------------------------------
+        // CEK LOGIN
+        // --------------------------------------------------
+
+        const {
+          data: {
+            user
+          }
+        } =
+          await supabase.auth.getUser();
+
+
+        if (!user) {
+
+          throw new Error(
+            "Session login tidak ditemukan."
+          );
+
+        }
+
+
+        // --------------------------------------------------
+        // BUAT NAMA FILE
+        // --------------------------------------------------
+
+        const extension =
+          file.name
+            .split(".")
+            .pop()
+            .toLowerCase();
+
+
+        const fileName =
+          `${crypto.randomUUID()}.${extension}`;
+
+
+        const filePath =
+          `${user.id}/${fileName}`;
+
+
+        // --------------------------------------------------
+        // UPLOAD KE STORAGE
+        // --------------------------------------------------
+
+        const {
+          error: uploadError
+        } =
+          await supabase.storage
+            .from("Bukti pembayaran kas")
+            .upload(
+              filePath,
+              file,
+              {
+                cacheControl: "3600",
+                upsert: false,
+                contentType: file.type
+              }
+            );
+
+
+        if (uploadError) {
+
+          throw uploadError;
+
+        }
+
+
+        memberDashboardStatus.textContent =
+          "Bukti berhasil diupload. Membuat pengajuan...";
+
+
+        // --------------------------------------------------
+        // BUAT PENGAJUAN PEMBAYARAN
+        // --------------------------------------------------
+
+        const {
+          data,
+          error
+        } =
+          await supabase.rpc(
+            "submit_kas_payment",
+            {
+              p_notes:
+                paymentNotes.value.trim() ||
+                null,
+
+              p_proof_storage_path:
+                filePath
+            }
+          );
+
+
+        // --------------------------------------------------
+        // JIKA DATABASE GAGAL
+        // HAPUS FILE YANG SUDAH TERUPLOAD
+        // --------------------------------------------------
+
+        if (error) {
+
+          await supabase.storage
+            .from("Bukti pembayaran kas")
+            .remove([
+              filePath
+            ]);
+
+
+          throw error;
+
+        }
+
+
+        // --------------------------------------------------
+        // BERHASIL
+        // --------------------------------------------------
+
+        memberDashboardStatus.textContent =
+          "✅ Pengajuan KAS berhasil dibuat. ID: " +
+          data;
+
+
+        paymentNotes.value =
+          "";
+
+        paymentProof.value =
+          "";
+
+
+        await loadMemberDashboard();
+
+
+        // Tampilkan pesan sukses lagi
+        // setelah dashboard selesai dimuat
+
+        memberDashboardStatus.textContent =
+          "✅ Pengajuan KAS berhasil dibuat. ID: " +
+          data;
+
+
+      } catch (error) {
+
+        memberDashboardStatus.textContent =
+          "❌ Gagal: " +
+          error.message;
+
+
+        submitKasBtn.disabled =
+          false;
+
+      }
+
     }
-  }
-);
+  );
 
   // ========================================================
   // REFRESH MEMBER
