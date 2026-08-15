@@ -476,9 +476,20 @@
         yang belum dialokasikan.
       </div>
 
-      <label for="paymentNotes">
-        Catatan
+      <label for="paymentProof">
+        Bukti Pembayaran *
       </label>
+
+      <input
+       id="paymentProof"
+       type="file"
+       accept="image/*,.pdf"
+      >
+
+      <div class="info">
+        Upload bukti pembayaran berupa JPG, PNG, WEBP, atau PDF.
+        Maksimal 5 MB.
+       </div>
 
       <textarea
         id="paymentNotes"
