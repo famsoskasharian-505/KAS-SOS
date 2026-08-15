@@ -31,7 +31,7 @@
       border-radius: 16px;
       padding: 24px;
       margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
     }
 
     h1 {
@@ -86,22 +86,20 @@
       font-weight: bold;
       cursor: pointer;
       margin-top: 4px;
-
-      /* Transisi saat ditekan */
-      transition:
-        background-color 0.15s ease,
-        transform 0.08s ease,
-        opacity 0.15s ease;
+      transition: background .15s ease, transform .08s ease;
     }
 
-    /* Saat tombol ditekan */
+    button:hover:not(:disabled) {
+      background: #226b35;
+    }
+
     button:active:not(:disabled) {
-      background: #145522;
-      transform: scale(0.98);
+      background: #174d26;
+      transform: translateY(1px);
     }
 
     button:disabled {
-      opacity: 0.5;
+      opacity: .5;
       cursor: not-allowed;
     }
 
@@ -109,8 +107,12 @@
       background: #33483a;
     }
 
+    .secondary:hover:not(:disabled) {
+      background: #2a3b30;
+    }
+
     .secondary:active:not(:disabled) {
-      background: #1c2d22;
+      background: #1d2a21;
     }
 
     .logout {
@@ -118,8 +120,12 @@
       margin-top: 10px;
     }
 
+    .logout:hover:not(:disabled) {
+      background: #542b2b;
+    }
+
     .logout:active:not(:disabled) {
-      background: #3e1e1e;
+      background: #3d2020;
     }
 
     .status {
@@ -247,9 +253,7 @@
 
 <div class="container">
 
-  <!-- =====================================================
-       LOGIN
-  ====================================================== -->
+  <!-- LOGIN -->
 
   <div class="card">
 
@@ -292,9 +296,7 @@
   </div>
 
 
-  <!-- =====================================================
-       PANEL ADMIN
-  ====================================================== -->
+  <!-- PANEL ADMIN -->
 
   <div id="adminPanel" class="hidden">
 
@@ -366,8 +368,6 @@
     </div>
 
 
-    <!-- DAFTAR MEMBER -->
-
     <div class="card">
 
       <h2>Daftar Member</h2>
@@ -396,8 +396,6 @@
     </div>
 
 
-    <!-- LOGOUT ADMIN -->
-
     <div class="card">
 
       <button
@@ -412,9 +410,7 @@
   </div>
 
 
-  <!-- =====================================================
-       PANEL MEMBER
-  ====================================================== -->
+  <!-- PANEL MEMBER -->
 
   <div id="memberPanel" class="hidden">
 
@@ -427,11 +423,6 @@
       <h2 id="memberWelcome">
         Dashboard Member
       </h2>
-
-      <div class="info">
-        Kewajiban KAS ditampilkan berdasarkan
-        data kewajiban member Anda.
-      </div>
 
       <div class="summary-grid">
 
@@ -492,9 +483,7 @@
     </div>
 
 
-    <!-- ===================================================
-         UPLOAD BUKTI PEMBAYARAN
-    ==================================================== -->
+    <!-- UPLOAD BUKTI -->
 
     <div class="card">
 
@@ -543,8 +532,6 @@
 
     </div>
 
-
-    <!-- MEMBER ACTION -->
 
     <div class="card">
 
@@ -728,7 +715,7 @@
 
 
   // =====================================================
-  // FORMAT WIB
+  // FORMAT
   // =====================================================
 
   function formatWIB(value) {
@@ -786,7 +773,7 @@
 
 
   // =====================================================
-  // LOAD DAFTAR MEMBER ADMIN
+  // LOAD MEMBER ADMIN
   // =====================================================
 
   async function loadMembers() {
@@ -837,8 +824,7 @@
     }
 
 
-    memberList.innerHTML =
-      "";
+    memberList.innerHTML = "";
 
 
     data.forEach(
@@ -929,9 +915,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
     }
 
 
-    // -------------------------------------------------
     // DATA MEMBER
-    // -------------------------------------------------
 
     const {
       data: member,
@@ -981,9 +965,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
       member.member_name;
 
 
-    // -------------------------------------------------
     // EXEMPT
-    // -------------------------------------------------
 
     if (member.is_kas_exempt === true) {
 
@@ -1008,9 +990,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
     }
 
 
-    // -------------------------------------------------
     // KEWAJIBAN
-    // -------------------------------------------------
 
     const {
       data: obligations,
@@ -1040,9 +1020,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
     }
 
 
-    // -------------------------------------------------
     // ALOKASI
-    // -------------------------------------------------
 
     const {
       data: allocations,
@@ -1090,9 +1068,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
     );
 
 
-    // -------------------------------------------------
-    // HITUNG SISA
-    // -------------------------------------------------
+    // HITUNG BELUM DIBAYAR
 
     const unpaid =
       (
@@ -1144,16 +1120,13 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
     memberTotal.textContent =
       formatIDR(total);
 
-
     memberDays.textContent =
       String(
         unpaid.length
       );
 
 
-    // -------------------------------------------------
     // TIDAK ADA KEWAJIBAN
-    // -------------------------------------------------
 
     if (unpaid.length === 0) {
 
@@ -1172,9 +1145,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
     }
 
 
-    // -------------------------------------------------
     // TAMPILKAN KEWAJIBAN
-    // -------------------------------------------------
 
     obligationList.innerHTML =
       "";
@@ -1233,7 +1204,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
 
   // =====================================================
-  // PANEL
+  // SHOW / HIDE PANEL
   // =====================================================
 
   function showAdminPanel() {
@@ -1343,10 +1314,6 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
         }
 
 
-        // ---------------------------------------------
-        // CEK ADMIN
-        // ---------------------------------------------
-
         let isAdmin =
           false;
 
@@ -1368,6 +1335,8 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
         }
 
 
+        // ADMIN
+
         if (isAdmin) {
 
           showAdminPanel();
@@ -1384,9 +1353,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
         }
 
 
-        // ---------------------------------------------
-        // CEK MEMBER
-        // ---------------------------------------------
+        // MEMBER
 
         const {
           data: member,
@@ -1428,7 +1395,6 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
 
         showMemberPanel();
-
 
         loginStatus.textContent =
           "✅ LOGIN MEMBER BERHASIL";
@@ -1624,9 +1590,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
         paymentProof.files[0];
 
 
-      // ---------------------------------------------
       // CEK FILE
-      // ---------------------------------------------
 
       if (!file) {
 
@@ -1676,9 +1640,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
       try {
 
-        // -------------------------------------------
         // CEK SESSION
-        // -------------------------------------------
 
         memberStatus.textContent =
           "Memeriksa login...";
@@ -1708,9 +1670,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
         }
 
 
-        // -------------------------------------------
         // NAMA FILE
-        // -------------------------------------------
 
         const extension =
           file.name
@@ -1731,9 +1691,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
           fileName;
 
 
-        // -------------------------------------------
         // UPLOAD
-        // -------------------------------------------
 
         memberStatus.textContent =
           "Mengupload bukti pembayaran...";
@@ -1767,9 +1725,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
         }
 
 
-        // -------------------------------------------
         // SUBMIT DATABASE
-        // -------------------------------------------
 
         memberStatus.textContent =
           "Bukti berhasil diupload. Membuat pengajuan...";
@@ -1792,10 +1748,8 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
           );
 
 
-        // -------------------------------------------
-        // JIKA DATABASE GAGAL
+        // JIKA DATABASE GAGAL,
         // HAPUS FILE DARI BUCKET YANG SAMA
-        // -------------------------------------------
 
         if (paymentError) {
 
@@ -1807,14 +1761,11 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
               filePath
             ]);
 
-
           throw paymentError;
         }
 
 
-        // -------------------------------------------
         // BERHASIL
-        // -------------------------------------------
 
         paymentProof.value =
           "";
@@ -1828,18 +1779,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
           paymentId;
 
 
-        try {
-
-          await loadMemberDashboard();
-
-        } catch (dashboardError) {
-
-          console.error(
-            "Gagal refresh dashboard:",
-            dashboardError
-          );
-
-        }
+        await loadMemberDashboard();
 
 
         memberStatus.textContent =
@@ -1849,18 +1789,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
       } catch (error) {
 
-        console.error(
-          "Submit KAS error:",
-          error
-        );
-
-
         memberStatus.textContent =
           "❌ Gagal mengajukan pembayaran:\n" +
-          (
-            error?.message ||
-            String(error)
-          );
+          error.message;
 
       }
 
@@ -1967,10 +1898,6 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
     try {
 
-      // -----------------------------------------------
-      // CEK ADMIN
-      // -----------------------------------------------
-
       let isAdmin =
         false;
 
@@ -2005,10 +1932,6 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
       }
 
 
-      // -----------------------------------------------
-      // SESSION MEMBER
-      // -----------------------------------------------
-
       showMemberPanel();
 
       await loadMemberDashboard();
@@ -2031,7 +1954,6 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
   }
 
 
-  // Jalankan pengecekan session
   checkExistingSession();
 
 </script>
