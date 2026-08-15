@@ -31,7 +31,7 @@
       border-radius: 16px;
       padding: 24px;
       margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
     }
 
     h1 {
@@ -75,10 +75,6 @@
       resize: vertical;
     }
 
-    /* =====================================================
-       BUTTON
-    ====================================================== */
-
     button {
       width: 100%;
       padding: 13px;
@@ -91,40 +87,30 @@
       cursor: pointer;
       margin-top: 4px;
 
+      /* Transisi saat ditekan */
       transition:
-        background .15s ease,
-        transform .05s ease;
+        background-color 0.15s ease,
+        transform 0.08s ease,
+        opacity 0.15s ease;
     }
 
-    button:hover {
-      background: #2e8b46;
-    }
-
-    button:active {
-      background: #174d27;
-      transform: scale(.98);
+    /* Saat tombol ditekan */
+    button:active:not(:disabled) {
+      background: #145522;
+      transform: scale(0.98);
     }
 
     button:disabled {
-      opacity: .5;
+      opacity: 0.5;
       cursor: not-allowed;
-    }
-
-    button:disabled:active {
-      background: #287a3d;
-      transform: none;
     }
 
     .secondary {
       background: #33483a;
     }
 
-    .secondary:hover {
-      background: #405847;
-    }
-
-    .secondary:active {
-      background: #1f3025;
+    .secondary:active:not(:disabled) {
+      background: #1c2d22;
     }
 
     .logout {
@@ -132,12 +118,8 @@
       margin-top: 10px;
     }
 
-    .logout:hover {
-      background: #754040;
-    }
-
-    .logout:active {
-      background: #422020;
+    .logout:active:not(:disabled) {
+      background: #3e1e1e;
     }
 
     .status {
@@ -316,8 +298,6 @@
 
   <div id="adminPanel" class="hidden">
 
-    <!-- TAMBAH MEMBER -->
-
     <div class="card">
 
       <h2>Tambah Member</h2>
@@ -447,6 +427,11 @@
       <h2 id="memberWelcome">
         Dashboard Member
       </h2>
+
+      <div class="info">
+        Kewajiban KAS ditampilkan berdasarkan
+        data kewajiban member Anda.
+      </div>
 
       <div class="summary-grid">
 
@@ -743,7 +728,7 @@
 
 
   // =====================================================
-  // FORMAT
+  // FORMAT WIB
   // =====================================================
 
   function formatWIB(value) {
@@ -801,7 +786,7 @@
 
 
   // =====================================================
-  // LOAD MEMBER ADMIN
+  // LOAD DAFTAR MEMBER ADMIN
   // =====================================================
 
   async function loadMembers() {
@@ -852,7 +837,8 @@
     }
 
 
-    memberList.innerHTML = "";
+    memberList.innerHTML =
+      "";
 
 
     data.forEach(
@@ -943,9 +929,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
     }
 
 
-    // ===================================================
+    // -------------------------------------------------
     // DATA MEMBER
-    // ===================================================
+    // -------------------------------------------------
 
     const {
       data: member,
@@ -995,9 +981,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
       member.member_name;
 
 
-    // ===================================================
+    // -------------------------------------------------
     // EXEMPT
-    // ===================================================
+    // -------------------------------------------------
 
     if (member.is_kas_exempt === true) {
 
@@ -1022,9 +1008,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
     }
 
 
-    // ===================================================
+    // -------------------------------------------------
     // KEWAJIBAN
-    // ===================================================
+    // -------------------------------------------------
 
     const {
       data: obligations,
@@ -1054,9 +1040,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
     }
 
 
-    // ===================================================
+    // -------------------------------------------------
     // ALOKASI
-    // ===================================================
+    // -------------------------------------------------
 
     const {
       data: allocations,
@@ -1104,9 +1090,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
     );
 
 
-    // ===================================================
-    // HITUNG YANG BELUM DIBAYAR
-    // ===================================================
+    // -------------------------------------------------
+    // HITUNG SISA
+    // -------------------------------------------------
 
     const unpaid =
       (
@@ -1158,15 +1144,16 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
     memberTotal.textContent =
       formatIDR(total);
 
+
     memberDays.textContent =
       String(
         unpaid.length
       );
 
 
-    // ===================================================
+    // -------------------------------------------------
     // TIDAK ADA KEWAJIBAN
-    // ===================================================
+    // -------------------------------------------------
 
     if (unpaid.length === 0) {
 
@@ -1185,9 +1172,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
     }
 
 
-    // ===================================================
+    // -------------------------------------------------
     // TAMPILKAN KEWAJIBAN
-    // ===================================================
+    // -------------------------------------------------
 
     obligationList.innerHTML =
       "";
@@ -1356,9 +1343,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
         }
 
 
-        // =================================================
+        // ---------------------------------------------
         // CEK ADMIN
-        // =================================================
+        // ---------------------------------------------
 
         let isAdmin =
           false;
@@ -1390,13 +1377,16 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
           await loadMembers();
 
+          loginBtn.disabled =
+            false;
+
           return;
         }
 
 
-        // =================================================
-        // MEMBER
-        // =================================================
+        // ---------------------------------------------
+        // CEK MEMBER
+        // ---------------------------------------------
 
         const {
           data: member,
@@ -1439,6 +1429,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
         showMemberPanel();
 
+
         loginStatus.textContent =
           "✅ LOGIN MEMBER BERHASIL";
 
@@ -1456,12 +1447,11 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
           "❌ Login gagal: " +
           error.message;
 
-      } finally {
-
-        loginBtn.disabled =
-          false;
-
       }
+
+
+      loginBtn.disabled =
+        false;
 
     }
   );
@@ -1580,12 +1570,11 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
           "❌ Gagal membuat member: " +
           error.message;
 
-      } finally {
-
-        createMemberBtn.disabled =
-          false;
-
       }
+
+
+      createMemberBtn.disabled =
+        false;
 
     }
   );
@@ -1613,12 +1602,11 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
           "❌ " +
           error.message;
 
-      } finally {
-
-        refreshMembersBtn.disabled =
-          false;
-
       }
+
+
+      refreshMembersBtn.disabled =
+        false;
 
     }
   );
@@ -1636,9 +1624,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
         paymentProof.files[0];
 
 
-      // =================================================
+      // ---------------------------------------------
       // CEK FILE
-      // =================================================
+      // ---------------------------------------------
 
       if (!file) {
 
@@ -1688,9 +1676,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
       try {
 
-        // =================================================
+        // -------------------------------------------
         // CEK SESSION
-        // =================================================
+        // -------------------------------------------
 
         memberStatus.textContent =
           "Memeriksa login...";
@@ -1720,9 +1708,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
         }
 
 
-        // =================================================
-        // BUAT NAMA FILE
-        // =================================================
+        // -------------------------------------------
+        // NAMA FILE
+        // -------------------------------------------
 
         const extension =
           file.name
@@ -1743,9 +1731,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
           fileName;
 
 
-        // =================================================
-        // UPLOAD BUKTI
-        // =================================================
+        // -------------------------------------------
+        // UPLOAD
+        // -------------------------------------------
 
         memberStatus.textContent =
           "Mengupload bukti pembayaran...";
@@ -1779,9 +1767,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
         }
 
 
-        // =================================================
+        // -------------------------------------------
         // SUBMIT DATABASE
-        // =================================================
+        // -------------------------------------------
 
         memberStatus.textContent =
           "Bukti berhasil diupload. Membuat pengajuan...";
@@ -1804,9 +1792,10 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
           );
 
 
-        // =================================================
-        // DATABASE GAGAL → HAPUS FILE
-        // =================================================
+        // -------------------------------------------
+        // JIKA DATABASE GAGAL
+        // HAPUS FILE DARI BUCKET YANG SAMA
+        // -------------------------------------------
 
         if (paymentError) {
 
@@ -1823,9 +1812,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
         }
 
 
-        // =================================================
+        // -------------------------------------------
         // BERHASIL
-        // =================================================
+        // -------------------------------------------
 
         paymentProof.value =
           "";
@@ -1839,11 +1828,19 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
           paymentId;
 
 
-        await loadMemberDashboard();
+        try {
 
+          await loadMemberDashboard();
 
-        // Tampilkan kembali pesan sukses
-        // setelah dashboard selesai dimuat.
+        } catch (dashboardError) {
+
+          console.error(
+            "Gagal refresh dashboard:",
+            dashboardError
+          );
+
+        }
+
 
         memberStatus.textContent =
           "✅ Pengajuan KAS berhasil dibuat.\nID: " +
@@ -1852,16 +1849,24 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
       } catch (error) {
 
+        console.error(
+          "Submit KAS error:",
+          error
+        );
+
+
         memberStatus.textContent =
           "❌ Gagal mengajukan pembayaran:\n" +
-          error.message;
-
-      } finally {
-
-        submitKasBtn.disabled =
-          false;
+          (
+            error?.message ||
+            String(error)
+          );
 
       }
+
+
+      submitKasBtn.disabled =
+        false;
 
     }
   );
@@ -1889,12 +1894,11 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
           "❌ " +
           error.message;
 
-      } finally {
-
-        refreshMemberBtn.disabled =
-          false;
-
       }
+
+
+      refreshMemberBtn.disabled =
+        false;
 
     }
   );
@@ -1963,9 +1967,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
     try {
 
-      // =================================================
+      // -----------------------------------------------
       // CEK ADMIN
-      // =================================================
+      // -----------------------------------------------
 
       let isAdmin =
         false;
@@ -2001,9 +2005,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
       }
 
 
-      // =================================================
+      // -----------------------------------------------
       // SESSION MEMBER
-      // =================================================
+      // -----------------------------------------------
 
       showMemberPanel();
 
@@ -2027,6 +2031,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
   }
 
 
+  // Jalankan pengecekan session
   checkExistingSession();
 
 </script>
