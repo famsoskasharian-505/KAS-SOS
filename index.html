@@ -1575,58 +1575,142 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
   // SUBMIT KAS MEMBER
   // ========================================================
 
-  submitKasBtn.addEventListener(
-    "click",
-    async () => {
+const paymentProof =
+  document.getElementById("paymentProof");
 
-      submitKasBtn.disabled =
-        true;
+submitKasBtn.addEventListener(
+  "click",
+  async () => {
 
+    const file =
+      paymentProof.files[0];
 
-      memberDashboardStatus.textContent =
-        "Mengirim pengajuan KAS...";
+    if (!file) {
+      memberStatus.textContent =
+        "❌ Bukti pembayaran wajib dipilih.";
+      return;
+    }
 
+    // Maksimal 5 MB
+    if (file.size > 5 * 1024 * 1024) {
+      memberStatus.textContent =
+        "❌ Ukuran file maksimal 5 MB.";
+      return;
+    }
+
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+      "application/pdf"
+    ];
+
+    if (!allowedTypes.includes(file.type)) {
+      memberStatus.textContent =
+        "❌ Format harus JPG, PNG, WEBP, atau PDF.";
+      return;
+    }
+
+    submitKasBtn.disabled = true;
+
+    memberStatus.textContent =
+      "Mengupload bukti pembayaran...";
+
+    try {
+
+      const {
+        data: {
+          user
+        }
+      } =
+        await supabase.auth.getUser();
+
+      if (!user) {
+        throw new Error(
+          "Session login tidak ditemukan."
+        );
+      }
+
+      const extension =
+        file.name
+          .split(".")
+          .pop()
+          .toLowerCase();
+
+      const fileName =
+        `${crypto.randomUUID()}.${extension}`;
+
+      const filePath =
+        `${user.id}/${fileName}`;
+
+      const {
+        error: uploadError
+      } =
+        await supabase.storage
+          .from("Bukti pembayaran kas")
+          .upload(
+            filePath,
+            file,
+            {
+              cacheControl: "3600",
+              upsert: false,
+              contentType: file.type
+            }
+          );
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+      memberStatus.textContent =
+        "Bukti berhasil diupload. Membuat pengajuan...";
 
       const {
         data,
         error
       } =
-      await supabase.rpc(
-        "submit_kas_payment",
-        {
-          p_notes:
-            paymentNotes.value.trim() ||
-            null
-        }
-      );
+        await supabase.rpc(
+          "submit_kas_payment",
+          {
+            p_notes:
+              paymentNotes.value.trim() ||
+              null,
 
+            p_proof_storage_path:
+              filePath
+          }
+        );
 
       if (error) {
 
-        memberDashboardStatus.textContent =
-          "❌ Gagal mengajukan pembayaran: " +
-          error.message;
+        // Jika pengajuan gagal setelah file berhasil
+        // diupload, hapus file agar tidak menjadi sampah.
+        await supabase.storage
+          .from("Bukti pembayaran kas")
+          .remove([filePath]);
 
-        submitKasBtn.disabled =
-          false;
-
-        return;
+        throw error;
       }
 
+      memberStatus.textContent =
+        "✅ Pengajuan KAS berhasil dibuat. ID: " +
+        data;
 
-      memberDashboardStatus.textContent =
-        "✅ Pengajuan pembayaran berhasil dibuat.";
-
-
-      paymentNotes.value =
-        "";
-
+      paymentNotes.value = "";
+      paymentProof.value = "";
 
       await loadMemberDashboard();
 
-    }
-  );
+    } catch (error) {
 
+      memberStatus.textContent =
+        "❌ Gagal: " +
+        error.message;
+
+      submitKasBtn.disabled = false;
+    }
+  }
+);
 
   // ========================================================
   // REFRESH MEMBER
