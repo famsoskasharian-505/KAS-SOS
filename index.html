@@ -1164,7 +1164,96 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
     listStatus.textContent =
       `✅ ${data.length} member ditampilkan.`;
   }
+async function loadPaymentRequests() {
 
+  paymentRequestList.innerHTML =
+    `<div class="empty">
+      Memuat pengajuan pembayaran...
+    </div>`;
+
+  paymentRequestStatus.textContent =
+    "Mengambil data pengajuan...";
+
+  try {
+
+    const {
+      data,
+      error
+    } = await supabase.rpc(
+      "admin_get_payment_requests"
+    );
+
+    if (error) {
+      throw error;
+    }
+
+    if (!data || data.length === 0) {
+
+      paymentRequestList.innerHTML =
+        `<div class="empty">
+          Belum ada pengajuan pembayaran.
+        </div>`;
+
+      paymentRequestStatus.textContent =
+        "Tidak ada pengajuan.";
+
+      return;
+    }
+
+    paymentRequestList.innerHTML = "";
+
+    data.forEach(request => {
+
+      const item =
+        document.createElement("div");
+
+      item.className =
+        "member-item";
+
+      const name =
+        document.createElement("div");
+
+      name.className =
+        "member-name";
+
+      name.textContent =
+        request.member_name || "Member";
+
+      const detail =
+        document.createElement("div");
+
+      detail.className =
+        "member-detail";
+
+      detail.textContent =
+`Nominal: ${formatIDR(request.amount)}
+Tipe: ${request.payment_type || "-"}
+Status: ${request.status || "-"}
+Tanggal: ${formatWIB(request.submitted_at)}
+Catatan: ${request.notes || "-"}`;
+
+      item.appendChild(name);
+      item.appendChild(detail);
+
+      paymentRequestList.appendChild(item);
+
+    });
+
+    paymentRequestStatus.textContent =
+      `✅ ${data.length} pengajuan ditampilkan.`;
+
+  } catch (error) {
+
+    paymentRequestList.innerHTML =
+      `<div class="empty">
+        Gagal memuat pengajuan.
+      </div>`;
+
+    paymentRequestStatus.textContent =
+      "❌ " + error.message;
+
+  }
+}
 
   // =====================================================
   // LOAD PENGAJUAN PEMBAYARAN ADMIN
