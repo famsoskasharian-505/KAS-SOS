@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>KAS SOS</title>
+  <title>KAS SOS — Kas Management</title>
 
   <style>
     * {
@@ -12,117 +11,108 @@
     }
 
     :root {
-      --bg: #070b08;
-      --panel: #101711;
-      --panel-2: #151d16;
-      --border: #26352a;
-      --green: #2f8f46;
-      --green-dark: #1d5d2d;
-      --green-light: #55b96a;
-      --text: #f2f5f2;
-      --muted: #8e9b91;
-      --danger: #8c3838;
-      --danger-dark: #612727;
-      --yellow: #c6a94d;
+      --bg: #07100a;
+      --card: #0d1810;
+      --card2: #111f14;
+      --line: #24442b;
+      --green: #39c95a;
+      --green-dark: #176b2c;
+      --green-soft: #83e99a;
+      --text: #f2fff4;
+      --muted: #91a697;
+      --danger: #a83c3c;
+      --danger-dark: #6d2525;
+      --yellow: #d8c34b;
+      --shadow: rgba(0, 0, 0, .45);
     }
 
     body {
       margin: 0;
       min-height: 100vh;
+      padding: 16px;
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 10% 10%, rgba(47,143,70,.12), transparent 28%),
-        radial-gradient(circle at 90% 20%, rgba(85,185,106,.08), transparent 25%),
-        linear-gradient(145deg, #050805, #0b110c 50%, #070b08);
-      padding: 14px;
+        radial-gradient(circle at 15% 10%, rgba(57,201,90,.10), transparent 25%),
+        radial-gradient(circle at 85% 20%, rgba(57,201,90,.08), transparent 25%),
+        linear-gradient(135deg, #050b07, #0a130d 45%, #07100a);
     }
 
     body::before {
-      content: "KAS";
+      content: "";
       position: fixed;
-      right: -35px;
-      bottom: 25px;
-      font-size: 120px;
-      font-weight: 900;
-      font-style: italic;
-      color: rgba(47,143,70,.035);
-      transform: rotate(-12deg);
+      inset: 0;
       pointer-events: none;
-      z-index: 0;
+      opacity: .08;
+      background-image:
+        linear-gradient(135deg, #fff 1px, transparent 1px);
+      background-size: 18px 18px;
     }
 
     .container {
-      position: relative;
-      z-index: 1;
       width: 100%;
       max-width: 620px;
-      margin: 12px auto;
-    }
-
-    .brand {
-      margin-bottom: 14px;
-      padding: 4px 4px 0;
-    }
-
-    .brand-title {
-      font-size: 31px;
-      font-weight: 900;
-      letter-spacing: -2px;
-      font-style: italic;
-      text-shadow: 3px 3px 0 #16391e;
-    }
-
-    .brand-subtitle {
-      color: var(--muted);
-      font-size: 12px;
-      margin-top: 2px;
-      letter-spacing: .5px;
+      margin: 15px auto;
+      position: relative;
+      z-index: 1;
     }
 
     .card {
       background:
-        linear-gradient(145deg, rgba(21,29,22,.97), rgba(11,17,12,.97));
-      border: 1px solid var(--border);
+        linear-gradient(145deg, rgba(18,34,22,.98), rgba(8,17,11,.98));
+      border: 1px solid var(--line);
       border-radius: 14px;
-      padding: 17px;
+      padding: 18px;
       margin-bottom: 14px;
       box-shadow:
-        0 12px 30px rgba(0,0,0,.35),
-        inset 0 1px 0 rgba(255,255,255,.02);
+        0 12px 30px var(--shadow),
+        inset 0 1px 0 rgba(255,255,255,.025);
     }
 
-    .card-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 14px;
+    .brand {
+      position: relative;
+      overflow: hidden;
     }
 
-    h1,
+    .brand::after {
+      content: "KAS";
+      position: absolute;
+      right: 12px;
+      top: 5px;
+      font-size: 54px;
+      font-weight: 900;
+      color: rgba(57,201,90,.035);
+      transform: rotate(-8deg);
+      pointer-events: none;
+    }
+
+    h1 {
+      margin: 0 0 5px;
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
     h2 {
-      margin: 0;
-    }
-
-    h2 {
+      margin: 0 0 13px;
       font-size: 19px;
-      letter-spacing: -.4px;
     }
 
     .subtitle {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-      margin-bottom: 18px;
+      color: var(--green-soft);
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
     }
 
     label {
       display: block;
       margin-bottom: 6px;
-      color: #c8d1ca;
+      color: #c9d9cc;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: bold;
     }
 
     input,
@@ -132,8 +122,8 @@
       padding: 11px 12px;
       margin-bottom: 13px;
       border-radius: 9px;
-      border: 1px solid #304034;
-      background: #090f0b;
+      border: 1px solid #29432e;
+      background: #08110b;
       color: white;
       font-size: 14px;
       outline: none;
@@ -144,68 +134,64 @@
     select:focus,
     textarea:focus {
       border-color: var(--green);
-      box-shadow: 0 0 0 2px rgba(47,143,70,.12);
+      box-shadow: 0 0 0 2px rgba(57,201,90,.10);
     }
 
     textarea {
-      min-height: 78px;
+      min-height: 75px;
       resize: vertical;
     }
 
     button {
       width: 100%;
       padding: 11px 13px;
-      border: 1px solid transparent;
+      border: 1px solid #42dc62;
       border-radius: 9px;
-      background: var(--green);
+      background: linear-gradient(135deg, #2b9f43, #176b2c);
       color: white;
       font-size: 13px;
-      font-weight: 800;
-      letter-spacing: .3px;
+      font-weight: 900;
+      letter-spacing: .5px;
       cursor: pointer;
-      transition: .16s ease;
       margin-top: 3px;
+      transition: .15s ease;
+      box-shadow: 0 5px 14px rgba(0,0,0,.25);
     }
 
     button:hover {
-      background: var(--green-light);
       transform: translateY(-1px);
+      filter: brightness(1.08);
     }
 
     button:active {
       transform: translateY(1px);
+      background: #145c27;
     }
 
     button:disabled {
-      opacity: .5;
+      opacity: .45;
       cursor: not-allowed;
       transform: none;
     }
 
     .secondary {
-      background: #27382b;
-      border-color: #344b39;
-    }
-
-    .secondary:hover {
-      background: #334a38;
+      background: #172a1c;
+      border-color: #315b3a;
     }
 
     .logout {
-      background: var(--danger-dark);
-    }
-
-    .logout:hover {
-      background: var(--danger);
+      background: linear-gradient(135deg, #743333, #542222);
+      border-color: #9a4a4a;
+      margin-top: 9px;
     }
 
     .status {
-      margin-top: 12px;
-      padding: 10px 11px;
+      margin-top: 13px;
+      padding: 10px 12px;
       border-radius: 9px;
-      background: #090f0b;
-      border: 1px solid #202d23;
-      color: #b9c4bc;
+      background: #08110b;
+      border: 1px solid #1d3422;
+      color: #c7d8cb;
       min-height: 40px;
       line-height: 1.4;
       white-space: pre-wrap;
@@ -220,177 +206,196 @@
       color: var(--muted);
       font-size: 12px;
       line-height: 1.5;
-      margin-bottom: 13px;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 5px 9px;
-      border-radius: 999px;
-      background: rgba(47,143,70,.16);
-      border: 1px solid rgba(85,185,106,.2);
-      color: #9dddab;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .5px;
+      margin-bottom: 14px;
     }
 
     .member-list,
     .obligation-list,
     .payment-list {
       display: grid;
-      gap: 9px;
-      margin-top: 12px;
+      gap: 10px;
     }
 
     .member-item,
     .obligation-item,
     .payment-item {
-      background: #090f0b;
-      border: 1px solid #233126;
-      border-radius: 11px;
+      background: #08110b;
+      border: 1px solid #1f3824;
+      border-radius: 10px;
       padding: 12px;
     }
 
     .member-name {
       font-size: 15px;
-      font-weight: 800;
-      margin-bottom: 6px;
+      font-weight: 900;
+      margin-bottom: 7px;
     }
 
     .member-detail {
-      color: var(--muted);
+      color: #94a99a;
       font-size: 11px;
-      line-height: 1.6;
+      line-height: 1.65;
       white-space: pre-line;
     }
 
     .empty {
-      color: var(--muted);
+      color: #83978a;
       text-align: center;
-      padding: 17px 8px;
+      padding: 18px 10px;
       font-size: 12px;
+    }
+
+    .member-badge,
+    .status-badge {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: #173a20;
+      border: 1px solid #2d6b39;
+      color: #a9f4b7;
+      font-size: 10px;
+      font-weight: 900;
+      margin-bottom: 10px;
+      letter-spacing: .5px;
+    }
+
+    .status-pending {
+      background: #514a18;
+      border-color: #827927;
+      color: #fff19a;
+    }
+
+    .status-approved {
+      background: #173a20;
+      border-color: #2d6b39;
+      color: #a9f4b7;
+    }
+
+    .status-rejected {
+      background: #4c2020;
+      border-color: #7e3737;
+      color: #ffabab;
     }
 
     .summary-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 9px;
-      margin: 13px 0 17px;
+      gap: 10px;
+      margin: 14px 0;
     }
 
     .summary-box {
-      background: #090f0b;
-      border: 1px solid #233126;
-      border-radius: 11px;
+      background: #08110b;
+      border: 1px solid #203b26;
+      border-radius: 10px;
       padding: 13px;
     }
 
     .summary-label {
-      color: var(--muted);
+      color: #84998b;
       font-size: 11px;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
 
     .summary-value {
       font-size: 20px;
       font-weight: 900;
+      color: var(--green-soft);
     }
 
     .obligation-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .obligation-date {
       font-size: 12px;
-      font-weight: 700;
+      font-weight: bold;
     }
 
     .obligation-amount {
       white-space: nowrap;
-      font-size: 13px;
       font-weight: 900;
-      color: #8fd69d;
+      color: var(--green-soft);
+      font-size: 13px;
     }
 
     .upload-box {
-      border: 1px dashed #46634c;
-      background: rgba(47,143,70,.035);
-      border-radius: 11px;
+      border: 1px dashed #3c6545;
+      background: rgba(24,53,30,.20);
+      border-radius: 10px;
       padding: 12px;
       margin-bottom: 4px;
     }
 
-    .payment-top {
+    .payment-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       gap: 10px;
-      margin-bottom: 8px;
+      margin-bottom: 9px;
     }
 
-    .payment-name {
+    .payment-member {
       font-size: 14px;
       font-weight: 900;
     }
 
     .payment-amount {
-      color: #8fd69d;
-      font-size: 15px;
+      font-size: 18px;
       font-weight: 900;
+      color: var(--green-soft);
       white-space: nowrap;
     }
 
     .payment-detail {
-      color: var(--muted);
+      color: #91a697;
       font-size: 11px;
-      line-height: 1.6;
+      line-height: 1.65;
       white-space: pre-line;
     }
 
-    .payment-actions {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 7px;
-      margin-top: 9px;
+    .payment-proof {
+      margin-top: 8px;
+      padding: 8px;
+      border-radius: 7px;
+      background: #0d1b11;
+      border: 1px solid #1e3723;
+      color: #8fbf98;
+      font-size: 10px;
+      word-break: break-all;
     }
 
-    .small-btn {
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .section-title::before {
+      content: "";
+      width: 5px;
+      height: 21px;
+      border-radius: 4px;
+      background: var(--green);
+      box-shadow: 0 0 10px rgba(57,201,90,.45);
+    }
+
+    .small-button {
       padding: 9px;
       font-size: 11px;
     }
 
-    .pending {
-      color: #e3cc73;
-      border-color: rgba(198,169,77,.25);
-      background: rgba(198,169,77,.08);
-    }
-
-    .file-name {
-      color: #9dddab;
-      font-size: 11px;
-      margin-top: -5px;
-      margin-bottom: 8px;
-      word-break: break-all;
-    }
-
-    .section-line {
-      height: 1px;
-      background: #202d23;
-      margin: 16px 0;
-    }
-
-    @media (max-width: 480px) {
+    @media (max-width: 520px) {
       body {
-        padding: 9px;
+        padding: 10px;
       }
 
       .container {
-        margin: 6px auto;
+        margin: 8px auto;
       }
 
       .card {
@@ -398,12 +403,16 @@
         border-radius: 12px;
       }
 
-      .brand-title {
-        font-size: 27px;
+      h1 {
+        font-size: 24px;
       }
 
       .summary-grid {
         grid-template-columns: 1fr 1fr;
+      }
+
+      .payment-header {
+        flex-direction: column;
       }
     }
   </style>
@@ -413,30 +422,19 @@
 
 <div class="container">
 
-  <div class="brand">
-    <div class="brand-title">KAS SOS</div>
-    <div class="brand-subtitle">
-      KAS MANAGEMENT • ADMIN / MEMBER
-    </div>
-  </div>
-
-
   <!-- =====================================================
        LOGIN
   ====================================================== -->
 
-  <div class="card">
+  <div class="card brand">
 
-    <div class="card-title">
-      <h2>Login</h2>
-      <span class="badge">SECURE ACCESS</span>
-    </div>
+    <h1>KAS SOS</h1>
 
     <div class="subtitle">
-      Masuk menggunakan akun Admin atau Member.
+      Kas Management • Admin / Member
     </div>
 
-    <label for="email">EMAIL</label>
+    <label for="email">Email</label>
 
     <input
       id="email"
@@ -445,7 +443,7 @@
       placeholder="Masukkan email"
     >
 
-    <label for="password">PASSWORD</label>
+    <label for="password">Password</label>
 
     <input
       id="password"
@@ -475,9 +473,8 @@
 
     <div class="card">
 
-      <div class="card-title">
+      <div class="section-title">
         <h2>Tambah Member</h2>
-        <span class="badge">ADMIN</span>
       </div>
 
       <div class="info">
@@ -485,7 +482,7 @@
       </div>
 
       <label for="memberName">
-        NAMA MEMBER *
+        Nama Member *
       </label>
 
       <input
@@ -495,7 +492,7 @@
       >
 
       <label for="whatsapp">
-        NOMOR WHATSAPP
+        Nomor WhatsApp
       </label>
 
       <input
@@ -505,7 +502,7 @@
       >
 
       <label for="joinedAt">
-        WAKTU JOIN WIB *
+        Waktu Join (WIB) *
       </label>
 
       <input
@@ -514,7 +511,7 @@
       >
 
       <label for="memberType">
-        TIPE MEMBER
+        Tipe Member
       </label>
 
       <select id="memberType">
@@ -524,7 +521,7 @@
       </select>
 
       <label for="notes">
-        CATATAN
+        Catatan
       </label>
 
       <textarea
@@ -536,7 +533,7 @@
         BUAT MEMBER
       </button>
 
-      <div id="createMemberStatus" class="status">
+      <div id="memberStatus" class="status">
         Belum ada proses.
       </div>
 
@@ -547,7 +544,7 @@
 
     <div class="card">
 
-      <div class="card-title">
+      <div class="section-title">
         <h2>Daftar Member</h2>
       </div>
 
@@ -555,12 +552,13 @@
         id="refreshMembersBtn"
         class="secondary"
       >
-        REFRESH MEMBER
+        REFRESH DAFTAR MEMBER
       </button>
 
       <div
         id="memberList"
         class="member-list"
+        style="margin-top:13px;"
       >
         <div class="empty">
           Belum memuat daftar member.
@@ -574,20 +572,19 @@
     </div>
 
 
-    <!-- PENGAJUAN PEMBAYARAN -->
+    <!-- ===================================================
+         PANEL PENGAJUAN PEMBAYARAN
+    ==================================================== -->
 
     <div class="card">
 
-      <div class="card-title">
-        <h2>Pengajuan Pembayaran</h2>
-        <span class="badge pending">
-          PENDING
-        </span>
+      <div class="section-title">
+        <h2>Pengajuan Pembayaran KAS</h2>
       </div>
 
       <div class="info">
-        Pengajuan pembayaran yang menunggu verifikasi Admin.
-        Nominal diambil langsung dari database.
+        Semua pengajuan pembayaran member akan tampil di sini.
+        Nominal diambil langsung dari database payment_requests.
       </div>
 
       <button
@@ -598,15 +595,19 @@
       </button>
 
       <div
-        id="paymentList"
+        id="paymentRequestList"
         class="payment-list"
+        style="margin-top:13px;"
       >
         <div class="empty">
-          Belum memuat pengajuan.
+          Belum memuat pengajuan pembayaran.
         </div>
       </div>
 
-      <div id="paymentStatus" class="status">
+      <div
+        id="paymentRequestStatus"
+        class="status"
+      >
         Belum ada proses.
       </div>
 
@@ -637,22 +638,20 @@
 
     <div class="card">
 
-      <div class="card-title">
-        <h2 id="memberWelcome">
-          Dashboard Member
-        </h2>
-
-        <span class="badge">
-          MEMBER
-        </span>
+      <div class="member-badge">
+        MEMBER
       </div>
+
+      <h2 id="memberWelcome">
+        Dashboard Member
+      </h2>
 
       <div class="summary-grid">
 
         <div class="summary-box">
 
           <div class="summary-label">
-            TOTAL BELUM DIBAYAR
+            Total Belum Dibayar
           </div>
 
           <div
@@ -667,7 +666,7 @@
         <div class="summary-box">
 
           <div class="summary-label">
-            KEWAJIBAN
+            Jumlah Kewajiban
           </div>
 
           <div
@@ -682,9 +681,9 @@
       </div>
 
 
-      <h2>
-        Kewajiban KAS
-      </h2>
+      <div class="section-title">
+        <h2>Kewajiban KAS</h2>
+      </div>
 
       <div
         id="obligationList"
@@ -696,7 +695,7 @@
       </div>
 
       <div
-        id="memberDashboardStatus"
+        id="memberStatus"
         class="status"
       >
         Belum ada proses.
@@ -709,21 +708,36 @@
 
     <div class="card">
 
-      <div class="card-title">
-        <h2>Ajukan Pembayaran</h2>
-        <span class="badge">KAS</span>
+      <div class="section-title">
+        <h2>Ajukan Pembayaran KAS</h2>
       </div>
 
       <div class="info">
-        Bukti pembayaran wajib dilampirkan.
-        Selama masih ada pengajuan PENDING, pengajuan baru
-        akan ditolak oleh database.
+        Nominal pengajuan dihitung otomatis dari seluruh kewajiban
+        KAS yang belum dialokasikan.
+      </div>
+
+      <!-- NOMINAL YANG AKAN DIAJUKAN -->
+
+      <div class="summary-box" style="margin-bottom:13px;">
+
+        <div class="summary-label">
+          Nominal Pengajuan
+        </div>
+
+        <div
+          id="paymentAmountPreview"
+          class="summary-value"
+        >
+          Rp0
+        </div>
+
       </div>
 
       <div class="upload-box">
 
         <label for="paymentProof">
-          BUKTI PEMBAYARAN *
+          Bukti Pembayaran *
         </label>
 
         <input
@@ -732,19 +746,16 @@
           accept="image/jpeg,image/png,image/webp,application/pdf"
         >
 
-        <div
-          id="selectedFileName"
-          class="file-name hidden"
-        ></div>
-
-        <div class="info">
-          JPG, PNG, WEBP, atau PDF • Maksimal 5 MB.
+        <div class="info" style="margin-bottom:0;">
+          Wajib mengirim bukti pembayaran.
+          JPG, PNG, WEBP, atau PDF. Maksimal 5 MB.
         </div>
 
       </div>
 
+
       <label for="paymentNotes">
-        CATATAN
+        Catatan
       </label>
 
       <textarea
@@ -752,16 +763,10 @@
         placeholder="Catatan untuk admin (opsional)"
       ></textarea>
 
+
       <button id="submitKasBtn">
         AJUKAN PEMBAYARAN KAS
       </button>
-
-      <div
-        id="paymentSubmitStatus"
-        class="status"
-      >
-        Bukti pembayaran wajib dipilih sebelum mengajukan.
-      </div>
 
     </div>
 
@@ -824,7 +829,7 @@
 
 
   // =====================================================
-  // ELEMENT
+  // ELEMENT LOGIN
   // =====================================================
 
   const emailInput =
@@ -840,7 +845,9 @@
     document.getElementById("loginStatus");
 
 
-  // ADMIN
+  // =====================================================
+  // ADMIN ELEMENT
+  // =====================================================
 
   const adminPanel =
     document.getElementById("adminPanel");
@@ -863,8 +870,8 @@
   const createMemberBtn =
     document.getElementById("createMemberBtn");
 
-  const createMemberStatus =
-    document.getElementById("createMemberStatus");
+  const memberStatus =
+    document.getElementById("memberStatus");
 
   const refreshMembersBtn =
     document.getElementById("refreshMembersBtn");
@@ -875,20 +882,22 @@
   const listStatus =
     document.getElementById("listStatus");
 
-  const paymentList =
-    document.getElementById("paymentList");
-
-  const paymentStatus =
-    document.getElementById("paymentStatus");
+  const logoutBtn =
+    document.getElementById("logoutBtn");
 
   const refreshPaymentsBtn =
     document.getElementById("refreshPaymentsBtn");
 
-  const logoutBtn =
-    document.getElementById("logoutBtn");
+  const paymentRequestList =
+    document.getElementById("paymentRequestList");
+
+  const paymentRequestStatus =
+    document.getElementById("paymentRequestStatus");
 
 
-  // MEMBER
+  // =====================================================
+  // MEMBER ELEMENT
+  // =====================================================
 
   const memberPanel =
     document.getElementById("memberPanel");
@@ -902,21 +911,14 @@
   const memberDays =
     document.getElementById("memberDays");
 
+  const paymentAmountPreview =
+    document.getElementById("paymentAmountPreview");
+
   const obligationList =
     document.getElementById("obligationList");
 
-  const memberDashboardStatus =
-    document.getElementById(
-      "memberDashboardStatus"
-    );
-
   const paymentProof =
     document.getElementById("paymentProof");
-
-  const selectedFileName =
-    document.getElementById(
-      "selectedFileName"
-    );
 
   const paymentNotes =
     document.getElementById("paymentNotes");
@@ -924,29 +926,21 @@
   const submitKasBtn =
     document.getElementById("submitKasBtn");
 
-  const paymentSubmitStatus =
-    document.getElementById(
-      "paymentSubmitStatus"
-    );
-
   const refreshMemberBtn =
-    document.getElementById(
-      "refreshMemberBtn"
-    );
+    document.getElementById("refreshMemberBtn");
 
   const memberLogoutBtn =
-    document.getElementById(
-      "memberLogoutBtn"
-    );
+    document.getElementById("memberLogoutBtn");
 
 
   // =====================================================
-  // DEFAULT JOIN TIME
+  // DEFAULT WAKTU JOIN
   // =====================================================
 
   function setDefaultJoinTime() {
 
-    const now = new Date();
+    const now =
+      new Date();
 
     const parts =
       new Intl.DateTimeFormat(
@@ -962,10 +956,11 @@
         }
       ).formatToParts(now);
 
-    const get = type =>
-      parts.find(
-        p => p.type === type
-      )?.value;
+    const get =
+      type =>
+        parts.find(
+          p => p.type === type
+        )?.value;
 
     joinedAt.value =
       `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get("minute")}`;
@@ -981,7 +976,9 @@
 
   function formatWIB(value) {
 
-    if (!value) return "-";
+    if (!value) {
+      return "-";
+    }
 
     return new Intl.DateTimeFormat(
       "id-ID",
@@ -998,7 +995,9 @@
 
   function formatDateOnly(value) {
 
-    if (!value) return "-";
+    if (!value) {
+      return "-";
+    }
 
     return new Intl.DateTimeFormat(
       "id-ID",
@@ -1008,8 +1007,7 @@
       }
     ).format(
       new Date(
-        value +
-        "T00:00:00+07:00"
+        value + "T00:00:00+07:00"
       )
     );
   }
@@ -1031,47 +1029,7 @@
 
 
   // =====================================================
-  // SHOW / HIDE
-  // =====================================================
-
-  function showAdminPanel() {
-
-    adminPanel.classList.remove(
-      "hidden"
-    );
-
-    memberPanel.classList.add(
-      "hidden"
-    );
-  }
-
-
-  function showMemberPanel() {
-
-    adminPanel.classList.add(
-      "hidden"
-    );
-
-    memberPanel.classList.remove(
-      "hidden"
-    );
-  }
-
-
-  function hideAllPanels() {
-
-    adminPanel.classList.add(
-      "hidden"
-    );
-
-    memberPanel.classList.add(
-      "hidden"
-    );
-  }
-
-
-  // =====================================================
-  // LOAD MEMBERS
+  // LOAD MEMBER ADMIN
   // =====================================================
 
   async function loadMembers() {
@@ -1125,38 +1083,33 @@
     memberList.innerHTML = "";
 
 
-    data.forEach(member => {
+    data.forEach(
+      member => {
 
-      const item =
-        document.createElement(
-          "div"
-        );
+        const item =
+          document.createElement("div");
 
-      item.className =
-        "member-item";
-
-
-      const name =
-        document.createElement(
-          "div"
-        );
-
-      name.className =
-        "member-name";
-
-      name.textContent =
-        member.member_name;
+        item.className =
+          "member-item";
 
 
-      const detail =
-        document.createElement(
-          "div"
-        );
+        const name =
+          document.createElement("div");
 
-      detail.className =
-        "member-detail";
+        name.className =
+          "member-name";
 
-      detail.textContent =
+        name.textContent =
+          member.member_name;
+
+
+        const detail =
+          document.createElement("div");
+
+        detail.className =
+          "member-detail";
+
+        detail.textContent =
 `Status: ${member.status || "-"}
 Tipe: ${member.member_type || "-"}
 Join: ${formatWIB(member.joined_at)}
@@ -1164,12 +1117,13 @@ Mulai KAS: ${member.kas_effective_date || "-"}
 WhatsApp: ${member.whatsapp_number || "-"}`;
 
 
-      item.appendChild(name);
-      item.appendChild(detail);
+        item.appendChild(name);
+        item.appendChild(detail);
 
-      memberList.appendChild(item);
+        memberList.appendChild(item);
 
-    });
+      }
+    );
 
 
     listStatus.textContent =
@@ -1178,61 +1132,38 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
 
   // =====================================================
-  // LOAD PAYMENT REQUESTS ADMIN
+  // LOAD PENGAJUAN PEMBAYARAN ADMIN
   // =====================================================
 
   async function loadPaymentRequests() {
 
-    paymentList.innerHTML =
+    paymentRequestList.innerHTML =
       `<div class="empty">
-        Memuat pengajuan...
+        Memuat pengajuan pembayaran...
       </div>`;
 
-    paymentStatus.textContent =
-      "Mengambil pengajuan pembayaran...";
+    paymentRequestStatus.textContent =
+      "Mengambil data pengajuan...";
 
 
     const {
       data,
       error
     } =
-      await supabase
-        .from("payment_requests")
-        .select(`
-          id,
-          member_id,
-          payment_type,
-          amount,
-          status,
-          submitted_at,
-          proof_storage_path,
-          notes,
-          members (
-            member_name
-          )
-        `)
-        .eq(
-          "status",
-          "PENDING"
-        )
-        .order(
-          "submitted_at",
-          {
-            ascending: false
-          }
-        );
+      await supabase.rpc(
+        "admin_get_payment_requests"
+      );
 
 
     if (error) {
 
-      paymentStatus.textContent =
-        "❌ Gagal memuat pengajuan: " +
-        error.message;
-
-      paymentList.innerHTML =
+      paymentRequestList.innerHTML =
         `<div class="empty">
-          Tidak dapat memuat pengajuan.
+          Gagal memuat pengajuan pembayaran.
         </div>`;
+
+      paymentRequestStatus.textContent =
+        "❌ " + error.message;
 
       return;
     }
@@ -1240,239 +1171,166 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
     if (!data || data.length === 0) {
 
-      paymentStatus.textContent =
-        "Tidak ada pengajuan PENDING.";
-
-      paymentList.innerHTML =
+      paymentRequestList.innerHTML =
         `<div class="empty">
-          Tidak ada pengajuan pembayaran.
+          Belum ada pengajuan pembayaran.
         </div>`;
+
+      paymentRequestStatus.textContent =
+        "Belum ada pengajuan.";
 
       return;
     }
 
 
-    paymentList.innerHTML = "";
+    paymentRequestList.innerHTML = "";
 
 
-    data.forEach(payment => {
+    data.forEach(
+      request => {
 
-      const item =
-        document.createElement(
-          "div"
-        );
+        const item =
+          document.createElement("div");
 
-      item.className =
-        "payment-item";
-
-
-      const top =
-        document.createElement(
-          "div"
-        );
-
-      top.className =
-        "payment-top";
+        item.className =
+          "payment-item";
 
 
-      const left =
-        document.createElement(
-          "div"
-        );
+        const header =
+          document.createElement("div");
+
+        header.className =
+          "payment-header";
 
 
-      const name =
-        document.createElement(
-          "div"
-        );
-
-      name.className =
-        "payment-name";
-
-      name.textContent =
-        payment.members?.member_name ||
-        "Member";
+        const left =
+          document.createElement("div");
 
 
-      const type =
-        document.createElement(
-          "div"
-        );
+        const member =
+          document.createElement("div");
 
-      type.className =
-        "payment-detail";
+        member.className =
+          "payment-member";
 
-      type.textContent =
-        `${payment.payment_type || "KAS"} • ${payment.status}`;
+        member.textContent =
+          request.member_name || "-";
 
 
-      left.appendChild(name);
-      left.appendChild(type);
+        const type =
+          document.createElement("div");
+
+        type.className =
+          "payment-detail";
+
+        type.textContent =
+          request.payment_type || "KAS";
 
 
-      const amount =
-        document.createElement(
-          "div"
-        );
-
-      amount.className =
-        "payment-amount";
-
-      amount.textContent =
-        formatIDR(
-          payment.amount
-        );
+        left.appendChild(member);
+        left.appendChild(type);
 
 
-      top.appendChild(left);
-      top.appendChild(amount);
+        const amount =
+          document.createElement("div");
 
+        amount.className =
+          "payment-amount";
 
-      const detail =
-        document.createElement(
-          "div"
-        );
-
-      detail.className =
-        "payment-detail";
-
-      detail.textContent =
-`ID: ${payment.id}
-Diajukan: ${formatWIB(payment.submitted_at)}
-Catatan: ${payment.notes || "-"}
-Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
-
-
-      item.appendChild(top);
-      item.appendChild(detail);
-
-
-      // -----------------------------------------------
-      // TOMBOL LIHAT BUKTI
-      // -----------------------------------------------
-
-      if (payment.proof_storage_path) {
-
-        const actions =
-          document.createElement(
-            "div"
+        amount.textContent =
+          formatIDR(
+            request.amount
           );
 
-        actions.className =
-          "payment-actions";
+
+        header.appendChild(left);
+        header.appendChild(amount);
 
 
-        const proofButton =
-          document.createElement(
-            "button"
+        const status =
+          document.createElement("span");
+
+        status.className =
+          "status-badge";
+
+
+        const statusText =
+          String(
+            request.status || "-"
+          ).toUpperCase();
+
+
+        status.textContent =
+          statusText;
+
+
+        if (statusText === "PENDING") {
+          status.classList.add(
+            "status-pending"
           );
+        }
 
-        proofButton.className =
-          "secondary small-btn";
+        if (statusText === "APPROVED") {
+          status.classList.add(
+            "status-approved"
+          );
+        }
 
-        proofButton.textContent =
-          "LIHAT BUKTI";
-
-
-        proofButton.addEventListener(
-          "click",
-          async () => {
-
-            proofButton.disabled =
-              true;
-
-            proofButton.textContent =
-              "MEMBUKA...";
+        if (statusText === "REJECTED") {
+          status.classList.add(
+            "status-rejected"
+          );
+        }
 
 
-            try {
+        const detail =
+          document.createElement("div");
 
-              const {
-                data: signedData,
-                error: signedError
-              } =
-                await supabase.storage
-                  .from(
-                    PAYMENT_BUCKET
-                  )
-                  .createSignedUrl(
-                    payment.proof_storage_path,
-                    300
-                  );
+        detail.className =
+          "payment-detail";
+
+        detail.textContent =
+`Status: ${statusText}
+Diajukan: ${formatWIB(request.submitted_at)}
+Tipe pembayaran: ${request.payment_type || "-"}
+Catatan: ${request.notes || "-"}`;
 
 
-              if (signedError) {
-                throw signedError;
-              }
+        const proof =
+          document.createElement("div");
+
+        proof.className =
+          "payment-proof";
+
+        proof.textContent =
+          request.proof_storage_path
+            ? "Bukti: " + request.proof_storage_path
+            : "Bukti: Tidak ada";
 
 
-              if (
-                !signedData?.signedUrl
-              ) {
+        item.appendChild(header);
+        item.appendChild(status);
+        item.appendChild(detail);
+        item.appendChild(proof);
 
-                throw new Error(
-                  "URL bukti tidak tersedia."
-                );
-
-              }
-
-
-              window.open(
-                signedData.signedUrl,
-                "_blank"
-              );
-
-
-            } catch (error) {
-
-              alert(
-                "Gagal membuka bukti:\n" +
-                error.message
-              );
-
-            }
-
-
-            proofButton.disabled =
-              false;
-
-            proofButton.textContent =
-              "LIHAT BUKTI";
-
-          }
-        );
-
-
-        actions.appendChild(
-          proofButton
-        );
-
-        item.appendChild(
-          actions
-        );
+        paymentRequestList.appendChild(item);
 
       }
+    );
 
 
-      paymentList.appendChild(
-        item
-      );
-
-    });
-
-
-    paymentStatus.textContent =
-      `✅ ${data.length} pengajuan PENDING.`;
+    paymentRequestStatus.textContent =
+      `✅ ${data.length} pengajuan ditampilkan.`;
   }
 
 
   // =====================================================
-  // LOAD MEMBER DASHBOARD
+  // LOAD DASHBOARD MEMBER
   // =====================================================
 
   async function loadMemberDashboard() {
 
-    memberDashboardStatus.textContent =
+    memberStatus.textContent =
       "Mengambil data member...";
 
 
@@ -1562,12 +1420,15 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
       memberDays.textContent =
         "0";
 
+      paymentAmountPreview.textContent =
+        formatIDR(0);
+
       obligationList.innerHTML =
         `<div class="empty">
           Member ini dibebaskan dari KAS.
         </div>`;
 
-      memberDashboardStatus.textContent =
+      memberStatus.textContent =
         "Member KAS exempt.";
 
       submitKasBtn.disabled =
@@ -1586,8 +1447,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
         .select(`
           id,
           obligation_date,
-          amount,
-          is_cancelled
+          amount
         `)
         .eq(
           "member_id",
@@ -1706,6 +1566,11 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
     memberTotal.textContent =
       formatIDR(total);
 
+
+    paymentAmountPreview.textContent =
+      formatIDR(total);
+
+
     memberDays.textContent =
       String(
         unpaid.length
@@ -1719,7 +1584,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
           Tidak ada kewajiban KAS yang belum dibayar.
         </div>`;
 
-      memberDashboardStatus.textContent =
+      memberStatus.textContent =
         "✅ Semua kewajiban KAS sudah dibayar.";
 
       submitKasBtn.disabled =
@@ -1737,18 +1602,14 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
       obligation => {
 
         const item =
-          document.createElement(
-            "div"
-          );
+          document.createElement("div");
 
         item.className =
           "obligation-item";
 
 
         const date =
-          document.createElement(
-            "div"
-          );
+          document.createElement("div");
 
         date.className =
           "obligation-date";
@@ -1760,9 +1621,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
 
 
         const amount =
-          document.createElement(
-            "div"
-          );
+          document.createElement("div");
 
         amount.className =
           "obligation-amount";
@@ -1776,9 +1635,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
         item.appendChild(date);
         item.appendChild(amount);
 
-        obligationList.appendChild(
-          item
-        );
+        obligationList.appendChild(item);
 
       }
     );
@@ -1788,8 +1645,48 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
       false;
 
 
-    memberDashboardStatus.textContent =
+    memberStatus.textContent =
       `Total kewajiban belum dibayar: ${formatIDR(total)}`;
+  }
+
+
+  // =====================================================
+  // SHOW / HIDE PANEL
+  // =====================================================
+
+  function showAdminPanel() {
+
+    adminPanel.classList.remove(
+      "hidden"
+    );
+
+    memberPanel.classList.add(
+      "hidden"
+    );
+  }
+
+
+  function showMemberPanel() {
+
+    adminPanel.classList.add(
+      "hidden"
+    );
+
+    memberPanel.classList.remove(
+      "hidden"
+    );
+  }
+
+
+  function hideAllPanels() {
+
+    adminPanel.classList.add(
+      "hidden"
+    );
+
+    memberPanel.classList.add(
+      "hidden"
+    );
   }
 
 
@@ -1829,11 +1726,10 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
         const {
           error: loginError
         } =
-          await supabase.auth
-            .signInWithPassword({
-              email,
-              password
-            });
+          await supabase.auth.signInWithPassword({
+            email,
+            password
+          });
 
 
         if (loginError) {
@@ -1890,12 +1786,15 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
 
           showAdminPanel();
 
+
           loginStatus.textContent =
             "✅ LOGIN ADMIN BERHASIL";
+
 
           await loadMembers();
 
           await loadPaymentRequests();
+
 
           loginBtn.disabled =
             false;
@@ -1945,6 +1844,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
 
         showMemberPanel();
 
+
         loginStatus.textContent =
           "✅ LOGIN MEMBER BERHASIL";
 
@@ -1957,6 +1857,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
         await supabase.auth.signOut();
 
         hideAllPanels();
+
 
         loginStatus.textContent =
           "❌ Login gagal: " +
@@ -1973,7 +1874,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
 
 
   // =====================================================
-  // CREATE MEMBER
+  // BUAT MEMBER
   // =====================================================
 
   createMemberBtn.addEventListener(
@@ -1998,7 +1899,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
 
       if (!name) {
 
-        createMemberStatus.textContent =
+        memberStatus.textContent =
           "❌ Nama member wajib diisi.";
 
         return;
@@ -2007,7 +1908,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
 
       if (!joinedValue) {
 
-        createMemberStatus.textContent =
+        memberStatus.textContent =
           "❌ Waktu join wajib diisi.";
 
         return;
@@ -2017,7 +1918,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
       createMemberBtn.disabled =
         true;
 
-      createMemberStatus.textContent =
+      memberStatus.textContent =
         "Membuat member...";
 
 
@@ -2058,23 +1959,30 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
         }
 
 
-        createMemberStatus.textContent =
+        memberStatus.textContent =
           "✅ Member berhasil dibuat. ID: " +
           data;
 
 
-        memberName.value = "";
-        whatsapp.value = "";
-        notes.value = "";
+        memberName.value =
+          "";
+
+        whatsapp.value =
+          "";
+
+        notes.value =
+          "";
+
 
         setDefaultJoinTime();
+
 
         await loadMembers();
 
 
       } catch (error) {
 
-        createMemberStatus.textContent =
+        memberStatus.textContent =
           "❌ Gagal membuat member: " +
           error.message;
 
@@ -2089,7 +1997,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
 
 
   // =====================================================
-  // REFRESH MEMBERS
+  // REFRESH ADMIN MEMBER
   // =====================================================
 
   refreshMembersBtn.addEventListener(
@@ -2098,6 +2006,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
 
       refreshMembersBtn.disabled =
         true;
+
 
       try {
 
@@ -2111,6 +2020,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
 
       }
 
+
       refreshMembersBtn.disabled =
         false;
 
@@ -2119,7 +2029,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
 
 
   // =====================================================
-  // REFRESH PAYMENTS
+  // REFRESH PENGAJUAN
   // =====================================================
 
   refreshPaymentsBtn.addEventListener(
@@ -2129,17 +2039,19 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
       refreshPaymentsBtn.disabled =
         true;
 
+
       try {
 
         await loadPaymentRequests();
 
       } catch (error) {
 
-        paymentStatus.textContent =
+        paymentRequestStatus.textContent =
           "❌ " +
           error.message;
 
       }
+
 
       refreshPaymentsBtn.disabled =
         false;
@@ -2149,43 +2061,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
 
 
   // =====================================================
-  // FILE SELECT
-  // =====================================================
-
-  paymentProof.addEventListener(
-    "change",
-    () => {
-
-      const file =
-        paymentProof.files[0];
-
-
-      if (!file) {
-
-        selectedFileName.textContent =
-          "";
-
-        selectedFileName.classList.add(
-          "hidden"
-        );
-
-        return;
-      }
-
-
-      selectedFileName.textContent =
-        `File dipilih: ${file.name}`;
-
-      selectedFileName.classList.remove(
-        "hidden"
-      );
-
-    }
-  );
-
-
-  // =====================================================
-  // SUBMIT KAS
+  // SUBMIT PEMBAYARAN KAS
   // =====================================================
 
   submitKasBtn.addEventListener(
@@ -2198,7 +2074,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
 
       if (!file) {
 
-        paymentSubmitStatus.textContent =
+        memberStatus.textContent =
           "❌ Bukti pembayaran wajib dipilih.";
 
         return;
@@ -2210,7 +2086,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
         5 * 1024 * 1024
       ) {
 
-        paymentSubmitStatus.textContent =
+        memberStatus.textContent =
           "❌ Ukuran file maksimal 5 MB.";
 
         return;
@@ -2231,7 +2107,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
         )
       ) {
 
-        paymentSubmitStatus.textContent =
+        memberStatus.textContent =
           "❌ Format harus JPG, PNG, WEBP, atau PDF.";
 
         return;
@@ -2242,13 +2118,9 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
         true;
 
 
-      let uploadedPath =
-        null;
-
-
       try {
 
-        paymentSubmitStatus.textContent =
+        memberStatus.textContent =
           "Memeriksa login...";
 
 
@@ -2289,13 +2161,13 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
           extension;
 
 
-        uploadedPath =
+        const filePath =
           user.id +
           "/" +
           fileName;
 
 
-        paymentSubmitStatus.textContent =
+        memberStatus.textContent =
           "Mengupload bukti pembayaran...";
 
 
@@ -2307,7 +2179,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
               PAYMENT_BUCKET
             )
             .upload(
-              uploadedPath,
+              filePath,
               file,
               {
                 cacheControl:
@@ -2327,7 +2199,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
         }
 
 
-        paymentSubmitStatus.textContent =
+        memberStatus.textContent =
           "Bukti berhasil diupload. Membuat pengajuan...";
 
 
@@ -2343,7 +2215,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
                 null,
 
               p_proof_storage_path:
-                uploadedPath
+                filePath
             }
           );
 
@@ -2355,18 +2227,18 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
               PAYMENT_BUCKET
             )
             .remove([
-              uploadedPath
+              filePath
             ]);
 
-          uploadedPath = null;
 
           throw paymentError;
         }
 
 
-        // ---------------------------------------------
-        // BERHASIL
-        // ---------------------------------------------
+        /*
+         * KOSONGKAN INPUT FILE
+         * SETELAH PENGAJUAN BERHASIL.
+         */
 
         paymentProof.value =
           "";
@@ -2374,15 +2246,8 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
         paymentNotes.value =
           "";
 
-        selectedFileName.textContent =
-          "";
 
-        selectedFileName.classList.add(
-          "hidden"
-        );
-
-
-        paymentSubmitStatus.textContent =
+        memberStatus.textContent =
           "✅ Pengajuan KAS berhasil dibuat.\nID: " +
           paymentId;
 
@@ -2390,15 +2255,15 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
         await loadMemberDashboard();
 
 
-        paymentSubmitStatus.textContent =
+        memberStatus.textContent =
           "✅ Pengajuan KAS berhasil dibuat.\nID: " +
           paymentId;
 
 
       } catch (error) {
 
-        paymentSubmitStatus.textContent =
-          "❌ Gagal mengajukan pembayaran: " +
+        memberStatus.textContent =
+          "❌ Gagal mengajukan pembayaran:\n" +
           error.message;
 
       }
@@ -2422,17 +2287,19 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
       refreshMemberBtn.disabled =
         true;
 
+
       try {
 
         await loadMemberDashboard();
 
       } catch (error) {
 
-        memberDashboardStatus.textContent =
+        memberStatus.textContent =
           "❌ " +
           error.message;
 
       }
+
 
       refreshMemberBtn.disabled =
         false;
@@ -2480,7 +2347,7 @@ Bukti: ${payment.proof_storage_path ? "Tersedia" : "Tidak ada"}`;
 
 
   // =====================================================
-  // EXISTING SESSION
+  // CEK SESSION
   // =====================================================
 
   async function checkExistingSession() {
