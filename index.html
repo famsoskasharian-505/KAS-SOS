@@ -31,7 +31,7 @@
       border-radius: 16px;
       padding: 24px;
       margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
     }
 
     h1 {
@@ -89,7 +89,7 @@
     }
 
     button:disabled {
-      opacity: 0.5;
+      opacity: .5;
       cursor: not-allowed;
     }
 
@@ -110,10 +110,11 @@
       color: #c8d0ca;
       min-height: 44px;
       line-height: 1.4;
+      white-space: pre-wrap;
     }
 
     .hidden {
-      display: none;
+      display: none !important;
     }
 
     .info {
@@ -147,6 +148,7 @@
       color: #9eaaa1;
       font-size: 13px;
       line-height: 1.6;
+      white-space: pre-line;
     }
 
     .empty {
@@ -206,6 +208,13 @@
       font-weight: bold;
     }
 
+    .upload-box {
+      border: 1px dashed #4c6552;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 4px;
+    }
+
     @media (max-width: 520px) {
       .summary-grid {
         grid-template-columns: 1fr;
@@ -218,7 +227,9 @@
 
 <div class="container">
 
-  <!-- LOGIN -->
+  <!-- =====================================================
+       LOGIN
+  ====================================================== -->
 
   <div class="card">
 
@@ -261,11 +272,11 @@
   </div>
 
 
-  <!-- PANEL ADMIN -->
+  <!-- =====================================================
+       PANEL ADMIN
+  ====================================================== -->
 
   <div id="adminPanel" class="hidden">
-
-    <!-- TAMBAH MEMBER -->
 
     <div class="card">
 
@@ -273,8 +284,7 @@
 
       <div class="info">
         Tanggal join WIB menjadi tanggal pertama
-        kewajiban KAS. Batas kewajiban adalah
-        pergantian hari 00:00 WIB.
+        kewajiban KAS.
       </div>
 
       <label for="memberName">
@@ -284,7 +294,7 @@
       <input
         id="memberName"
         type="text"
-        placeholder="Contoh: Ajo_Rmc"
+        placeholder="Contoh: Meepoodeajax_Style"
       >
 
       <label for="whatsapp">
@@ -336,8 +346,6 @@
     </div>
 
 
-    <!-- DAFTAR MEMBER -->
-
     <div class="card">
 
       <h2>Daftar Member</h2>
@@ -352,7 +360,7 @@
       <div
         id="memberList"
         class="member-list"
-        style="margin-top: 16px;"
+        style="margin-top:16px;"
       >
         <div class="empty">
           Belum memuat daftar member.
@@ -365,8 +373,6 @@
 
     </div>
 
-
-    <!-- LOGOUT ADMIN -->
 
     <div class="card">
 
@@ -382,7 +388,9 @@
   </div>
 
 
-  <!-- PANEL MEMBER -->
+  <!-- =====================================================
+       PANEL MEMBER
+  ====================================================== -->
 
   <div id="memberPanel" class="hidden">
 
@@ -395,12 +403,6 @@
       <h2 id="memberWelcome">
         Dashboard Member
       </h2>
-
-      <div class="info">
-        Kewajiban KAS ditampilkan berdasarkan
-        data kewajiban member Anda.
-      </div>
-
 
       <div class="summary-grid">
 
@@ -418,7 +420,6 @@
           </div>
 
         </div>
-
 
         <div class="summary-box">
 
@@ -462,7 +463,9 @@
     </div>
 
 
-    <!-- PENGAJUAN PEMBAYARAN -->
+    <!-- ===================================================
+         UPLOAD BUKTI
+    ==================================================== -->
 
     <div class="card">
 
@@ -471,30 +474,39 @@
       </h2>
 
       <div class="info">
-        Nominal pembayaran akan dihitung
-        otomatis berdasarkan kewajiban KAS
-        yang belum dialokasikan.
+        Nominal akan dihitung otomatis dari seluruh
+        kewajiban KAS yang belum dialokasikan.
       </div>
 
-      <label for="paymentProof">
-        Bukti Pembayaran *
+      <div class="upload-box">
+
+        <label for="paymentProof">
+          Bukti Pembayaran *
+        </label>
+
+        <input
+          id="paymentProof"
+          type="file"
+          accept="image/jpeg,image/png,image/webp,application/pdf"
+        >
+
+        <div class="info">
+          Format: JPG, PNG, WEBP, atau PDF.
+          Maksimal 5 MB.
+        </div>
+
+      </div>
+
+
+      <label for="paymentNotes">
+        Catatan
       </label>
-
-      <input
-       id="paymentProof"
-       type="file"
-       accept="image/*,.pdf"
-      >
-
-      <div class="info">
-        Upload bukti pembayaran berupa JPG, PNG, WEBP, atau PDF.
-        Maksimal 5 MB.
-       </div>
 
       <textarea
         id="paymentNotes"
         placeholder="Catatan untuk admin (opsional)"
       ></textarea>
+
 
       <button id="submitKasBtn">
         AJUKAN PEMBAYARAN KAS
@@ -502,8 +514,6 @@
 
     </div>
 
-
-    <!-- MEMBER ACTION -->
 
     <div class="card">
 
@@ -535,17 +545,15 @@
   } from "https://esm.sh/@supabase/supabase-js@2";
 
 
-  // ========================================================
+  // =====================================================
   // SUPABASE
-  // ========================================================
+  // =====================================================
 
   const SUPABASE_URL =
     "https://nwfodyefdxdsmdrxzfby.supabase.co";
 
-
   const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_M6BDC3TNoLQTTW3XSOgvyQ_6Y_0l0BD";
-
 
   const supabase =
     createClient(
@@ -554,9 +562,9 @@
     );
 
 
-  // ========================================================
+  // =====================================================
   // ELEMENT
-  // ========================================================
+  // =====================================================
 
   const emailInput =
     document.getElementById("email");
@@ -627,8 +635,8 @@
   const obligationList =
     document.getElementById("obligationList");
 
-  const memberDashboardStatus =
-    document.getElementById("memberStatus");
+  const paymentProof =
+    document.getElementById("paymentProof");
 
   const paymentNotes =
     document.getElementById("paymentNotes");
@@ -643,9 +651,9 @@
     document.getElementById("memberLogoutBtn");
 
 
-  // ========================================================
+  // =====================================================
   // DEFAULT WAKTU JOIN
-  // ========================================================
+  // =====================================================
 
   function setDefaultJoinTime() {
 
@@ -680,9 +688,9 @@
   setDefaultJoinTime();
 
 
-  // ========================================================
-  // FORMAT TANGGAL WIB
-  // ========================================================
+  // =====================================================
+  // FORMAT
+  // =====================================================
 
   function formatWIB(value) {
 
@@ -697,7 +705,9 @@
         dateStyle: "medium",
         timeStyle: "short"
       }
-    ).format(new Date(value));
+    ).format(
+      new Date(value)
+    );
   }
 
 
@@ -736,28 +746,16 @@
   }
 
 
-  // ========================================================
-  // FORMAT STATUS
-  // ========================================================
-
-  function formatStatus(value) {
-
-    if (value === "ACTIVE") {
-      return "AKTIF";
-    }
-
-    return value || "-";
-  }
-
-
-  // ========================================================
-  // LOAD DAFTAR MEMBER
-  // ========================================================
+  // =====================================================
+  // LOAD MEMBER ADMIN
+  // =====================================================
 
   async function loadMembers() {
 
     memberList.innerHTML =
-      `<div class="empty">Memuat daftar member...</div>`;
+      `<div class="empty">
+        Memuat daftar member...
+      </div>`;
 
     listStatus.textContent =
       "Mengambil data member...";
@@ -774,13 +772,13 @@
 
     if (error) {
 
+      listStatus.textContent =
+        "❌ " + error.message;
+
       memberList.innerHTML =
         `<div class="empty">
           Gagal memuat daftar member.
         </div>`;
-
-      listStatus.textContent =
-        "❌ " + error.message;
 
       return;
     }
@@ -788,13 +786,13 @@
 
     if (!data || data.length === 0) {
 
+      listStatus.textContent =
+        "Daftar member kosong.";
+
       memberList.innerHTML =
         `<div class="empty">
           Belum ada member.
         </div>`;
-
-      listStatus.textContent =
-        "Daftar member kosong.";
 
       return;
     }
@@ -803,46 +801,47 @@
     memberList.innerHTML = "";
 
 
-    data.forEach(member => {
+    data.forEach(
+      member => {
 
-      const item =
-        document.createElement("div");
+        const item =
+          document.createElement("div");
 
-      item.className =
-        "member-item";
-
-
-      const name =
-        document.createElement("div");
-
-      name.className =
-        "member-name";
-
-      name.textContent =
-        member.member_name;
+        item.className =
+          "member-item";
 
 
-      const detail =
-        document.createElement("div");
+        const name =
+          document.createElement("div");
 
-      detail.className =
-        "member-detail";
+        name.className =
+          "member-name";
 
-      detail.textContent =
-        `Status: ${formatStatus(member.status)}
+        name.textContent =
+          member.member_name;
+
+
+        const detail =
+          document.createElement("div");
+
+        detail.className =
+          "member-detail";
+
+        detail.textContent =
+`Status: ${member.status || "-"}
 Tipe: ${member.member_type || "-"}
 Join: ${formatWIB(member.joined_at)}
 Mulai KAS: ${member.kas_effective_date || "-"}
 WhatsApp: ${member.whatsapp_number || "-"}`;
 
 
-      item.appendChild(name);
+        item.appendChild(name);
+        item.appendChild(detail);
 
-      item.appendChild(detail);
+        memberList.appendChild(item);
 
-      memberList.appendChild(item);
-
-    });
+      }
+    );
 
 
     listStatus.textContent =
@@ -850,13 +849,13 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
   }
 
 
-  // ========================================================
+  // =====================================================
   // LOAD DASHBOARD MEMBER
-  // ========================================================
+  // =====================================================
 
   async function loadMemberDashboard() {
 
-    memberDashboardStatus.textContent =
+    memberStatus.textContent =
       "Mengambil data member...";
 
 
@@ -883,15 +882,16 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
 
     if (!user) {
+
       throw new Error(
         "Session login tidak ditemukan."
       );
     }
 
 
-    // ----------------------------------------------------
-    // AMBIL DATA MEMBER SENDIRI
-    // ----------------------------------------------------
+    // -------------------------------------------------
+    // DATA MEMBER
+    // -------------------------------------------------
 
     const {
       data: member,
@@ -931,7 +931,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
     if (member.status !== "ACTIVE") {
 
       throw new Error(
-        "Status member tidak aktif."
+        "Status member tidak ACTIVE."
       );
     }
 
@@ -941,9 +941,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
       member.member_name;
 
 
-    // ----------------------------------------------------
-    // MEMBER EXEMPT KAS
-    // ----------------------------------------------------
+    // -------------------------------------------------
+    // EXEMPT
+    // -------------------------------------------------
 
     if (member.is_kas_exempt === true) {
 
@@ -958,18 +958,19 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
           Member ini dibebaskan dari KAS.
         </div>`;
 
-      memberDashboardStatus.textContent =
+      memberStatus.textContent =
         "Member KAS exempt.";
 
-      submitKasBtn.disabled = true;
+      submitKasBtn.disabled =
+        true;
 
       return;
     }
 
 
-    // ----------------------------------------------------
-    // AMBIL KEWAJIBAN MEMBER
-    // ----------------------------------------------------
+    // -------------------------------------------------
+    // KEWAJIBAN
+    // -------------------------------------------------
 
     const {
       data: obligations,
@@ -999,9 +1000,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
     }
 
 
-    // ----------------------------------------------------
-    // AMBIL ALOKASI
-    // ----------------------------------------------------
+    // -------------------------------------------------
+    // ALOKASI
+    // -------------------------------------------------
 
     const {
       data: allocations,
@@ -1024,10 +1025,12 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
       new Map();
 
 
-    (allocations || []).forEach(
+    (
+      allocations || []
+    ).forEach(
       allocation => {
 
-        const oldValue =
+        const oldAmount =
           Number(
             allocatedByObligation.get(
               allocation.obligation_id
@@ -1037,7 +1040,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
         allocatedByObligation.set(
           allocation.obligation_id,
-          oldValue +
+          oldAmount +
           Number(
             allocation.allocated_amount || 0
           )
@@ -1047,12 +1050,15 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
     );
 
 
-    // ----------------------------------------------------
-    // HITUNG SISA
-    // ----------------------------------------------------
+    // -------------------------------------------------
+    // HITUNG YANG BELUM DIBAYAR
+    // -------------------------------------------------
 
     const unpaid =
-      (obligations || []).map(
+      (
+        obligations || []
+      )
+      .map(
         obligation => {
 
           const allocated =
@@ -1079,7 +1085,8 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
           };
 
         }
-      ).filter(
+      )
+      .filter(
         obligation =>
           obligation.remaining > 0
       );
@@ -1104,9 +1111,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
       );
 
 
-    // ----------------------------------------------------
-    // TAMPILKAN KEWAJIBAN
-    // ----------------------------------------------------
+    // -------------------------------------------------
+    // TIDAK ADA KEWAJIBAN
+    // -------------------------------------------------
 
     if (unpaid.length === 0) {
 
@@ -1115,14 +1122,19 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
           Tidak ada kewajiban KAS yang belum dibayar.
         </div>`;
 
-      memberDashboardStatus.textContent =
-        "✅ Semua kewajiban KAS sudah dialokasikan.";
+      memberStatus.textContent =
+        "✅ Semua kewajiban KAS sudah dibayar.";
 
-      submitKasBtn.disabled = true;
+      submitKasBtn.disabled =
+        true;
 
       return;
     }
 
+
+    // -------------------------------------------------
+    // TAMPILKAN KEWAJIBAN
+    // -------------------------------------------------
 
     obligationList.innerHTML =
       "";
@@ -1163,7 +1175,6 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
 
         item.appendChild(date);
-
         item.appendChild(amount);
 
         obligationList.appendChild(item);
@@ -1176,14 +1187,26 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
       false;
 
 
-    memberDashboardStatus.textContent =
-      `Total pengajuan: ${formatIDR(total)}`;
+    memberStatus.textContent =
+      `Total kewajiban belum dibayar: ${formatIDR(total)}`;
   }
 
 
-  // ========================================================
-  // TAMPILKAN MEMBER
-  // ========================================================
+  // =====================================================
+  // SHOW / HIDE PANEL
+  // =====================================================
+
+  function showAdminPanel() {
+
+    adminPanel.classList.remove(
+      "hidden"
+    );
+
+    memberPanel.classList.add(
+      "hidden"
+    );
+  }
+
 
   function showMemberPanel() {
 
@@ -1197,41 +1220,21 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
   }
 
 
-  // ========================================================
-  // HIDE MEMBER
-  // ========================================================
+  function hideAllPanels() {
 
-  function hideMemberPanel() {
+    adminPanel.classList.add(
+      "hidden"
+    );
 
     memberPanel.classList.add(
       "hidden"
     );
-
-    memberTotal.textContent =
-      formatIDR(0);
-
-    memberDays.textContent =
-      "0";
-
-    obligationList.innerHTML =
-      `<div class="empty">
-        Belum memuat kewajiban.
-      </div>`;
-
-    memberDashboardStatus.textContent =
-      "Belum ada proses.";
-
-    paymentNotes.value =
-      "";
-
-    submitKasBtn.disabled =
-      false;
   }
 
 
-  // ========================================================
-  // LOGIN ADMIN / MEMBER
-  // ========================================================
+  // =====================================================
+  // LOGIN
+  // =====================================================
 
   loginBtn.addEventListener(
     "click",
@@ -1247,7 +1250,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
       if (!email || !password) {
 
         loginStatus.textContent =
-          "Email dan password wajib diisi.";
+          "❌ Email dan password wajib diisi.";
 
         return;
       }
@@ -1260,96 +1263,35 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
         "Sedang login...";
 
 
-      const {
-        error
-      } =
-      await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
-
-
-      if (error) {
-
-        loginStatus.textContent =
-          "❌ Login gagal: " +
-          error.message;
-
-        loginBtn.disabled =
-          false;
-
-        return;
-      }
-
-
-      // ----------------------------------------------------
-      // CEK ADMIN
-      // ----------------------------------------------------
-
-      const {
-        data: isAdmin,
-        error: adminError
-      } =
-      await supabase.rpc(
-        "is_admin"
-      );
-
-
-      if (adminError) {
-
-        loginStatus.textContent =
-          "❌ Pemeriksaan ADMIN gagal: " +
-          adminError.message;
-
-        await supabase.auth.signOut();
-
-        loginBtn.disabled =
-          false;
-
-        return;
-      }
-
-
-      // ----------------------------------------------------
-      // LOGIN ADMIN
-      // ----------------------------------------------------
-
-      if (isAdmin === true) {
-
-        memberPanel.classList.add(
-          "hidden"
-        );
-
-        adminPanel.classList.remove(
-          "hidden"
-        );
-
-
-        loginStatus.textContent =
-          "✅ LOGIN ADMIN BERHASIL";
-
-
-        loginBtn.disabled =
-          false;
-
-
-        await loadMembers();
-
-        return;
-      }
-
-
-      // ----------------------------------------------------
-      // LOGIN MEMBER
-      // ----------------------------------------------------
-
       try {
+
+        // ---------------------------------------------
+        // LOGIN SUPABASE
+        // ---------------------------------------------
+
+        const {
+          error: loginError
+        } =
+          await supabase.auth.signInWithPassword({
+            email,
+            password
+          });
+
+
+        if (loginError) {
+          throw loginError;
+        }
+
+
+        // ---------------------------------------------
+        // CEK USER
+        // ---------------------------------------------
 
         const {
           data: userResult,
           error: userError
         } =
-        await supabase.auth.getUser();
+          await supabase.auth.getUser();
 
 
         if (userError) {
@@ -1361,22 +1303,82 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
           userResult.user;
 
 
+        if (!user) {
+
+          throw new Error(
+            "User tidak ditemukan setelah login."
+          );
+        }
+
+
+        // ---------------------------------------------
+        // CEK ADMIN
+        // ---------------------------------------------
+
+        let isAdmin =
+          false;
+
+
+        const {
+          data: adminResult,
+          error: adminError
+        } =
+          await supabase.rpc(
+            "is_admin"
+          );
+
+
+        if (!adminError) {
+
+          isAdmin =
+            adminResult === true;
+
+        }
+
+
+        // ---------------------------------------------
+        // ADMIN
+        // ---------------------------------------------
+
+        if (isAdmin) {
+
+          showAdminPanel();
+
+
+          loginStatus.textContent =
+            "✅ LOGIN ADMIN BERHASIL";
+
+
+          await loadMembers();
+
+
+          loginBtn.disabled =
+            false;
+
+          return;
+        }
+
+
+        // ---------------------------------------------
+        // MEMBER
+        // ---------------------------------------------
+
         const {
           data: member,
           error: memberError
         } =
-        await supabase
-          .from("members")
-          .select(`
-            id,
-            member_name,
-            status
-          `)
-          .eq(
-            "auth_user_id",
-            user.id
-          )
-          .maybeSingle();
+          await supabase
+            .from("members")
+            .select(`
+              id,
+              member_name,
+              status
+            `)
+            .eq(
+              "auth_user_id",
+              user.id
+            )
+            .maybeSingle();
 
 
         if (memberError) {
@@ -1387,7 +1389,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
         if (!member) {
 
           throw new Error(
-            "Akun ini belum terhubung ke member."
+            "Akun ini belum terhubung dengan member."
           );
         }
 
@@ -1414,11 +1416,11 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
         await supabase.auth.signOut();
 
-        hideMemberPanel();
+        hideAllPanels();
 
 
         loginStatus.textContent =
-          "❌ Login member gagal: " +
+          "❌ Login gagal: " +
           error.message;
 
       }
@@ -1431,9 +1433,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
   );
 
 
-  // ========================================================
+  // =====================================================
   // BUAT MEMBER
-  // ========================================================
+  // =====================================================
 
   createMemberBtn.addEventListener(
     "click",
@@ -1480,80 +1482,83 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
         "Membuat member...";
 
 
-      const joinedAtISO =
-        joinedValue +
-        ":00+07:00";
+      try {
+
+        const joinedAtISO =
+          joinedValue +
+          ":00+07:00";
 
 
-      const {
-        data,
-        error
-      } =
-      await supabase.rpc(
-        "create_member",
-        {
-          p_member_name:
-            name,
+        const {
+          data,
+          error
+        } =
+          await supabase.rpc(
+            "create_member",
+            {
+              p_member_name:
+                name,
 
-          p_whatsapp_number:
-            phone || null,
+              p_whatsapp_number:
+                phone || null,
 
-          p_joined_at:
-            joinedAtISO,
+              p_joined_at:
+                joinedAtISO,
 
-          p_member_type:
-            type,
+              p_member_type:
+                type,
 
-          p_notes:
-            note || null
+              p_notes:
+                note || null
+            }
+          );
+
+
+        if (error) {
+          throw error;
         }
-      );
 
 
-      if (error) {
+        memberStatus.textContent =
+          "✅ Member berhasil dibuat. ID: " +
+          data;
+
+
+        memberName.value =
+          "";
+
+        whatsapp.value =
+          "";
+
+        notes.value =
+          "";
+
+
+        setDefaultJoinTime();
+
+
+        await loadMembers();
+
+
+      } catch (error) {
 
         memberStatus.textContent =
           "❌ Gagal membuat member: " +
           error.message;
 
-        createMemberBtn.disabled =
-          false;
-
-        return;
       }
-
-
-      memberStatus.textContent =
-        "✅ Member berhasil dibuat. ID: " +
-        data;
-
-
-      memberName.value =
-        "";
-
-      whatsapp.value =
-        "";
-
-      notes.value =
-        "";
-
-
-      setDefaultJoinTime();
 
 
       createMemberBtn.disabled =
         false;
 
-
-      await loadMembers();
-
     }
   );
 
 
-  // ========================================================
+  // =====================================================
   // REFRESH ADMIN
-  // ========================================================
+  // =====================================================
 
   refreshMembersBtn.addEventListener(
     "click",
@@ -1562,7 +1567,19 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
       refreshMembersBtn.disabled =
         true;
 
-      await loadMembers();
+
+      try {
+
+        await loadMembers();
+
+      } catch (error) {
+
+        listStatus.textContent =
+          "❌ " +
+          error.message;
+
+      }
+
 
       refreshMembersBtn.disabled =
         false;
@@ -1571,117 +1588,9 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
   );
 
 
-  // ========================================================
-  // SUBMIT KAS MEMBER
-  // ========================================================
-
-const paymentProof =
-  document.getElementById("paymentProof");
-
-submitKasBtn.addEventListener(
-  "click",
-  async () => {
-
-    const file =
-      paymentProof.files[0];
-
-    if (!file) {
-      memberStatus.textContent =
-        "❌ Bukti pembayaran wajib dipilih.";
-      return;
-    }
-
-    // Maksimal 5 MB
-    if (file.size > 5 * 1024 * 1024) {
-      memberStatus.textContent =
-        "❌ Ukuran file maksimal 5 MB.";
-      return;
-    }
-
-    const allowedTypes = [
-      "image/jpeg",
-      "image/png",
-      "image/webp",
-      "application/pdf"
-    ];
-
-    if (!allowedTypes.includes(file.type)) {
-      memberStatus.textContent =
-        "❌ Format harus JPG, PNG, WEBP, atau PDF.";
-      return;
-    }
-
-    submitKasBtn.disabled = true;
-
-    memberStatus.textContent =
-      "Mengupload bukti pembayaran...";
-
-    try {
-
-      const {
-        data: {
-          user
-        }
-      } =
-        await supabase.auth.getUser();
-
-      if (!user) {
-        throw new Error(
-          "Session login tidak ditemukan."
-        );
-      }
-
-      const extension =
-        file.name
-          .split(".")
-          .pop()
-          .toLowerCase();
-
-      const fileName =
-        `${crypto.randomUUID()}.${extension}`;
-
-      const filePath =
-        `${user.id}/${fileName}`;
-
-      const {
-        error: uploadError
-      } =
-        await supabase.storage
-          .from("Bukti pembayaran kas")
-          .upload(
-            filePath,
-            file,
-            {
-              cacheControl: "3600",
-              upsert: false,
-              contentType: file.type
-            }
-          );
-
-      if (uploadError) {
-        throw uploadError;
-      }
-
-      memberStatus.textContent =
-        "Bukti berhasil diupload. Membuat pengajuan...";
-
-      const {
-        data,
-        error
-      } =
-        await supabase.rpc(
-          "submit_kas_payment",
-          {
-            p_notes:
-              paymentNotes.value.trim() ||
-              null,
-
-// ========================================================
-  // SUBMIT KAS MEMBER
-  // ========================================================
-
-  const paymentProof =
-    document.getElementById("paymentProof");
+  // =====================================================
+  // SUBMIT PEMBAYARAN KAS + UPLOAD BUKTI
+  // =====================================================
 
   submitKasBtn.addEventListener(
     "click",
@@ -1690,31 +1599,31 @@ submitKasBtn.addEventListener(
       const file =
         paymentProof.files[0];
 
+
+      // ---------------------------------------------
+      // CEK FILE
+      // ---------------------------------------------
+
       if (!file) {
 
-        memberDashboardStatus.textContent =
+        memberStatus.textContent =
           "❌ Bukti pembayaran wajib dipilih.";
 
         return;
       }
 
 
-      // ----------------------------------------------------
-      // CEK UKURAN FILE
-      // ----------------------------------------------------
+      if (
+        file.size >
+        5 * 1024 * 1024
+      ) {
 
-      if (file.size > 5 * 1024 * 1024) {
-
-        memberDashboardStatus.textContent =
+        memberStatus.textContent =
           "❌ Ukuran file maksimal 5 MB.";
 
         return;
       }
 
-
-      // ----------------------------------------------------
-      // CEK FORMAT FILE
-      // ----------------------------------------------------
 
       const allowedTypes = [
         "image/jpeg",
@@ -1724,9 +1633,13 @@ submitKasBtn.addEventListener(
       ];
 
 
-      if (!allowedTypes.includes(file.type)) {
+      if (
+        !allowedTypes.includes(
+          file.type
+        )
+      ) {
 
-        memberDashboardStatus.textContent =
+        memberStatus.textContent =
           "❌ Format harus JPG, PNG, WEBP, atau PDF.";
 
         return;
@@ -1737,22 +1650,30 @@ submitKasBtn.addEventListener(
         true;
 
 
-      memberDashboardStatus.textContent =
-        "Mengupload bukti pembayaran...";
-
-
       try {
 
-        // --------------------------------------------------
-        // CEK LOGIN
-        // --------------------------------------------------
+        // -------------------------------------------
+        // CEK SESSION
+        // -------------------------------------------
+
+        memberStatus.textContent =
+          "Memeriksa login...";
+
 
         const {
-          data: {
-            user
-          }
+          data: userResult,
+          error: userError
         } =
           await supabase.auth.getUser();
+
+
+        if (userError) {
+          throw userError;
+        }
+
+
+        const user =
+          userResult.user;
 
 
         if (!user) {
@@ -1760,13 +1681,12 @@ submitKasBtn.addEventListener(
           throw new Error(
             "Session login tidak ditemukan."
           );
-
         }
 
 
-        // --------------------------------------------------
-        // BUAT NAMA FILE
-        // --------------------------------------------------
+        // -------------------------------------------
+        // NAMA FILE
+        // -------------------------------------------
 
         const extension =
           file.name
@@ -1776,51 +1696,64 @@ submitKasBtn.addEventListener(
 
 
         const fileName =
-          `${crypto.randomUUID()}.${extension}`;
+          crypto.randomUUID() +
+          "." +
+          extension;
 
 
         const filePath =
-          `${user.id}/${fileName}`;
+          user.id +
+          "/" +
+          fileName;
 
 
-        // --------------------------------------------------
-        // UPLOAD KE STORAGE
-        // --------------------------------------------------
+        // -------------------------------------------
+        // UPLOAD
+        // -------------------------------------------
+
+        memberStatus.textContent =
+          "Mengupload bukti pembayaran...";
+
 
         const {
           error: uploadError
         } =
           await supabase.storage
-            .from("Bukti pembayaran kas")
+            .from(
+              "Bukti pembayaran kas"
+            )
             .upload(
               filePath,
               file,
               {
-                cacheControl: "3600",
-                upsert: false,
-                contentType: file.type
+                cacheControl:
+                  "3600",
+
+                upsert:
+                  false,
+
+                contentType:
+                  file.type
               }
             );
 
 
         if (uploadError) {
-
           throw uploadError;
-
         }
 
 
-        memberDashboardStatus.textContent =
+        // -------------------------------------------
+        // SUBMIT DATABASE
+        // -------------------------------------------
+
+        memberStatus.textContent =
           "Bukti berhasil diupload. Membuat pengajuan...";
 
 
-        // --------------------------------------------------
-        // BUAT PENGAJUAN PEMBAYARAN
-        // --------------------------------------------------
-
         const {
-          data,
-          error
+          data: paymentId,
+          error: paymentError
         } =
           await supabase.rpc(
             "submit_kas_payment",
@@ -1835,70 +1768,72 @@ submitKasBtn.addEventListener(
           );
 
 
-        // --------------------------------------------------
+        // -------------------------------------------
         // JIKA DATABASE GAGAL
-        // HAPUS FILE YANG SUDAH TERUPLOAD
-        // --------------------------------------------------
+        // HAPUS FILE
+        // -------------------------------------------
 
-        if (error) {
+        if (paymentError) {
 
           await supabase.storage
-            .from("Bukti pembayaran kas")
+            .from(
+              "Bukti pembayaran kas"
+            )
             .remove([
               filePath
             ]);
 
 
-          throw error;
-
+          throw paymentError;
         }
 
 
-        // --------------------------------------------------
+        // -------------------------------------------
         // BERHASIL
-        // --------------------------------------------------
+        // -------------------------------------------
 
-        memberDashboardStatus.textContent =
-          "✅ Pengajuan KAS berhasil dibuat. ID: " +
-          data;
-
+        paymentProof.value =
+          "";
 
         paymentNotes.value =
           "";
 
-        paymentProof.value =
-          "";
+
+        memberStatus.textContent =
+          "✅ Pengajuan KAS berhasil dibuat.\nID: " +
+          paymentId;
 
 
         await loadMemberDashboard();
 
 
         // Tampilkan pesan sukses lagi
-        // setelah dashboard selesai dimuat
+        // setelah dashboard selesai dimuat.
 
-        memberDashboardStatus.textContent =
-          "✅ Pengajuan KAS berhasil dibuat. ID: " +
-          data;
+        memberStatus.textContent =
+          "✅ Pengajuan KAS berhasil dibuat.\nID: " +
+          paymentId;
 
 
       } catch (error) {
 
-        memberDashboardStatus.textContent =
-          "❌ Gagal: " +
+        memberStatus.textContent =
+          "❌ Gagal mengajukan pembayaran:\n" +
           error.message;
 
-
-        submitKasBtn.disabled =
-          false;
-
       }
+
+
+      submitKasBtn.disabled =
+        false;
 
     }
   );
 
-  // ========================================================
+
+  // =====================================================
   // REFRESH MEMBER
-  // ========================================================
+  // =====================================================
 
   refreshMemberBtn.addEventListener(
     "click",
@@ -1914,8 +1849,9 @@ submitKasBtn.addEventListener(
 
       } catch (error) {
 
-        memberDashboardStatus.textContent =
-          "❌ " + error.message;
+        memberStatus.textContent =
+          "❌ " +
+          error.message;
 
       }
 
@@ -1927,9 +1863,9 @@ submitKasBtn.addEventListener(
   );
 
 
-  // ========================================================
+  // =====================================================
   // LOGOUT ADMIN
-  // ========================================================
+  // =====================================================
 
   logoutBtn.addEventListener(
     "click",
@@ -1937,13 +1873,7 @@ submitKasBtn.addEventListener(
 
       await supabase.auth.signOut();
 
-
-      adminPanel.classList.add(
-        "hidden"
-      );
-
-      hideMemberPanel();
-
+      hideAllPanels();
 
       loginStatus.textContent =
         "Sudah logout.";
@@ -1952,9 +1882,9 @@ submitKasBtn.addEventListener(
   );
 
 
-  // ========================================================
+  // =====================================================
   // LOGOUT MEMBER
-  // ========================================================
+  // =====================================================
 
   memberLogoutBtn.addEventListener(
     "click",
@@ -1962,13 +1892,7 @@ submitKasBtn.addEventListener(
 
       await supabase.auth.signOut();
 
-
-      hideMemberPanel();
-
-      adminPanel.classList.add(
-        "hidden"
-      );
-
+      hideAllPanels();
 
       loginStatus.textContent =
         "Sudah logout.";
@@ -1977,16 +1901,22 @@ submitKasBtn.addEventListener(
   );
 
 
-  // ========================================================
-  // CEK SESSION
-  // ========================================================
+  // =====================================================
+  // CEK SESSION SAAT HALAMAN DIBUKA
+  // =====================================================
 
   async function checkExistingSession() {
 
     const {
-      data
+      data,
+      error
     } =
-    await supabase.auth.getSession();
+      await supabase.auth.getSession();
+
+
+    if (error) {
+      return;
+    }
 
 
     if (!data.session) {
@@ -1994,49 +1924,53 @@ submitKasBtn.addEventListener(
     }
 
 
-    const {
-      data: isAdmin,
-      error: adminError
-    } =
-    await supabase.rpc(
-      "is_admin"
-    );
-
-
-    if (
-      !adminError &&
-      isAdmin === true
-    ) {
-
-      loginStatus.textContent =
-        "✅ SESSION ADMIN AKTIF";
-
-
-      adminPanel.classList.remove(
-        "hidden"
-      );
-
-      memberPanel.classList.add(
-        "hidden"
-      );
-
-
-      await loadMembers();
-
-      return;
-    }
-
-
-    // ----------------------------------------------------
-    // SESSION MEMBER
-    // ----------------------------------------------------
-
     try {
+
+      // -----------------------------------------------
+      // CEK ADMIN
+      // -----------------------------------------------
+
+      let isAdmin =
+        false;
+
+
+      const {
+        data: adminResult,
+        error: adminError
+      } =
+        await supabase.rpc(
+          "is_admin"
+        );
+
+
+      if (!adminError) {
+
+        isAdmin =
+          adminResult === true;
+
+      }
+
+
+      if (isAdmin) {
+
+        showAdminPanel();
+
+        loginStatus.textContent =
+          "✅ SESSION ADMIN AKTIF";
+
+        await loadMembers();
+
+        return;
+      }
+
+
+      // -----------------------------------------------
+      // SESSION MEMBER
+      // -----------------------------------------------
 
       showMemberPanel();
 
       await loadMemberDashboard();
-
 
       loginStatus.textContent =
         "✅ SESSION MEMBER AKTIF";
@@ -2046,11 +1980,10 @@ submitKasBtn.addEventListener(
 
       await supabase.auth.signOut();
 
-      hideMemberPanel();
-
+      hideAllPanels();
 
       loginStatus.textContent =
-        "Session member tidak valid.";
+        "Session tidak valid. Silakan login kembali.";
 
     }
 
