@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>KAS SOS</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #0b120d;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .card {
+      background: #121c15;
+      border: 1px solid #26352a;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 6px;
+      font-size: 28px;
+    }
+
+    .subtitle {
+      color: #9eaaa1;
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      color: #c8d0ca;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 16px;
+      border-radius: 10px;
+      border: 1px solid #344438;
+      background: #0c140f;
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #5c9d6c;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      border: 0;
+      border-radius: 10px;
+      background: #287a3d;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 18px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #0c140f;
+      color: #c8d0ca;
+      min-height: 44px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="card">
+
+      <h1>KAS SOS</h1>
+
+      <div class="subtitle">
+        Kas Management — Admin
+      </div>
+
+      <label for="email">
+        Email Admin
+      </label>
+
+      <input
+        id="email"
+        type="email"
+        autocomplete="username"
+        placeholder="Masukkan email admin"
+      >
+
+      <label for="password">
+        Password
+      </label>
+
+      <input
+        id="password"
+        type="password"
+        autocomplete="current-password"
+        placeholder="Masukkan password"
+      >
+
+      <button id="loginBtn">
+        LOGIN ADMIN
+      </button>
+
+      <div id="status" class="status">
+        Belum login.
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script type="module">
+
+    import {
+      createClient
+    } from "https://esm.sh/@supabase/supabase-js@2";
+
+
+    // ========================================================
+    // SUPABASE
+    // ========================================================
+
+    const SUPABASE_URL =
+      "https://nwfodyefdxdsmdrxzfby.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      " sb_publishable_M6BDC3TNoLQTTW3XSOgvyQ_6Y_0l0BD ";
+
+
+    const supabase = createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+    // ========================================================
+    // ELEMENT
+    // ========================================================
+
+    const emailInput =
+      document.getElementById("email");
+
+    const passwordInput =
+      document.getElementById("password");
+
+    const loginBtn =
+      document.getElementById("loginBtn");
+
+    const status =
+      document.getElementById("status");
+
+
+    // ========================================================
+    // LOGIN ADMIN
+    // ========================================================
+
+    loginBtn.addEventListener("click", async () => {
+
+      const email =
+        emailInput.value.trim();
+
+      const password =
+        passwordInput.value;
+
+
+      if (!email || !password) {
+
+        status.textContent =
+          "Email dan password wajib diisi.";
+
+        return;
+      }
+
+
+      loginBtn.disabled = true;
+
+      status.textContent =
+        "Sedang login...";
+
+
+      const {
+        data,
+        error
+      } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+
+      if (error) {
+
+        status.textContent =
+          "❌ Login gagal: " + error.message;
+
+        loginBtn.disabled = false;
+
+        return;
+      }
+
+
+      // ======================================================
+      // CEK ADMIN
+      // ======================================================
+
+      const {
+        data: isAdmin,
+        error: adminError
+      } = await supabase.rpc("is_admin");
+
+
+      if (adminError) {
+
+        status.textContent =
+          "❌ Login berhasil, tetapi pemeriksaan ADMIN gagal: "
+          + adminError.message;
+
+        loginBtn.disabled = false;
+
+        return;
+      }
+
+
+      if (!isAdmin) {
+
+        await supabase.auth.signOut();
+
+        status.textContent =
+          "❌ Akun berhasil login tetapi bukan ADMIN.";
+
+        loginBtn.disabled = false;
+
+        return;
+      }
+
+
+      status.textContent =
+        "✅ LOGIN ADMIN BERHASIL";
+
+      loginBtn.disabled = false;
+
+    });
+
+  </script>
+
+</body>
+</html>
