@@ -2182,7 +2182,27 @@ Catatan: ${request.notes || "-"}`;
 
     }
   );
+refreshPaymentsBtn.addEventListener(
+  "click",
+  async () => {
 
+    refreshPaymentsBtn.disabled = true;
+
+    try {
+
+      await loadPaymentRequests();
+
+    } catch (error) {
+
+      paymentRequestStatus.textContent =
+        "❌ " + error.message;
+
+    }
+
+    refreshPaymentsBtn.disabled = false;
+
+  }
+);
 
   // =====================================================
   // SUBMIT PEMBAYARAN KAS
@@ -2526,7 +2546,7 @@ Catatan: ${request.notes || "-"}`;
         await loadMembers();
 
         await loadPaymentRequests();
-
+        
         return;
       }
 
