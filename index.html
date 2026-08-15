@@ -17,15 +17,13 @@
       font-family: Arial, sans-serif;
       background: #0b120d;
       color: #ffffff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       padding: 20px;
     }
 
     .container {
       width: 100%;
-      max-width: 420px;
+      max-width: 500px;
+      margin: 30px auto;
     }
 
     .card {
@@ -33,6 +31,7 @@
       border: 1px solid #26352a;
       border-radius: 16px;
       padding: 24px;
+      margin-bottom: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.35);
     }
 
@@ -40,6 +39,11 @@
       margin-top: 0;
       margin-bottom: 6px;
       font-size: 28px;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 21px;
     }
 
     .subtitle {
@@ -54,7 +58,9 @@
       font-size: 14px;
     }
 
-    input {
+    input,
+    select,
+    textarea {
       width: 100%;
       padding: 13px;
       margin-bottom: 16px;
@@ -66,7 +72,14 @@
       outline: none;
     }
 
-    input:focus {
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
       border-color: #5c9d6c;
     }
 
@@ -80,11 +93,21 @@
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
+      margin-top: 4px;
+    }
+
+    button:hover {
+      opacity: 0.9;
     }
 
     button:disabled {
       opacity: 0.5;
       cursor: not-allowed;
+    }
+
+    .logout {
+      background: #633333;
+      margin-top: 10px;
     }
 
     .status {
@@ -96,12 +119,27 @@
       min-height: 44px;
       line-height: 1.4;
     }
+
+    .hidden {
+      display: none;
+    }
+
+    .info {
+      color: #9eaaa1;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
   </style>
 </head>
 
 <body>
 
   <div class="container">
+
+    <!-- =====================================================
+         LOGIN ADMIN
+         ===================================================== -->
 
     <div class="card">
 
@@ -137,8 +175,106 @@
         LOGIN ADMIN
       </button>
 
-      <div id="status" class="status">
+      <div id="loginStatus" class="status">
         Belum login.
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         PANEL ADMIN
+         ===================================================== -->
+
+    <div id="adminPanel" class="hidden">
+
+      <div class="card">
+
+        <h2>Tambah Member</h2>
+
+        <div class="info">
+          Member yang dibuat oleh ADMIN akan otomatis mengikuti
+          aturan KAS. Tanggal join WIB menjadi tanggal pertama
+          kewajiban KAS.
+        </div>
+
+
+        <label for="memberName">
+          Nama Member *
+        </label>
+
+        <input
+          id="memberName"
+          type="text"
+          placeholder="Contoh: Ajo_Rmc"
+        >
+
+
+        <label for="whatsapp">
+          Nomor WhatsApp
+        </label>
+
+        <input
+          id="whatsapp"
+          type="tel"
+          placeholder="Contoh: 628123456789"
+        >
+
+
+        <label for="joinedAt">
+          Waktu Join (WIB) *
+        </label>
+
+        <input
+          id="joinedAt"
+          type="datetime-local"
+        >
+
+
+        <label for="memberType">
+          Tipe Member
+        </label>
+
+        <select id="memberType">
+
+          <option value="NORMAL">
+            NORMAL
+          </option>
+
+        </select>
+
+
+        <label for="notes">
+          Catatan
+        </label>
+
+        <textarea
+          id="notes"
+          placeholder="Catatan admin (opsional)"
+        ></textarea>
+
+
+        <button id="createMemberBtn">
+          BUAT MEMBER
+        </button>
+
+
+        <div id="memberStatus" class="status">
+          Belum ada proses.
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <button
+          id="logoutBtn"
+          class="logout"
+        >
+          LOGOUT ADMIN
+        </button>
+
       </div>
 
     </div>
@@ -160,14 +296,16 @@
     const SUPABASE_URL =
       "https://nwfodyefdxdsmdrxzfby.supabase.co";
 
+
     const SUPABASE_PUBLISHABLE_KEY =
-      " sb_publishable_M6BDC3TNoLQTTW3XSOgvyQ_6Y_0l0BD ";
+      "sb_publishable_M6BDC3TNoLQTTW3XSOgvyQ_6Y_0l0BD";
 
 
-    const supabase = createClient(
-      SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY
-    );
+    const supabase =
+      createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
 
 
     // ========================================================
@@ -183,99 +321,353 @@
     const loginBtn =
       document.getElementById("loginBtn");
 
-    const status =
-      document.getElementById("status");
+    const loginStatus =
+      document.getElementById("loginStatus");
+
+    const adminPanel =
+      document.getElementById("adminPanel");
+
+    const memberName =
+      document.getElementById("memberName");
+
+    const whatsapp =
+      document.getElementById("whatsapp");
+
+    const joinedAt =
+      document.getElementById("joinedAt");
+
+    const memberType =
+      document.getElementById("memberType");
+
+    const notes =
+      document.getElementById("notes");
+
+    const createMemberBtn =
+      document.getElementById("createMemberBtn");
+
+    const memberStatus =
+      document.getElementById("memberStatus");
+
+    const logoutBtn =
+      document.getElementById("logoutBtn");
+
+
+    // ========================================================
+    // DEFAULT WAKTU JOIN
+    // WIB
+    // ========================================================
+
+    function setDefaultJoinTime() {
+
+      const now =
+        new Date();
+
+      const jakarta =
+        new Intl.DateTimeFormat(
+          "sv-SE",
+          {
+            timeZone: "Asia/Jakarta",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            hourCycle: "h23"
+          }
+        ).format(now);
+
+      joinedAt.value =
+        jakarta.replace(" ", "T");
+    }
+
+
+    setDefaultJoinTime();
 
 
     // ========================================================
     // LOGIN ADMIN
     // ========================================================
 
-    loginBtn.addEventListener("click", async () => {
+    loginBtn.addEventListener(
+      "click",
+      async () => {
 
-      const email =
-        emailInput.value.trim();
+        const email =
+          emailInput.value.trim();
 
-      const password =
-        passwordInput.value;
-
-
-      if (!email || !password) {
-
-        status.textContent =
-          "Email dan password wajib diisi.";
-
-        return;
-      }
+        const password =
+          passwordInput.value;
 
 
-      loginBtn.disabled = true;
+        if (!email || !password) {
 
-      status.textContent =
-        "Sedang login...";
+          loginStatus.textContent =
+            "Email dan password wajib diisi.";
 
-
-      const {
-        data,
-        error
-      } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
+          return;
+        }
 
 
-      if (error) {
+        loginBtn.disabled = true;
 
-        status.textContent =
-          "❌ Login gagal: " + error.message;
+        loginStatus.textContent =
+          "Sedang login...";
+
+
+        const {
+          error
+        } =
+          await supabase.auth.signInWithPassword({
+            email,
+            password
+          });
+
+
+        if (error) {
+
+          loginStatus.textContent =
+            "❌ Login gagal: "
+            + error.message;
+
+          loginBtn.disabled = false;
+
+          return;
+        }
+
+
+        // ====================================================
+        // CEK ADMIN
+        // ====================================================
+
+        const {
+          data: isAdmin,
+          error: adminError
+        } =
+          await supabase.rpc("is_admin");
+
+
+        if (adminError) {
+
+          loginStatus.textContent =
+            "❌ Pemeriksaan ADMIN gagal: "
+            + adminError.message;
+
+          await supabase.auth.signOut();
+
+          loginBtn.disabled = false;
+
+          return;
+        }
+
+
+        if (!isAdmin) {
+
+          await supabase.auth.signOut();
+
+          loginStatus.textContent =
+            "❌ Akun ini bukan ADMIN.";
+
+          loginBtn.disabled = false;
+
+          return;
+        }
+
+
+        // ====================================================
+        // ADMIN BERHASIL
+        // ====================================================
+
+        loginStatus.textContent =
+          "✅ LOGIN ADMIN BERHASIL";
+
+        adminPanel.classList.remove(
+          "hidden"
+        );
 
         loginBtn.disabled = false;
 
-        return;
       }
+    );
 
 
-      // ======================================================
-      // CEK ADMIN
-      // ======================================================
+    // ========================================================
+    // BUAT MEMBER
+    // ========================================================
 
-      const {
-        data: isAdmin,
-        error: adminError
-      } = await supabase.rpc("is_admin");
+    createMemberBtn.addEventListener(
+      "click",
+      async () => {
+
+        const name =
+          memberName.value.trim();
+
+        const phone =
+          whatsapp.value.trim();
+
+        const joinedValue =
+          joinedAt.value;
+
+        const type =
+          memberType.value;
+
+        const note =
+          notes.value.trim();
 
 
-      if (adminError) {
+        if (!name) {
 
-        status.textContent =
-          "❌ Login berhasil, tetapi pemeriksaan ADMIN gagal: "
-          + adminError.message;
+          memberStatus.textContent =
+            "❌ Nama member wajib diisi.";
 
-        loginBtn.disabled = false;
+          return;
+        }
 
-        return;
+
+        if (!joinedValue) {
+
+          memberStatus.textContent =
+            "❌ Waktu join wajib diisi.";
+
+          return;
+        }
+
+
+        createMemberBtn.disabled = true;
+
+        memberStatus.textContent =
+          "Membuat member...";
+
+
+        /*
+         * datetime-local tidak memiliki timezone.
+         *
+         * Kita sengaja menambahkan +07:00
+         * karena input admin dianggap WIB.
+         */
+
+        const joinedAtISO =
+          joinedValue + ":00+07:00";
+
+
+        const {
+          data,
+          error
+        } =
+          await supabase.rpc(
+            "create_member",
+            {
+              p_member_name: name,
+              p_whatsapp_number:
+                phone || null,
+              p_joined_at:
+                joinedAtISO,
+              p_member_type:
+                type,
+              p_notes:
+                note || null
+            }
+          );
+
+
+        if (error) {
+
+          memberStatus.textContent =
+            "❌ Gagal membuat member: "
+            + error.message;
+
+          createMemberBtn.disabled = false;
+
+          return;
+        }
+
+
+        // ====================================================
+        // BERHASIL
+        // ====================================================
+
+        memberStatus.textContent =
+          "✅ Member berhasil dibuat. ID: "
+          + data;
+
+
+        memberName.value = "";
+        whatsapp.value = "";
+        notes.value = "";
+
+        setDefaultJoinTime();
+
+        createMemberBtn.disabled = false;
+
       }
+    );
 
 
-      if (!isAdmin) {
+    // ========================================================
+    // LOGOUT
+    // ========================================================
+
+    logoutBtn.addEventListener(
+      "click",
+      async () => {
 
         await supabase.auth.signOut();
 
-        status.textContent =
-          "❌ Akun berhasil login tetapi bukan ADMIN.";
+        adminPanel.classList.add(
+          "hidden"
+        );
 
-        loginBtn.disabled = false;
+        loginStatus.textContent =
+          "Sudah logout.";
 
+        memberStatus.textContent =
+          "Belum ada proses.";
+
+      }
+    );
+
+
+    // ========================================================
+    // CEK SESSION SAAT HALAMAN DIBUKA
+    // ========================================================
+
+    async function checkExistingSession() {
+
+      const {
+        data
+      } =
+        await supabase.auth.getSession();
+
+
+      if (!data.session) {
         return;
       }
 
 
-      status.textContent =
-        "✅ LOGIN ADMIN BERHASIL";
+      const {
+        data: isAdmin
+      } =
+        await supabase.rpc("is_admin");
 
-      loginBtn.disabled = false;
 
-    });
+      if (isAdmin === true) {
+
+        loginStatus.textContent =
+          "✅ SESSION ADMIN AKTIF";
+
+        adminPanel.classList.remove(
+          "hidden"
+        );
+
+      } else {
+
+        await supabase.auth.signOut();
+
+      }
+
+    }
+
+
+    checkExistingSession();
 
   </script>
 
