@@ -123,12 +123,14 @@
       margin-bottom: 18px;
     }
 
-    .member-list {
+    .member-list,
+    .obligation-list {
       display: grid;
       gap: 12px;
     }
 
-    .member-item {
+    .member-item,
+    .obligation-item {
       background: #0c140f;
       border: 1px solid #26352a;
       border-radius: 12px;
@@ -152,6 +154,63 @@
       text-align: center;
       padding: 20px;
     }
+
+    .member-badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #33483a;
+      color: #dce7df;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .summary-box {
+      background: #0c140f;
+      border: 1px solid #26352a;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .summary-label {
+      color: #9eaaa1;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    .summary-value {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .obligation-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .obligation-date {
+      font-weight: bold;
+    }
+
+    .obligation-amount {
+      white-space: nowrap;
+      font-weight: bold;
+    }
+
+    @media (max-width: 520px) {
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
@@ -166,18 +225,18 @@
     <h1>KAS SOS</h1>
 
     <div class="subtitle">
-      Kas Management — Admin
+      Kas Management — Admin / Member
     </div>
 
     <label for="email">
-      Email Admin
+      Email
     </label>
 
     <input
       id="email"
       type="email"
       autocomplete="username"
-      placeholder="Masukkan email admin"
+      placeholder="Masukkan email"
     >
 
     <label for="password">
@@ -192,7 +251,7 @@
     >
 
     <button id="loginBtn">
-      LOGIN ADMIN
+      LOGIN
     </button>
 
     <div id="loginStatus" class="status">
@@ -307,7 +366,7 @@
     </div>
 
 
-    <!-- LOGOUT -->
+    <!-- LOGOUT ADMIN -->
 
     <div class="card">
 
@@ -316,6 +375,139 @@
         class="logout"
       >
         LOGOUT ADMIN
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- PANEL MEMBER -->
+
+  <div id="memberPanel" class="hidden">
+
+    <div class="card">
+
+      <div class="member-badge">
+        MEMBER
+      </div>
+
+      <h2 id="memberWelcome">
+        Dashboard Member
+      </h2>
+
+      <div class="info">
+        Kewajiban KAS ditampilkan berdasarkan
+        data kewajiban member Anda.
+      </div>
+
+
+      <div class="summary-grid">
+
+        <div class="summary-box">
+
+          <div class="summary-label">
+            Total Belum Dibayar
+          </div>
+
+          <div
+            id="memberTotal"
+            class="summary-value"
+          >
+            Rp0
+          </div>
+
+        </div>
+
+
+        <div class="summary-box">
+
+          <div class="summary-label">
+            Jumlah Kewajiban
+          </div>
+
+          <div
+            id="memberDays"
+            class="summary-value"
+          >
+            0
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <h2>
+        Kewajiban KAS
+      </h2>
+
+      <div
+        id="obligationList"
+        class="obligation-list"
+      >
+        <div class="empty">
+          Belum memuat kewajiban.
+        </div>
+      </div>
+
+
+      <div
+        id="memberStatus"
+        class="status"
+      >
+        Belum ada proses.
+      </div>
+
+    </div>
+
+
+    <!-- PENGAJUAN PEMBAYARAN -->
+
+    <div class="card">
+
+      <h2>
+        Ajukan Pembayaran KAS
+      </h2>
+
+      <div class="info">
+        Nominal pembayaran akan dihitung
+        otomatis berdasarkan kewajiban KAS
+        yang belum dialokasikan.
+      </div>
+
+      <label for="paymentNotes">
+        Catatan
+      </label>
+
+      <textarea
+        id="paymentNotes"
+        placeholder="Catatan untuk admin (opsional)"
+      ></textarea>
+
+      <button id="submitKasBtn">
+        AJUKAN PEMBAYARAN KAS
+      </button>
+
+    </div>
+
+
+    <!-- MEMBER ACTION -->
+
+    <div class="card">
+
+      <button
+        id="refreshMemberBtn"
+        class="secondary"
+      >
+        REFRESH DATA MEMBER
+      </button>
+
+      <button
+        id="memberLogoutBtn"
+        class="logout"
+      >
+        LOGOUT MEMBER
       </button>
 
     </div>
@@ -367,6 +559,9 @@
   const loginStatus =
     document.getElementById("loginStatus");
 
+
+  // ADMIN
+
   const adminPanel =
     document.getElementById("adminPanel");
 
@@ -402,6 +597,39 @@
 
   const logoutBtn =
     document.getElementById("logoutBtn");
+
+
+  // MEMBER
+
+  const memberPanel =
+    document.getElementById("memberPanel");
+
+  const memberWelcome =
+    document.getElementById("memberWelcome");
+
+  const memberTotal =
+    document.getElementById("memberTotal");
+
+  const memberDays =
+    document.getElementById("memberDays");
+
+  const obligationList =
+    document.getElementById("obligationList");
+
+  const memberDashboardStatus =
+    document.getElementById("memberStatus");
+
+  const paymentNotes =
+    document.getElementById("paymentNotes");
+
+  const submitKasBtn =
+    document.getElementById("submitKasBtn");
+
+  const refreshMemberBtn =
+    document.getElementById("refreshMemberBtn");
+
+  const memberLogoutBtn =
+    document.getElementById("memberLogoutBtn");
 
 
   // ========================================================
@@ -462,6 +690,41 @@
   }
 
 
+  function formatDateOnly(value) {
+
+    if (!value) {
+      return "-";
+    }
+
+    return new Intl.DateTimeFormat(
+      "id-ID",
+      {
+        timeZone: "Asia/Jakarta",
+        dateStyle: "medium"
+      }
+    ).format(
+      new Date(
+        value + "T00:00:00+07:00"
+      )
+    );
+  }
+
+
+  function formatIDR(value) {
+
+    return new Intl.NumberFormat(
+      "id-ID",
+      {
+        style: "currency",
+        currency: "IDR",
+        maximumFractionDigits: 0
+      }
+    ).format(
+      Number(value || 0)
+    );
+  }
+
+
   // ========================================================
   // FORMAT STATUS
   // ========================================================
@@ -501,7 +764,9 @@
     if (error) {
 
       memberList.innerHTML =
-        `<div class="empty">Gagal memuat daftar member.</div>`;
+        `<div class="empty">
+          Gagal memuat daftar member.
+        </div>`;
 
       listStatus.textContent =
         "❌ " + error.message;
@@ -513,7 +778,9 @@
     if (!data || data.length === 0) {
 
       memberList.innerHTML =
-        `<div class="empty">Belum ada member.</div>`;
+        `<div class="empty">
+          Belum ada member.
+        </div>`;
 
       listStatus.textContent =
         "Daftar member kosong.";
@@ -573,7 +840,386 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
 
   // ========================================================
-  // LOGIN ADMIN
+  // LOAD DASHBOARD MEMBER
+  // ========================================================
+
+  async function loadMemberDashboard() {
+
+    memberDashboardStatus.textContent =
+      "Mengambil data member...";
+
+
+    obligationList.innerHTML =
+      `<div class="empty">
+        Memuat kewajiban...
+      </div>`;
+
+
+    const {
+      data: userResult,
+      error: userError
+    } =
+      await supabase.auth.getUser();
+
+
+    if (userError) {
+      throw userError;
+    }
+
+
+    const user =
+      userResult.user;
+
+
+    if (!user) {
+      throw new Error(
+        "Session login tidak ditemukan."
+      );
+    }
+
+
+    // ----------------------------------------------------
+    // AMBIL DATA MEMBER SENDIRI
+    // ----------------------------------------------------
+
+    const {
+      data: member,
+      error: memberError
+    } =
+      await supabase
+        .from("members")
+        .select(`
+          id,
+          member_name,
+          status,
+          member_type,
+          joined_at,
+          kas_effective_date,
+          is_kas_exempt
+        `)
+        .eq(
+          "auth_user_id",
+          user.id
+        )
+        .maybeSingle();
+
+
+    if (memberError) {
+      throw memberError;
+    }
+
+
+    if (!member) {
+
+      throw new Error(
+        "Akun login belum terhubung dengan data member."
+      );
+    }
+
+
+    if (member.status !== "ACTIVE") {
+
+      throw new Error(
+        "Status member tidak aktif."
+      );
+    }
+
+
+    memberWelcome.textContent =
+      "Halo, " +
+      member.member_name;
+
+
+    // ----------------------------------------------------
+    // MEMBER EXEMPT KAS
+    // ----------------------------------------------------
+
+    if (member.is_kas_exempt === true) {
+
+      memberTotal.textContent =
+        formatIDR(0);
+
+      memberDays.textContent =
+        "0";
+
+      obligationList.innerHTML =
+        `<div class="empty">
+          Member ini dibebaskan dari KAS.
+        </div>`;
+
+      memberDashboardStatus.textContent =
+        "Member KAS exempt.";
+
+      submitKasBtn.disabled = true;
+
+      return;
+    }
+
+
+    // ----------------------------------------------------
+    // AMBIL KEWAJIBAN MEMBER
+    // ----------------------------------------------------
+
+    const {
+      data: obligations,
+      error: obligationError
+    } =
+      await supabase
+        .from("daily_obligations")
+        .select(`
+          id,
+          obligation_date,
+          amount
+        `)
+        .eq(
+          "member_id",
+          member.id
+        )
+        .order(
+          "obligation_date",
+          {
+            ascending: true
+          }
+        );
+
+
+    if (obligationError) {
+      throw obligationError;
+    }
+
+
+    // ----------------------------------------------------
+    // AMBIL ALOKASI
+    // ----------------------------------------------------
+
+    const {
+      data: allocations,
+      error: allocationError
+    } =
+      await supabase
+        .from("payment_allocations")
+        .select(`
+          obligation_id,
+          allocated_amount
+        `);
+
+
+    if (allocationError) {
+      throw allocationError;
+    }
+
+
+    const allocatedByObligation =
+      new Map();
+
+
+    (allocations || []).forEach(
+      allocation => {
+
+        const oldValue =
+          Number(
+            allocatedByObligation.get(
+              allocation.obligation_id
+            ) || 0
+          );
+
+
+        allocatedByObligation.set(
+          allocation.obligation_id,
+          oldValue +
+          Number(
+            allocation.allocated_amount || 0
+          )
+        );
+
+      }
+    );
+
+
+    // ----------------------------------------------------
+    // HITUNG SISA
+    // ----------------------------------------------------
+
+    const unpaid =
+      (obligations || []).map(
+        obligation => {
+
+          const allocated =
+            Number(
+              allocatedByObligation.get(
+                obligation.id
+              ) || 0
+            );
+
+
+          const remaining =
+            Math.max(
+              0,
+              Number(
+                obligation.amount || 0
+              ) -
+              allocated
+            );
+
+
+          return {
+            ...obligation,
+            remaining
+          };
+
+        }
+      ).filter(
+        obligation =>
+          obligation.remaining > 0
+      );
+
+
+    const total =
+      unpaid.reduce(
+        (sum, obligation) =>
+          sum +
+          obligation.remaining,
+        0
+      );
+
+
+    memberTotal.textContent =
+      formatIDR(total);
+
+
+    memberDays.textContent =
+      String(
+        unpaid.length
+      );
+
+
+    // ----------------------------------------------------
+    // TAMPILKAN KEWAJIBAN
+    // ----------------------------------------------------
+
+    if (unpaid.length === 0) {
+
+      obligationList.innerHTML =
+        `<div class="empty">
+          Tidak ada kewajiban KAS yang belum dibayar.
+        </div>`;
+
+      memberDashboardStatus.textContent =
+        "✅ Semua kewajiban KAS sudah dialokasikan.";
+
+      submitKasBtn.disabled = true;
+
+      return;
+    }
+
+
+    obligationList.innerHTML =
+      "";
+
+
+    unpaid.forEach(
+      obligation => {
+
+        const item =
+          document.createElement("div");
+
+        item.className =
+          "obligation-item";
+
+
+        const date =
+          document.createElement("div");
+
+        date.className =
+          "obligation-date";
+
+        date.textContent =
+          formatDateOnly(
+            obligation.obligation_date
+          );
+
+
+        const amount =
+          document.createElement("div");
+
+        amount.className =
+          "obligation-amount";
+
+        amount.textContent =
+          formatIDR(
+            obligation.remaining
+          );
+
+
+        item.appendChild(date);
+
+        item.appendChild(amount);
+
+        obligationList.appendChild(item);
+
+      }
+    );
+
+
+    submitKasBtn.disabled =
+      false;
+
+
+    memberDashboardStatus.textContent =
+      `Total pengajuan: ${formatIDR(total)}`;
+  }
+
+
+  // ========================================================
+  // TAMPILKAN MEMBER
+  // ========================================================
+
+  function showMemberPanel() {
+
+    adminPanel.classList.add(
+      "hidden"
+    );
+
+    memberPanel.classList.remove(
+      "hidden"
+    );
+  }
+
+
+  // ========================================================
+  // HIDE MEMBER
+  // ========================================================
+
+  function hideMemberPanel() {
+
+    memberPanel.classList.add(
+      "hidden"
+    );
+
+    memberTotal.textContent =
+      formatIDR(0);
+
+    memberDays.textContent =
+      "0";
+
+    obligationList.innerHTML =
+      `<div class="empty">
+        Belum memuat kewajiban.
+      </div>`;
+
+    memberDashboardStatus.textContent =
+      "Belum ada proses.";
+
+    paymentNotes.value =
+      "";
+
+    submitKasBtn.disabled =
+      false;
+  }
+
+
+  // ========================================================
+  // LOGIN ADMIN / MEMBER
   // ========================================================
 
   loginBtn.addEventListener(
@@ -596,7 +1242,8 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
       }
 
 
-      loginBtn.disabled = true;
+      loginBtn.disabled =
+        true;
 
       loginStatus.textContent =
         "Sedang login...";
@@ -605,71 +1252,169 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
       const {
         error
       } =
-        await supabase.auth.signInWithPassword({
-          email,
-          password
-        });
+      await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
 
 
       if (error) {
 
         loginStatus.textContent =
-          "❌ Login gagal: "
-          + error.message;
+          "❌ Login gagal: " +
+          error.message;
 
-        loginBtn.disabled = false;
+        loginBtn.disabled =
+          false;
 
         return;
       }
 
+
+      // ----------------------------------------------------
+      // CEK ADMIN
+      // ----------------------------------------------------
 
       const {
         data: isAdmin,
         error: adminError
       } =
-        await supabase.rpc(
-          "is_admin"
-        );
+      await supabase.rpc(
+        "is_admin"
+      );
 
 
       if (adminError) {
 
         loginStatus.textContent =
-          "❌ Pemeriksaan ADMIN gagal: "
-          + adminError.message;
+          "❌ Pemeriksaan ADMIN gagal: " +
+          adminError.message;
 
         await supabase.auth.signOut();
 
-        loginBtn.disabled = false;
+        loginBtn.disabled =
+          false;
 
         return;
       }
 
 
-      if (!isAdmin) {
+      // ----------------------------------------------------
+      // LOGIN ADMIN
+      // ----------------------------------------------------
 
-        await supabase.auth.signOut();
+      if (isAdmin === true) {
+
+        memberPanel.classList.add(
+          "hidden"
+        );
+
+        adminPanel.classList.remove(
+          "hidden"
+        );
+
 
         loginStatus.textContent =
-          "❌ Akun ini bukan ADMIN.";
+          "✅ LOGIN ADMIN BERHASIL";
 
-        loginBtn.disabled = false;
+
+        loginBtn.disabled =
+          false;
+
+
+        await loadMembers();
 
         return;
       }
 
 
-      loginStatus.textContent =
-        "✅ LOGIN ADMIN BERHASIL";
+      // ----------------------------------------------------
+      // LOGIN MEMBER
+      // ----------------------------------------------------
 
-      adminPanel.classList.remove(
-        "hidden"
-      );
+      try {
 
-      loginBtn.disabled = false;
+        const {
+          data: userResult,
+          error: userError
+        } =
+        await supabase.auth.getUser();
 
 
-      await loadMembers();
+        if (userError) {
+          throw userError;
+        }
+
+
+        const user =
+          userResult.user;
+
+
+        const {
+          data: member,
+          error: memberError
+        } =
+        await supabase
+          .from("members")
+          .select(`
+            id,
+            member_name,
+            status
+          `)
+          .eq(
+            "auth_user_id",
+            user.id
+          )
+          .maybeSingle();
+
+
+        if (memberError) {
+          throw memberError;
+        }
+
+
+        if (!member) {
+
+          throw new Error(
+            "Akun ini belum terhubung ke member."
+          );
+        }
+
+
+        if (member.status !== "ACTIVE") {
+
+          throw new Error(
+            "Status member tidak ACTIVE."
+          );
+        }
+
+
+        showMemberPanel();
+
+
+        loginStatus.textContent =
+          "✅ LOGIN MEMBER BERHASIL";
+
+
+        await loadMemberDashboard();
+
+
+      } catch (error) {
+
+        await supabase.auth.signOut();
+
+        hideMemberPanel();
+
+
+        loginStatus.textContent =
+          "❌ Login member gagal: " +
+          error.message;
+
+      }
+
+
+      loginBtn.disabled =
+        false;
 
     }
   );
@@ -717,70 +1462,78 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
       }
 
 
-      createMemberBtn.disabled = true;
+      createMemberBtn.disabled =
+        true;
 
       memberStatus.textContent =
         "Membuat member...";
 
 
       const joinedAtISO =
-        joinedValue + ":00+07:00";
+        joinedValue +
+        ":00+07:00";
 
 
       const {
         data,
         error
       } =
-        await supabase.rpc(
-          "create_member",
-          {
-            p_member_name:
-              name,
+      await supabase.rpc(
+        "create_member",
+        {
+          p_member_name:
+            name,
 
-            p_whatsapp_number:
-              phone || null,
+          p_whatsapp_number:
+            phone || null,
 
-            p_joined_at:
-              joinedAtISO,
+          p_joined_at:
+            joinedAtISO,
 
-            p_member_type:
-              type,
+          p_member_type:
+            type,
 
-            p_notes:
-              note || null
-          }
-        );
+          p_notes:
+            note || null
+        }
+      );
 
 
       if (error) {
 
         memberStatus.textContent =
-          "❌ Gagal membuat member: "
-          + error.message;
+          "❌ Gagal membuat member: " +
+          error.message;
 
-        createMemberBtn.disabled = false;
+        createMemberBtn.disabled =
+          false;
 
         return;
       }
 
 
       memberStatus.textContent =
-        "✅ Member berhasil dibuat. ID: "
-        + data;
+        "✅ Member berhasil dibuat. ID: " +
+        data;
 
 
-      memberName.value = "";
+      memberName.value =
+        "";
 
-      whatsapp.value = "";
+      whatsapp.value =
+        "";
 
-      notes.value = "";
+      notes.value =
+        "";
+
 
       setDefaultJoinTime();
 
-      createMemberBtn.disabled = false;
+
+      createMemberBtn.disabled =
+        false;
 
 
-      // REFRESH OTOMATIS
       await loadMembers();
 
     }
@@ -788,25 +1541,115 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
 
   // ========================================================
-  // REFRESH
+  // REFRESH ADMIN
   // ========================================================
 
   refreshMembersBtn.addEventListener(
     "click",
     async () => {
 
-      refreshMembersBtn.disabled = true;
+      refreshMembersBtn.disabled =
+        true;
 
       await loadMembers();
 
-      refreshMembersBtn.disabled = false;
+      refreshMembersBtn.disabled =
+        false;
 
     }
   );
 
 
   // ========================================================
-  // LOGOUT
+  // SUBMIT KAS MEMBER
+  // ========================================================
+
+  submitKasBtn.addEventListener(
+    "click",
+    async () => {
+
+      submitKasBtn.disabled =
+        true;
+
+
+      memberDashboardStatus.textContent =
+        "Mengirim pengajuan KAS...";
+
+
+      const {
+        data,
+        error
+      } =
+      await supabase.rpc(
+        "submit_kas_payment",
+        {
+          p_notes:
+            paymentNotes.value.trim() ||
+            null
+        }
+      );
+
+
+      if (error) {
+
+        memberDashboardStatus.textContent =
+          "❌ Gagal mengajukan pembayaran: " +
+          error.message;
+
+        submitKasBtn.disabled =
+          false;
+
+        return;
+      }
+
+
+      memberDashboardStatus.textContent =
+        "✅ Pengajuan pembayaran berhasil dibuat.";
+
+
+      paymentNotes.value =
+        "";
+
+
+      await loadMemberDashboard();
+
+    }
+  );
+
+
+  // ========================================================
+  // REFRESH MEMBER
+  // ========================================================
+
+  refreshMemberBtn.addEventListener(
+    "click",
+    async () => {
+
+      refreshMemberBtn.disabled =
+        true;
+
+
+      try {
+
+        await loadMemberDashboard();
+
+      } catch (error) {
+
+        memberDashboardStatus.textContent =
+          "❌ " + error.message;
+
+      }
+
+
+      refreshMemberBtn.disabled =
+        false;
+
+    }
+  );
+
+
+  // ========================================================
+  // LOGOUT ADMIN
   // ========================================================
 
   logoutBtn.addEventListener(
@@ -815,18 +1658,41 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
       await supabase.auth.signOut();
 
+
       adminPanel.classList.add(
         "hidden"
       );
 
+      hideMemberPanel();
+
+
       loginStatus.textContent =
         "Sudah logout.";
 
-      memberStatus.textContent =
-        "Belum ada proses.";
+    }
+  );
 
-      memberList.innerHTML =
-        `<div class="empty">Belum memuat daftar member.</div>`;
+
+  // ========================================================
+  // LOGOUT MEMBER
+  // ========================================================
+
+  memberLogoutBtn.addEventListener(
+    "click",
+    async () => {
+
+      await supabase.auth.signOut();
+
+
+      hideMemberPanel();
+
+      adminPanel.classList.add(
+        "hidden"
+      );
+
+
+      loginStatus.textContent =
+        "Sudah logout.";
 
     }
   );
@@ -841,7 +1707,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
     const {
       data
     } =
-      await supabase.auth.getSession();
+    await supabase.auth.getSession();
 
 
     if (!data.session) {
@@ -850,27 +1716,62 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
 
     const {
-      data: isAdmin
+      data: isAdmin,
+      error: adminError
     } =
-      await supabase.rpc(
-        "is_admin"
-      );
+    await supabase.rpc(
+      "is_admin"
+    );
 
 
-    if (isAdmin === true) {
+    if (
+      !adminError &&
+      isAdmin === true
+    ) {
 
       loginStatus.textContent =
         "✅ SESSION ADMIN AKTIF";
+
 
       adminPanel.classList.remove(
         "hidden"
       );
 
+      memberPanel.classList.add(
+        "hidden"
+      );
+
+
       await loadMembers();
 
-    } else {
+      return;
+    }
+
+
+    // ----------------------------------------------------
+    // SESSION MEMBER
+    // ----------------------------------------------------
+
+    try {
+
+      showMemberPanel();
+
+      await loadMemberDashboard();
+
+
+      loginStatus.textContent =
+        "✅ SESSION MEMBER AKTIF";
+
+
+    } catch (error) {
 
       await supabase.auth.signOut();
+
+      hideMemberPanel();
+
+
+      loginStatus.textContent =
+        "Session member tidak valid.";
 
     }
 
