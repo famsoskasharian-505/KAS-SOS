@@ -695,7 +695,18 @@
 
   const submitKasBtn =
     document.getElementById("submitKasBtn");
+function updatePaymentButton() {
+  const file = paymentProof.files[0];
 
+  submitKasBtn.disabled = !file;
+}
+
+paymentProof.addEventListener(
+  "change",
+  updatePaymentButton
+);
+
+updatePaymentButton();
   const refreshMemberBtn =
     document.getElementById("refreshMemberBtn");
 
