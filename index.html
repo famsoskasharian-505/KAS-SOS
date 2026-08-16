@@ -1363,7 +1363,7 @@ Catatan: ${request.notes || "-"}`;
         // BUKTI
         // ------------------------------------------------
 
-        const proof =
+const proof =
   document.createElement("div");
 
 proof.className =
@@ -1394,58 +1394,30 @@ if (request.proof_storage_path) {
 
   viewProofBtn.addEventListener(
     "click",
-    async () => {
+    () => {
 
-      viewProofBtn.disabled =
-        true;
-
-      viewProofBtn.textContent =
-        "MEMBUKA...";
-
-      try {
-
-        const {
-          data,
-          error
-        } =
-          await supabase.storage
-            .from(PAYMENT_BUCKET)
-            .createSignedUrl(
-              request.proof_storage_path,
-              60
-            );
-
-        if (error) {
-          throw error;
-        }
-
-        if (!data?.signedUrl) {
-          throw new Error(
-            "URL bukti tidak berhasil dibuat."
+      const {
+        data
+      } =
+        supabase.storage
+          .from(PAYMENT_BUCKET)
+          .getPublicUrl(
+            request.proof_storage_path
           );
-        }
 
-        window.open(
-          data.signedUrl,
-          "_blank",
-          "noopener,noreferrer"
-        );
-
-      } catch (error) {
+      if (!data?.publicUrl) {
 
         paymentRequestStatus.textContent =
-          "❌ Gagal membuka bukti: " +
-          error.message;
+          "❌ URL bukti tidak berhasil dibuat.";
 
-      } finally {
-
-        viewProofBtn.disabled =
-          false;
-
-        viewProofBtn.textContent =
-          "LIHAT BUKTI";
-
+        return;
       }
+
+      window.open(
+        data.publicUrl,
+        "_blank",
+        "noopener,noreferrer"
+      );
 
     }
   );
