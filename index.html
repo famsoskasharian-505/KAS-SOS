@@ -1364,15 +1364,106 @@ Catatan: ${request.notes || "-"}`;
         // ------------------------------------------------
 
         const proof =
-          document.createElement("div");
+  document.createElement("div");
 
-        proof.className =
-          "payment-proof";
+proof.className =
+  "payment-proof";
 
-        proof.textContent =
-          request.proof_storage_path
-            ? "Bukti: " + request.proof_storage_path
-            : "Bukti: Tidak ada";
+if (request.proof_storage_path) {
+
+  const proofLabel =
+    document.createElement("div");
+
+  proofLabel.textContent =
+    "Bukti pembayaran tersedia.";
+
+  proofLabel.style.marginBottom =
+    "8px";
+
+  const viewProofBtn =
+    document.createElement("button");
+
+  viewProofBtn.textContent =
+    "LIHAT BUKTI";
+
+  viewProofBtn.className =
+    "small-button";
+
+  viewProofBtn.type =
+    "button";
+
+  viewProofBtn.addEventListener(
+    "click",
+    async () => {
+
+      viewProofBtn.disabled =
+        true;
+
+      viewProofBtn.textContent =
+        "MEMBUKA...";
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await supabase.storage
+            .from(PAYMENT_BUCKET)
+            .createSignedUrl(
+              request.proof_storage_path,
+              60
+            );
+
+        if (error) {
+          throw error;
+        }
+
+        if (!data?.signedUrl) {
+          throw new Error(
+            "URL bukti tidak berhasil dibuat."
+          );
+        }
+
+        window.open(
+          data.signedUrl,
+          "_blank",
+          "noopener,noreferrer"
+        );
+
+      } catch (error) {
+
+        paymentRequestStatus.textContent =
+          "❌ Gagal membuka bukti: " +
+          error.message;
+
+      } finally {
+
+        viewProofBtn.disabled =
+          false;
+
+        viewProofBtn.textContent =
+          "LIHAT BUKTI";
+
+      }
+
+    }
+  );
+
+  proof.appendChild(
+    proofLabel
+  );
+
+  proof.appendChild(
+    viewProofBtn
+  );
+
+} else {
+
+  proof.textContent =
+    "Bukti: Tidak ada";
+
+}
 
 
         item.appendChild(header);
