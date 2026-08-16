@@ -1,2 +1,0 @@
-# KAS-SOS
-Kas management
