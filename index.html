@@ -220,14 +220,16 @@
 
     .member-list,
     .obligation-list,
-    .payment-list {
+    .payment-list,
+    .history-list {
       display: grid;
       gap: 10px;
     }
 
     .member-item,
     .obligation-item,
-    .payment-item {
+    .payment-item,
+    .history-item {
       background: #08110b;
       border: 1px solid #1f3824;
       border-radius: 10px;
@@ -241,7 +243,8 @@
     }
 
     .member-detail,
-    .payment-detail {
+    .payment-detail,
+    .history-detail {
       color: #94a99a;
       font-size: 11px;
       line-height: 1.65;
@@ -340,7 +343,8 @@
       margin-bottom: 4px;
     }
 
-    .payment-header {
+    .payment-header,
+    .history-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -348,12 +352,14 @@
       margin-bottom: 9px;
     }
 
-    .payment-member {
+    .payment-member,
+    .history-title {
       font-size: 14px;
       font-weight: 900;
     }
 
-    .payment-amount {
+    .payment-amount,
+    .history-amount {
       font-size: 18px;
       font-weight: 900;
       color: var(--green-soft);
@@ -371,6 +377,14 @@
       word-break: break-all;
     }
 
+    .history-proof {
+      margin-top: 10px;
+      padding: 8px;
+      border-radius: 7px;
+      background: #0d1b11;
+      border: 1px solid #1e3723;
+    }
+
     .payment-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -379,6 +393,14 @@
     }
 
     .payment-actions button {
+      margin-top: 0;
+    }
+
+    .history-actions {
+      margin-top: 10px;
+    }
+
+    .history-actions button {
       margin-top: 0;
     }
 
@@ -407,14 +429,15 @@
       background: rgba(90,30,30,.16);
     }
 
-    .reject-box textarea {
-      margin-bottom: 7px;
-      min-height: 65px;
-    }
-
     .small-button {
       padding: 9px;
       font-size: 11px;
+    }
+
+    .history-date {
+      color: #829889;
+      font-size: 10px;
+      margin-top: 3px;
     }
 
     @media (max-width: 520px) {
@@ -435,7 +458,8 @@
         font-size: 24px;
       }
 
-      .payment-header {
+      .payment-header,
+      .history-header {
         flex-direction: column;
       }
     }
@@ -492,8 +516,6 @@
   ====================================================== -->
 
   <div id="adminPanel" class="hidden">
-
-    <!-- TAMBAH MEMBER -->
 
     <div class="card">
 
@@ -596,9 +618,7 @@
     </div>
 
 
-    <!-- ===================================================
-         PENGAJUAN PEMBAYARAN ADMIN
-    ==================================================== -->
+    <!-- PENGAJUAN PEMBAYARAN ADMIN -->
 
     <div class="card">
 
@@ -639,7 +659,7 @@
     </div>
 
 
-    <!-- LOGOUT -->
+    <!-- LOGOUT ADMIN -->
 
     <div class="card">
 
@@ -660,6 +680,8 @@
   ====================================================== -->
 
   <div id="memberPanel" class="hidden">
+
+    <!-- DASHBOARD MEMBER -->
 
     <div class="card">
 
@@ -721,6 +743,48 @@
 
       <div
         id="memberStatus"
+        class="status"
+      >
+        Belum ada proses.
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         RIWAYAT PEMBAYARAN MEMBER
+    ==================================================== -->
+
+    <div class="card">
+
+      <div class="section-title">
+        <h2>Riwayat Pembayaran</h2>
+      </div>
+
+      <div class="info">
+        Menampilkan seluruh riwayat pengajuan pembayaran KAS
+        milik akun member ini.
+      </div>
+
+      <button
+        id="refreshPaymentHistoryBtn"
+        class="secondary"
+      >
+        REFRESH RIWAYAT
+      </button>
+
+      <div
+        id="paymentHistoryList"
+        class="history-list"
+        style="margin-top:13px;"
+      >
+        <div class="empty">
+          Belum memuat riwayat pembayaran.
+        </div>
+      </div>
+
+      <div
+        id="paymentHistoryStatus"
         class="status"
       >
         Belum ada proses.
@@ -961,6 +1025,26 @@
 
 
   // =====================================================
+  // RIWAYAT PEMBAYARAN MEMBER ELEMENT
+  // =====================================================
+
+  const refreshPaymentHistoryBtn =
+    document.getElementById(
+      "refreshPaymentHistoryBtn"
+    );
+
+  const paymentHistoryList =
+    document.getElementById(
+      "paymentHistoryList"
+    );
+
+  const paymentHistoryStatus =
+    document.getElementById(
+      "paymentHistoryStatus"
+    );
+
+
+  // =====================================================
   // DEFAULT JOIN TIME
   // =====================================================
 
@@ -1190,7 +1274,7 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
 
 
   // =====================================================
-  // LOAD PAYMENT REQUESTS
+  // LOAD PAYMENT REQUESTS ADMIN
   // =====================================================
 
   async function loadPaymentRequests() {
@@ -1245,10 +1329,6 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
           "payment-item";
 
 
-        // ------------------------------------------------
-        // HEADER
-        // ------------------------------------------------
-
         const header =
           document.createElement("div");
 
@@ -1300,10 +1380,6 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
         header.appendChild(amount);
 
 
-        // ------------------------------------------------
-        // STATUS
-        // ------------------------------------------------
-
         const status =
           document.createElement("span");
 
@@ -1342,10 +1418,6 @@ WhatsApp: ${member.whatsapp_number || "-"}`;
         }
 
 
-        // ------------------------------------------------
-        // DETAIL
-        // ------------------------------------------------
-
         const detail =
           document.createElement("div");
 
@@ -1359,178 +1431,169 @@ Tipe pembayaran: ${request.payment_type || "-"}
 Catatan: ${request.notes || "-"}`;
 
 
-// ========================================================
-// BUKTI PEMBAYARAN
-// ========================================================
+        // =================================================
+        // BUKTI PEMBAYARAN ADMIN
+        // =================================================
 
-const proof =
-  document.createElement("div");
+        const proof =
+          document.createElement("div");
 
-proof.className =
-  "payment-proof";
-
-
-if (request.proof_storage_path) {
-
-  const proofLabel =
-    document.createElement("div");
-
-  proofLabel.textContent =
-    "Bukti pembayaran tersedia.";
-
-  proofLabel.style.marginBottom =
-    "8px";
+        proof.className =
+          "payment-proof";
 
 
-  const viewProofBtn =
-    document.createElement("button");
+        if (request.proof_storage_path) {
 
-  viewProofBtn.textContent =
-    "LIHAT BUKTI";
+          const proofLabel =
+            document.createElement("div");
 
-  viewProofBtn.className =
-    "small-button";
+          proofLabel.textContent =
+            "Bukti pembayaran tersedia.";
 
-  viewProofBtn.type =
-    "button";
-
-
-  viewProofBtn.addEventListener(
-    "click",
-    async () => {
-
-      viewProofBtn.disabled =
-        true;
-
-      viewProofBtn.textContent =
-        "MEMBUKA...";
-
-      paymentRequestStatus.textContent =
-        "Membuka bukti pembayaran...";
+          proofLabel.style.marginBottom =
+            "8px";
 
 
-      try {
+          const viewProofBtn =
+            document.createElement("button");
 
-        // Ambil file langsung dari Supabase Storage.
-        // Tidak menggunakan getPublicUrl().
+          viewProofBtn.textContent =
+            "LIHAT BUKTI";
 
-        const {
-          data: blob,
-          error
-        } =
-          await supabase.storage
-            .from(PAYMENT_BUCKET)
-            .download(
-              request.proof_storage_path
-            );
+          viewProofBtn.className =
+            "small-button";
+
+          viewProofBtn.type =
+            "button";
 
 
-        if (error) {
-          throw error;
-        }
+          viewProofBtn.addEventListener(
+            "click",
+            async () => {
+
+              viewProofBtn.disabled =
+                true;
+
+              viewProofBtn.textContent =
+                "MEMBUKA...";
+
+              paymentRequestStatus.textContent =
+                "Membuka bukti pembayaran...";
 
 
-        if (!blob) {
+              try {
 
-          throw new Error(
-            "File bukti tidak ditemukan."
+                const {
+                  data: blob,
+                  error
+                } =
+                  await supabase.storage
+                    .from(PAYMENT_BUCKET)
+                    .download(
+                      request.proof_storage_path
+                    );
+
+
+                if (error) {
+                  throw error;
+                }
+
+
+                if (!blob) {
+
+                  throw new Error(
+                    "File bukti tidak ditemukan."
+                  );
+
+                }
+
+
+                const blobUrl =
+                  URL.createObjectURL(
+                    blob
+                  );
+
+
+                const newWindow =
+                  window.open(
+                    blobUrl,
+                    "_blank"
+                  );
+
+
+                if (!newWindow) {
+
+                  window.location.href =
+                    blobUrl;
+
+                }
+
+
+                paymentRequestStatus.textContent =
+                  "✅ Bukti pembayaran berhasil dibuka.";
+
+
+                setTimeout(
+                  () => {
+
+                    URL.revokeObjectURL(
+                      blobUrl
+                    );
+
+                  },
+                  300000
+                );
+
+
+              } catch (error) {
+
+                console.error(
+                  "GAGAL BUKA BUKTI:",
+                  error
+                );
+
+
+                paymentRequestStatus.textContent =
+                  "❌ Gagal membuka bukti: " +
+                  error.message;
+
+
+                alert(
+                  "Gagal membuka bukti pembayaran.\n\n" +
+                  error.message
+                );
+
+
+              } finally {
+
+                viewProofBtn.disabled =
+                  false;
+
+                viewProofBtn.textContent =
+                  "LIHAT BUKTI";
+
+              }
+
+            }
           );
 
-        }
 
+          proof.appendChild(
+            proofLabel
+          );
 
-        // Buat URL sementara dari file.
-
-        const blobUrl =
-          URL.createObjectURL(blob);
-
-
-        // Buka file.
-
-        const newWindow =
-          window.open(
-            blobUrl,
-            "_blank"
+          proof.appendChild(
+            viewProofBtn
           );
 
 
-        // Jika browser HP memblokir popup,
-        // buka file pada halaman saat ini.
+        } else {
 
-        if (!newWindow) {
-
-          window.location.href =
-            blobUrl;
+          proof.textContent =
+            "Bukti: Tidak ada";
 
         }
 
-
-        paymentRequestStatus.textContent =
-          "✅ Bukti pembayaran berhasil dibuka.";
-
-
-        // Bersihkan URL sementara setelah 5 menit.
-
-        setTimeout(
-          () => {
-
-            URL.revokeObjectURL(
-              blobUrl
-            );
-
-          },
-          300000
-        );
-
-
-      } catch (error) {
-
-        console.error(
-          "GAGAL BUKA BUKTI:",
-          error
-        );
-
-
-        paymentRequestStatus.textContent =
-          "❌ Gagal membuka bukti: " +
-          error.message;
-
-
-        alert(
-          "Gagal membuka bukti pembayaran.\n\n" +
-          error.message
-        );
-
-
-      } finally {
-
-        viewProofBtn.disabled =
-          false;
-
-        viewProofBtn.textContent =
-          "LIHAT BUKTI";
-
-      }
-
-    }
-  );
-
-
-  proof.appendChild(
-    proofLabel
-  );
-
-  proof.appendChild(
-    viewProofBtn
-  );
-
-
-} else {
-
-  proof.textContent =
-    "Bukti: Tidak ada";
-
-}
 
         item.appendChild(header);
         item.appendChild(status);
@@ -1538,9 +1601,9 @@ if (request.proof_storage_path) {
         item.appendChild(proof);
 
 
-        // ------------------------------------------------
-        // ACTION HANYA UNTUK PENDING
-        // ------------------------------------------------
+        // =================================================
+        // ACTION PENDING
+        // =================================================
 
         if (statusText === "PENDING") {
 
@@ -1571,9 +1634,7 @@ if (request.proof_storage_path) {
             "✕ REJECT";
 
 
-          // ----------------------------------------------
           // APPROVE
-          // ----------------------------------------------
 
           approveBtn.addEventListener(
             "click",
@@ -1652,9 +1713,7 @@ if (request.proof_storage_path) {
           );
 
 
-          // ----------------------------------------------
           // REJECT
-          // ----------------------------------------------
 
           rejectBtn.addEventListener(
             "click",
@@ -1766,9 +1825,9 @@ if (request.proof_storage_path) {
         }
 
 
-        // ------------------------------------------------
+        // =================================================
         // ALASAN REJECT
-        // ------------------------------------------------
+        // =================================================
 
         if (
           statusText === "REJECTED" &&
@@ -1802,6 +1861,438 @@ if (request.proof_storage_path) {
 
     paymentRequestStatus.textContent =
       `✅ ${data.length} pengajuan ditampilkan.`;
+  }
+
+
+  // =====================================================
+  // LIHAT BUKTI DARI STORAGE
+  // =====================================================
+
+  async function openPaymentProof(
+    storagePath,
+    statusElement
+  ) {
+
+    if (!storagePath) {
+
+      throw new Error(
+        "Bukti pembayaran tidak tersedia."
+      );
+
+    }
+
+
+    statusElement.textContent =
+      "Membuka bukti pembayaran...";
+
+
+    const {
+      data: blob,
+      error
+    } =
+      await supabase.storage
+        .from(PAYMENT_BUCKET)
+        .download(
+          storagePath
+        );
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    if (!blob) {
+
+      throw new Error(
+        "File bukti tidak ditemukan."
+      );
+
+    }
+
+
+    const blobUrl =
+      URL.createObjectURL(
+        blob
+      );
+
+
+    const newWindow =
+      window.open(
+        blobUrl,
+        "_blank"
+      );
+
+
+    if (!newWindow) {
+
+      window.location.href =
+        blobUrl;
+
+    }
+
+
+    statusElement.textContent =
+      "✅ Bukti pembayaran berhasil dibuka.";
+
+
+    setTimeout(
+      () => {
+
+        URL.revokeObjectURL(
+          blobUrl
+        );
+
+      },
+      300000
+    );
+
+  }
+
+
+  // =====================================================
+  // LOAD RIWAYAT PEMBAYARAN MEMBER
+  // =====================================================
+
+  async function loadMemberPaymentHistory() {
+
+    paymentHistoryList.innerHTML =
+      `<div class="empty">
+        Memuat riwayat pembayaran...
+      </div>`;
+
+    paymentHistoryStatus.textContent =
+      "Mengambil riwayat pembayaran...";
+
+
+    const {
+      data,
+      error
+    } =
+      await supabase.rpc(
+        "member_payment_history"
+      );
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    if (!data || data.length === 0) {
+
+      paymentHistoryList.innerHTML =
+        `<div class="empty">
+          Belum ada riwayat pembayaran.
+        </div>`;
+
+      paymentHistoryStatus.textContent =
+        "Belum ada riwayat pembayaran.";
+
+      return;
+    }
+
+
+    paymentHistoryList.innerHTML =
+      "";
+
+
+    data.forEach(
+      payment => {
+
+        const item =
+          document.createElement("div");
+
+        item.className =
+          "history-item";
+
+
+        // -------------------------------------------------
+        // HEADER
+        // -------------------------------------------------
+
+        const header =
+          document.createElement("div");
+
+        header.className =
+          "history-header";
+
+
+        const left =
+          document.createElement("div");
+
+
+        const title =
+          document.createElement("div");
+
+        title.className =
+          "history-title";
+
+        title.textContent =
+          payment.payment_type ||
+          "KAS";
+
+
+        const date =
+          document.createElement("div");
+
+        date.className =
+          "history-date";
+
+        date.textContent =
+          "Diajukan: " +
+          formatWIB(
+            payment.submitted_at
+          );
+
+
+        left.appendChild(
+          title
+        );
+
+        left.appendChild(
+          date
+        );
+
+
+        const amount =
+          document.createElement("div");
+
+        amount.className =
+          "history-amount";
+
+        amount.textContent =
+          formatIDR(
+            payment.amount
+          );
+
+
+        header.appendChild(
+          left
+        );
+
+        header.appendChild(
+          amount
+        );
+
+
+        // -------------------------------------------------
+        // STATUS
+        // -------------------------------------------------
+
+        const status =
+          document.createElement("span");
+
+        status.className =
+          "status-badge";
+
+
+        const statusText =
+          String(
+            payment.status || "-"
+          ).toUpperCase();
+
+
+        status.textContent =
+          statusText;
+
+
+        if (
+          statusText ===
+          "PENDING"
+        ) {
+
+          status.classList.add(
+            "status-pending"
+          );
+
+        } else if (
+          statusText ===
+          "APPROVED"
+        ) {
+
+          status.classList.add(
+            "status-approved"
+          );
+
+        } else if (
+          statusText ===
+          "REJECTED"
+        ) {
+
+          status.classList.add(
+            "status-rejected"
+          );
+
+        }
+
+
+        // -------------------------------------------------
+        // DETAIL
+        // -------------------------------------------------
+
+        const detail =
+          document.createElement("div");
+
+        detail.className =
+          "history-detail";
+
+        detail.textContent =
+`Status: ${statusText}
+Diajukan: ${formatWIB(payment.submitted_at)}
+Ditinjau: ${formatWIB(payment.reviewed_at)}
+Tipe pembayaran: ${payment.payment_type || "-"}
+Catatan: ${payment.notes || "-"}`;
+
+
+        item.appendChild(
+          header
+        );
+
+        item.appendChild(
+          status
+        );
+
+        item.appendChild(
+          detail
+        );
+
+
+        // -------------------------------------------------
+        // REJECTION
+        // -------------------------------------------------
+
+        if (
+          statusText ===
+          "REJECTED" &&
+          payment.rejection_reason
+        ) {
+
+          const rejectInfo =
+            document.createElement("div");
+
+          rejectInfo.className =
+            "reject-box";
+
+          rejectInfo.textContent =
+            "Alasan penolakan: " +
+            payment.rejection_reason;
+
+          item.appendChild(
+            rejectInfo
+          );
+
+        }
+
+
+        // -------------------------------------------------
+        // BUKTI
+        // -------------------------------------------------
+
+        const proofBox =
+          document.createElement("div");
+
+        proofBox.className =
+          "history-proof";
+
+
+        if (
+          payment.proof_storage_path
+        ) {
+
+          const viewProofBtn =
+            document.createElement("button");
+
+          viewProofBtn.type =
+            "button";
+
+          viewProofBtn.className =
+            "small-button";
+
+          viewProofBtn.textContent =
+            "LIHAT BUKTI";
+
+
+          viewProofBtn.addEventListener(
+            "click",
+            async () => {
+
+              viewProofBtn.disabled =
+                true;
+
+              viewProofBtn.textContent =
+                "MEMBUKA...";
+
+
+              try {
+
+                await openPaymentProof(
+                  payment.proof_storage_path,
+                  paymentHistoryStatus
+                );
+
+
+              } catch (error) {
+
+                console.error(
+                  "GAGAL BUKA BUKTI:",
+                  error
+                );
+
+
+                paymentHistoryStatus.textContent =
+                  "❌ Gagal membuka bukti: " +
+                  error.message;
+
+
+                alert(
+                  "Gagal membuka bukti pembayaran.\n\n" +
+                  error.message
+                );
+
+
+              } finally {
+
+                viewProofBtn.disabled =
+                  false;
+
+                viewProofBtn.textContent =
+                  "LIHAT BUKTI";
+
+              }
+
+            }
+          );
+
+
+          proofBox.appendChild(
+            viewProofBtn
+          );
+
+
+        } else {
+
+          proofBox.textContent =
+            "Bukti pembayaran tidak tersedia.";
+
+        }
+
+
+        item.appendChild(
+          proofBox
+        );
+
+
+        paymentHistoryList.appendChild(
+          item
+        );
+
+      }
+    );
+
+
+    paymentHistoryStatus.textContent =
+      `✅ ${data.length} riwayat pembayaran ditampilkan.`;
   }
 
 
@@ -1842,6 +2333,7 @@ if (request.proof_storage_path) {
       throw new Error(
         "Session login tidak ditemukan."
       );
+
     }
 
 
@@ -1877,14 +2369,19 @@ if (request.proof_storage_path) {
       throw new Error(
         "Akun login belum terhubung dengan data member."
       );
+
     }
 
 
-    if (member.status !== "ACTIVE") {
+    if (
+      member.status !==
+      "ACTIVE"
+    ) {
 
       throw new Error(
         "Status member tidak ACTIVE."
       );
+
     }
 
 
@@ -1893,7 +2390,36 @@ if (request.proof_storage_path) {
       member.member_name;
 
 
-    if (member.is_kas_exempt === true) {
+    // ===================================================
+    // LOAD RIWAYAT PEMBAYARAN
+    // ===================================================
+
+    try {
+
+      await loadMemberPaymentHistory();
+
+    } catch (historyError) {
+
+      paymentHistoryList.innerHTML =
+        `<div class="empty">
+          Gagal memuat riwayat pembayaran.
+        </div>`;
+
+      paymentHistoryStatus.textContent =
+        "❌ Gagal memuat riwayat: " +
+        historyError.message;
+
+    }
+
+
+    // ===================================================
+    // KAS EXEMPT
+    // ===================================================
+
+    if (
+      member.is_kas_exempt ===
+      true
+    ) {
 
       memberTotal.textContent =
         formatIDR(0);
@@ -1919,9 +2445,9 @@ if (request.proof_storage_path) {
     }
 
 
-    // ----------------------------------------------------
+    // ===================================================
     // KEWAJIBAN
-    // ----------------------------------------------------
+    // ===================================================
 
     const {
       data: obligations,
@@ -1955,9 +2481,9 @@ if (request.proof_storage_path) {
     }
 
 
-    // ----------------------------------------------------
+    // ===================================================
     // ALOKASI
-    // ----------------------------------------------------
+    // ===================================================
 
     const {
       data: allocations,
@@ -2005,9 +2531,9 @@ if (request.proof_storage_path) {
     );
 
 
-    // ----------------------------------------------------
+    // ===================================================
     // UNPAID
-    // ----------------------------------------------------
+    // ===================================================
 
     const unpaid =
       (
@@ -2070,7 +2596,10 @@ if (request.proof_storage_path) {
       );
 
 
-    if (unpaid.length === 0) {
+    if (
+      unpaid.length ===
+      0
+    ) {
 
       obligationList.innerHTML =
         `<div class="empty">
@@ -2125,10 +2654,17 @@ if (request.proof_storage_path) {
           );
 
 
-        item.appendChild(date);
-        item.appendChild(amount);
+        item.appendChild(
+          date
+        );
 
-        obligationList.appendChild(item);
+        item.appendChild(
+          amount
+        );
+
+        obligationList.appendChild(
+          item
+        );
 
       }
     );
@@ -2158,7 +2694,10 @@ if (request.proof_storage_path) {
         passwordInput.value;
 
 
-      if (!email || !password) {
+      if (
+        !email ||
+        !password
+      ) {
 
         loginStatus.textContent =
           "❌ Email dan password wajib diisi.";
@@ -2211,12 +2750,13 @@ if (request.proof_storage_path) {
           throw new Error(
             "User tidak ditemukan setelah login."
           );
+
         }
 
 
-        // ------------------------------------------------
-        // CEK ADMIN
-        // ------------------------------------------------
+        // =================================================
+        // ADMIN
+        // =================================================
 
         const {
           data: adminResult,
@@ -2257,9 +2797,9 @@ if (request.proof_storage_path) {
         }
 
 
-        // ------------------------------------------------
-        // CEK MEMBER
-        // ------------------------------------------------
+        // =================================================
+        // MEMBER
+        // =================================================
 
         const {
           data: member,
@@ -2289,14 +2829,19 @@ if (request.proof_storage_path) {
           throw new Error(
             "Akun ini belum terhubung dengan member."
           );
+
         }
 
 
-        if (member.status !== "ACTIVE") {
+        if (
+          member.status !==
+          "ACTIVE"
+        ) {
 
           throw new Error(
             "Status member tidak ACTIVE."
           );
+
         }
 
 
@@ -2487,7 +3032,7 @@ if (request.proof_storage_path) {
 
 
   // =====================================================
-  // REFRESH PAYMENT
+  // REFRESH PAYMENT ADMIN
   // =====================================================
 
   refreshPaymentsBtn.addEventListener(
@@ -2512,6 +3057,38 @@ if (request.proof_storage_path) {
 
 
       refreshPaymentsBtn.disabled =
+        false;
+
+    }
+  );
+
+
+  // =====================================================
+  // REFRESH RIWAYAT MEMBER
+  // =====================================================
+
+  refreshPaymentHistoryBtn.addEventListener(
+    "click",
+    async () => {
+
+      refreshPaymentHistoryBtn.disabled =
+        true;
+
+
+      try {
+
+        await loadMemberPaymentHistory();
+
+      } catch (error) {
+
+        paymentHistoryStatus.textContent =
+          "❌ " +
+          error.message;
+
+      }
+
+
+      refreshPaymentHistoryBtn.disabled =
         false;
 
     }
@@ -2607,6 +3184,7 @@ if (request.proof_storage_path) {
           throw new Error(
             "Session login tidak ditemukan."
           );
+
         }
 
 
@@ -2698,10 +3276,6 @@ if (request.proof_storage_path) {
           throw paymentError;
         }
 
-
-        // ------------------------------------------------
-        // KOSONGKAN FILE SETELAH BERHASIL
-        // ------------------------------------------------
 
         paymentProof.value =
           "";
@@ -2805,7 +3379,7 @@ if (request.proof_storage_path) {
 
 
   // =====================================================
-  // ENTER UNTUK LOGIN
+  // ENTER LOGIN
   // =====================================================
 
   passwordInput.addEventListener(
