@@ -16,12 +16,12 @@ index.html
   --t:#edf7ef;
   --m:#98a89e;
   --p:#070b08ed;
-  --l:#26362c;
+  --l:#26362c
 }
 
 *{
   box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
+  -webkit-tap-highlight-color:transparent
 }
 
 body{
@@ -29,7 +29,7 @@ body{
   min-height:100vh;
   color:var(--t);
   font:11px Arial,sans-serif;
-  background:#020403 url('./background.jpg') center/cover fixed no-repeat;
+  background:#020403 url("./background.jpg") center/cover fixed no-repeat
 }
 
 body:before{
@@ -37,85 +37,73 @@ body:before{
   position:fixed;
   inset:0;
   background:#0009;
-  z-index:-1;
+  z-index:-1
 }
 
 .wrap{
   max-width:680px;
   margin:8px auto;
-  padding:0 6px;
+  padding:0 6px
 }
 
-.card,
-.stat,
-.item{
+.card,.stat,.item{
   background:var(--p);
   border:1px solid var(--l);
   border-radius:9px;
   padding:9px;
   margin:6px 0;
-  backdrop-filter:blur(5px);
+  backdrop-filter:blur(5px)
 }
 
 .hidden{display:none}
 
 .brand{
   max-width:390px;
-  margin:8vh auto;
+  margin:8vh auto
 }
 
-.row,
-.top,
-.title,
-.actions{
+.row,.top,.title,.actions{
   display:flex;
   gap:6px;
-  align-items:center;
+  align-items:center
 }
 
-.top,
-.title{
-  justify-content:space-between;
+.top,.title{
+  justify-content:space-between
 }
 
 .grid{
   display:grid;
-  gap:6px;
+  gap:6px
 }
 
 .g2{
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:1fr 1fr
 }
 
 .g3{
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(3,1fr)
 }
 
 h1{
   font-size:19px;
-  margin:0;
-}
-
-h2{
-  font-size:13px;
-  margin:0 0 7px;
-}
-
-.sub,
-.muted{
-  color:var(--m);
+  margin:0
 }
 
 .sub{
   color:var(--g);
   font-weight:700;
-  margin:2px 0 10px;
+  margin:2px 0 10px
+}
+
+.muted{
+  color:var(--m)
 }
 
 .stat b{
   display:block;
   font-size:14px;
-  margin-top:2px;
+  margin-top:2px
 }
 
 .green{color:var(--g)}
@@ -127,12 +115,10 @@ label{
   display:block;
   font-size:9px;
   font-weight:700;
-  margin:5px 0 2px;
+  margin:5px 0 2px
 }
 
-input,
-select,
-textarea{
+input,select,textarea{
   width:100%;
   background:#040805;
   color:#fff;
@@ -140,19 +126,19 @@ textarea{
   border-radius:6px;
   padding:8px;
   font:11px Arial,sans-serif;
-  outline:none;
+  outline:none
 }
 
 input:focus,
 select:focus,
 textarea:focus{
   border-color:var(--g);
-  box-shadow:0 0 0 1px #39d46333;
+  box-shadow:0 0 0 1px #39d46333
 }
 
 textarea{
   min-height:50px;
-  resize:vertical;
+  resize:vertical
 }
 
 button{
@@ -163,53 +149,53 @@ button{
   padding:8px;
   font:700 9px Arial,sans-serif;
   cursor:pointer;
-  min-height:31px;
+  min-height:31px
 }
 
 button:disabled{
   opacity:.45;
-  cursor:not-allowed;
+  cursor:not-allowed
 }
 
 .ghost{
   background:#101813;
-  border-color:#34473a;
+  border-color:#34473a
 }
 
 .danger{
   background:#792129;
-  border-color:#a83b45;
+  border-color:#a83b45
 }
 
 .warn{
   background:#67510f;
-  border-color:#9e7b20;
+  border-color:#9e7b20
 }
 
 .bluebtn{
   background:#145b91;
-  border-color:#2b80c2;
+  border-color:#2b80c2
 }
 
 .purple{
   background:#56209a;
-  border-color:#7d45c8;
+  border-color:#7d45c8
 }
 
 .actions>*{
-  flex:1;
+  flex:1
 }
 
 .tabs{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:5px;
-  margin:8px 0;
+  margin:8px 0
 }
 
 .tabs button.active{
   background:#14823a;
-  border-color:#39d463;
+  border-color:#39d463
 }
 
 .badge{
@@ -218,19 +204,19 @@ button:disabled{
   border-radius:99px;
   background:#16341e;
   color:#a8f3b4;
-  border:1px solid #2a6938;
+  border:1px solid #2a6938
 }
 
 .badge.r{
   background:#40171b;
   color:#ffb0b4;
-  border-color:#703039;
+  border-color:#703039
 }
 
 .badge.y{
   background:#443612;
   color:#f8df83;
-  border-color:#75601e;
+  border-color:#75601e
 }
 
 .status{
@@ -240,17 +226,17 @@ button:disabled{
   border:1px solid #24352a;
   border-radius:6px;
   color:#b9c9be;
-  background:#050b07;
+  background:#050b07
 }
 
 .ok{
   border-color:#286b39;
-  color:#aaf4b5;
+  color:#aaf4b5
 }
 
 .err{
   border-color:#70323a;
-  color:#ffadb2;
+  color:#ffadb2
 }
 
 .copy{
@@ -261,27 +247,27 @@ button:disabled{
   background:#030604;
   border:1px dashed #304237;
   padding:7px;
-  border-radius:6px;
+  border-radius:6px
 }
 
 .foot{
   text-align:center;
   color:#7c8c82;
   font-size:8px;
-  padding:8px;
+  padding:8px
 }
 
 @media(max-width:520px){
   .g3{
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:1fr 1fr
   }
 
   .brand{
-    margin-top:5vh;
+    margin-top:5vh
   }
 
   h1{
-    font-size:17px;
+    font-size:17px
   }
 }
 </style>
@@ -290,8 +276,6 @@ button:disabled{
 <body>
 
 <main class="wrap">
-
-<!-- ================= LOGIN ================= -->
 
 <section id="login" class="card brand">
 
@@ -305,17 +289,9 @@ button:disabled{
   </div>
 
   <div class="tabs">
-    <button id="memberTab" class="active">
-      MEMBER
-    </button>
-
-    <button id="adminTab" class="ghost">
-      ADMIN
-    </button>
+    <button id="memberTab" class="active">MEMBER</button>
+    <button id="adminTab" class="ghost">ADMIN</button>
   </div>
-
-
-  <!-- MEMBER LOGIN -->
 
   <div id="memberLogin">
 
@@ -330,21 +306,18 @@ button:disabled{
       placeholder="Nickname dari daftar admin"
     >
 
-
     <label>Nomor WhatsApp</label>
 
     <input
       id="wa"
-      type="text"
-      inputmode="numeric"
-      pattern="[0-9]*"
-      autocomplete="off"
+      type="tel"
+      inputmode="tel"
+      autocomplete="tel"
       autocapitalize="off"
       spellcheck="false"
-      maxlength="15"
+      maxlength="20"
       placeholder="08xxxxxxxxxx"
     >
-
 
     <div class="actions">
 
@@ -358,17 +331,13 @@ button:disabled{
 
     </div>
 
-
     <div class="muted" style="margin-top:6px">
       Nickname harus sudah dibuat admin.
-      Satu nickname hanya boleh terhubung
-      ke satu nomor WhatsApp.
+      Satu nickname hanya boleh digunakan oleh
+      satu nomor WhatsApp.
     </div>
 
   </div>
-
-
-  <!-- ADMIN LOGIN -->
 
   <div id="adminLogin" class="hidden">
 
@@ -380,7 +349,6 @@ button:disabled{
       autocomplete="username"
     >
 
-
     <label>Password Admin</label>
 
     <input
@@ -389,13 +357,11 @@ button:disabled{
       autocomplete="current-password"
     >
 
-
     <button id="loginBtn">
       LOGIN ADMIN
     </button>
 
   </div>
-
 
   <div id="loginMsg" class="status">
     Belum login.
@@ -404,15 +370,12 @@ button:disabled{
 </section>
 
 
-<!-- ================= ADMIN ================= -->
-
 <section id="admin" class="hidden">
 
   <div class="card title">
     <b>Street Of Style</b>
     <span class="badge">ADMIN</span>
   </div>
-
 
   <div class="grid g3">
 
@@ -434,8 +397,6 @@ button:disabled{
   </div>
 
 
-  <!-- MEMBER LIST -->
-
   <div class="card">
 
     <div class="title">
@@ -456,8 +417,6 @@ button:disabled{
 
   </div>
 
-
-  <!-- SETTINGS -->
 
   <div class="card">
 
@@ -481,7 +440,6 @@ button:disabled{
         </button>
 
       </div>
-
 
       <div>
 
@@ -509,8 +467,6 @@ button:disabled{
   </div>
 
 
-  <!-- PAYMENT REQUEST -->
-
   <div class="card">
 
     <div class="title">
@@ -533,8 +489,6 @@ button:disabled{
 
   </div>
 
-
-  <!-- RECAP -->
 
   <div class="card">
 
@@ -569,8 +523,6 @@ button:disabled{
   </div>
 
 
-  <!-- CREATE MEMBER -->
-
   <div class="card">
 
     <b>Tambah Nickname / Member</b>
@@ -583,19 +535,16 @@ button:disabled{
       autocomplete="off"
     >
 
-
     <label>WhatsApp</label>
 
     <input
       id="mw"
-      type="text"
-      inputmode="numeric"
-      pattern="[0-9]*"
-      maxlength="15"
-      autocomplete="off"
+      type="tel"
+      inputmode="tel"
+      autocomplete="tel"
+      maxlength="20"
       placeholder="08xxxxxxxxxx"
     >
-
 
     <label>Join WIB</label>
 
@@ -603,7 +552,6 @@ button:disabled{
       id="mj"
       type="datetime-local"
     >
-
 
     <label>Catatan</label>
 
@@ -630,8 +578,6 @@ button:disabled{
 
 </section>
 
-
-<!-- ================= MEMBER DASHBOARD ================= -->
 
 <section id="member" class="hidden">
 
@@ -684,8 +630,6 @@ button:disabled{
   </div>
 
 
-  <!-- PAYMENT -->
-
   <div class="card">
 
     <b>Ajukan Pembayaran</b>
@@ -703,7 +647,6 @@ button:disabled{
       -
     </div>
 
-
     <label>Bukti</label>
 
     <input
@@ -712,16 +655,13 @@ button:disabled{
       accept="image/jpeg,image/png,image/webp,application/pdf"
     >
 
-
     <label>Catatan</label>
 
     <textarea id="pn"></textarea>
 
-
     <button id="sp">
       AJUKAN
     </button>
-
 
     <div id="sm" class="status">
       -
@@ -729,8 +669,6 @@ button:disabled{
 
   </div>
 
-
-  <!-- HISTORY -->
 
   <div class="card">
 
@@ -785,346 +723,262 @@ button:disabled{
 
 import {
   createClient
-} from 'https://esm.sh/@supabase/supabase-js@2';
+} from "https://esm.sh/@supabase/supabase-js@2";
 
-
-/* =====================================================
-   SUPABASE
-===================================================== */
 
 const SUPABASE_URL =
-  'https://nwfodyefdxdsmdrxzfby.supabase.co';
+  "https://nwfodyefdxdsmdrxzfby.supabase.co";
 
 const SUPABASE_KEY =
-  'sb_publishable_M6BDC3TNoLQTTW3XSOgvyQ_6Y_0l0BD';
+  "sb_publishable_M6BDC3TNoLQTTW3XSOgvyQ_6Y_0l0BD";
 
-const s =
-  createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+const supabase =
+  createClient(SUPABASE_URL,SUPABASE_KEY);
 
+const AUTH_URL =
+  SUPABASE_URL + "/functions/v1/member-auth";
 
-/* =====================================================
-   MEMBER AUTH FUNCTION
-===================================================== */
-
-const AUTH =
-  SUPABASE_URL +
-  '/functions/v1/member-auth';
+const BUCKET =
+  "Bukti oembayaran kas";
 
 
-/* =====================================================
-   STORAGE
-===================================================== */
-
-const PAYMENT_BUCKET =
-  'Bukti oembayaran kas';
+const $ = id =>
+  document.getElementById(id);
 
 
-/* =====================================================
-   HELPERS
-===================================================== */
+const esc = value =>
+  String(value ?? "")
+  .replace(/[&<>"']/g,char => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#039;"
+  }[char]));
 
-const $ =
-  x => document.getElementById(x);
 
-
-const id =
-  x =>
+const money = value =>
   new Intl.NumberFormat(
-    'id-ID',
+    "id-ID",
     {
-      style:'currency',
-      currency:'IDR',
+      style:"currency",
+      currency:"IDR",
       maximumFractionDigits:0
     }
-  ).format(+x || 0);
+  ).format(Number(value)||0);
 
 
-const esc =
-  x =>
-  String(x ?? '').replace(
-    /[&<>"']/g,
-    c => ({
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      '"':'&quot;',
-      "'":'&#039;'
-    }[c])
-  );
+const dateOnly = value => {
 
+  if(!value) return "-";
 
-const dt =
-  x =>
-  x
-  ?
-  new Intl.DateTimeFormat(
-    'id-ID',
+  return new Intl.DateTimeFormat(
+    "id-ID",
     {
-      timeZone:'Asia/Jakarta',
-      dateStyle:'medium'
+      timeZone:"Asia/Jakarta",
+      dateStyle:"medium"
     }
   ).format(
     new Date(
-      String(x).slice(0,10) +
-      'T00:00:00+07:00'
+      String(value).slice(0,10) +
+      "T00:00:00+07:00"
     )
-  )
-  :
-  '-';
+  );
+};
 
 
-const wt =
-  x =>
-  x
-  ?
-  new Intl.DateTimeFormat(
-    'id-ID',
+const dateTime = value => {
+
+  if(!value) return "-";
+
+  return new Intl.DateTimeFormat(
+    "id-ID",
     {
-      timeZone:'Asia/Jakarta',
-      dateStyle:'medium',
-      timeStyle:'short'
+      timeZone:"Asia/Jakarta",
+      dateStyle:"medium",
+      timeStyle:"short"
     }
-  ).format(
-    new Date(x)
-  )
-  :
-  '-';
+  ).format(new Date(value));
+};
 
 
-const st =
-  (k,t,ok=false) => {
+/*
+  NORMALISASI NOMOR WA
 
-    $(k).textContent = t;
+  Contoh:
+  081234567890
+  6281234567890
+  81234567890
 
-    $(k).classList.toggle(
-      'ok',
-      ok
-    );
+  semuanya menjadi:
+  081234567890
+*/
 
-    $(k).classList.toggle(
-      'err',
-      !ok &&
-      t.includes('❌')
-    );
+function normalizePhone(value){
 
-  };
+  let d =
+    String(value || "")
+    .replace(/\D/g,"");
 
-
-const sh =
-  x => {
-
-    ['login','admin','member']
-      .forEach(
-        k =>
-        $(k).classList.toggle(
-          'hidden',
-          k !== x
-        )
-      );
-
-  };
-
-
-/* =====================================================
-   DATE DEFAULT
-===================================================== */
-
-function setJoinDate(){
-
-  const now =
-    new Date();
-
-  const parts =
-    new Intl.DateTimeFormat(
-      'en-CA',
-      {
-        timeZone:'Asia/Jakarta',
-        year:'numeric',
-        month:'2-digit',
-        day:'2-digit',
-        hour:'2-digit',
-        minute:'2-digit',
-        hourCycle:'h23'
-      }
-    ).formatToParts(now);
-
-  const get =
-    type =>
-    parts.find(
-      x => x.type === type
-    )?.value;
-
-  $('mj').value =
-    `${get('year')}-${get('month')}-${get('day')}T${get('hour')}:${get('minute')}`;
-
-}
-
-setJoinDate();
-
-
-/* =====================================================
-   NORMALIZE WHATSAPP
-===================================================== */
-
-function normalizeWhatsApp(value){
-
-  let n =
-    String(value || '')
-      .replace(/\D/g,'');
-
-  if(n.startsWith('62')){
-    n =
-      '0' +
-      n.slice(2);
+  if(d.startsWith("62")){
+    d = "0" + d.slice(2);
   }
 
-  if(n.startsWith('8')){
-    n =
-      '0' +
-      n;
+  else if(d.startsWith("8")){
+    d = "0" + d;
   }
 
-  return n.slice(0,15);
+  return d.slice(0,15);
+}
+
+
+function setMessage(element,text,ok=false){
+
+  element.textContent = text;
+
+  element.classList.toggle(
+    "ok",
+    ok
+  );
+
+  element.classList.toggle(
+    "err",
+    !ok && text.includes("❌")
+  );
+}
+
+
+function show(section){
+
+  ["login","admin","member"]
+  .forEach(id => {
+
+    $(id).classList.toggle(
+      "hidden",
+      id !== section
+    );
+
+  });
 
 }
 
 
-/* =====================================================
-   WHATSAPP INPUT FIX
-===================================================== */
+/* =========================
+   MODE LOGIN
+========================= */
 
-const waInput =
-  $('wa');
+$("memberTab").onclick = () => {
 
-const mwInput =
-  $('mw');
+  $("memberTab")
+    .classList.add("active");
 
+  $("adminTab")
+    .classList.remove("active");
 
-function numericInputFix(input){
+  $("memberLogin")
+    .classList.remove("hidden");
 
-  if(!input)return;
+  $("adminLogin")
+    .classList.add("hidden");
 
-
-  input.addEventListener(
-    'beforeinput',
-    function(e){
-
-      if(
-        e.data &&
-        /\D/.test(e.data)
-      ){
-        e.preventDefault();
-      }
-
-    }
+  setMessage(
+    $("loginMsg"),
+    "Mode MEMBER.",
+    true
   );
 
+};
 
-  input.addEventListener(
-    'input',
-    function(){
 
-      this.value =
-        this.value
-          .replace(/[^0-9]/g,'')
-          .slice(0,15);
+$("adminTab").onclick = () => {
 
-    }
+  $("adminTab")
+    .classList.add("active");
+
+  $("memberTab")
+    .classList.remove("active");
+
+  $("adminLogin")
+    .classList.remove("hidden");
+
+  $("memberLogin")
+    .classList.add("hidden");
+
+  setMessage(
+    $("loginMsg"),
+    "Mode ADMIN.",
+    true
   );
 
-
-  input.addEventListener(
-    'paste',
-    function(e){
-
-      e.preventDefault();
-
-      const text =
-        (
-          e.clipboardData ||
-          window.clipboardData
-        ).getData('text');
-
-      this.value =
-        normalizeWhatsApp(text);
-
-    }
-  );
-
-}
+};
 
 
-numericInputFix(waInput);
-numericInputFix(mwInput);
-
-
-/* =====================================================
+/* =========================
    MEMBER AUTH
-===================================================== */
+========================= */
 
 async function memberAuth(mode){
 
   const nickname =
-    $('nickname')
-      .value
-      .trim();
+    $("nickname").value.trim();
+
+  /*
+    PENTING:
+    Jangan memblokir keyboard.
+    Nomor hanya dinormalisasi ketika submit.
+  */
 
   const whatsapp =
-    normalizeWhatsApp(
-      $('wa').value
+    normalizePhone(
+      $("wa").value
     );
 
 
-  $('wa').value =
-    whatsapp;
+  if(!nickname){
 
-
-  if(
-    !nickname ||
-    !whatsapp
-  ){
-
-    st(
-      'loginMsg',
-      '❌ Nickname dan nomor WhatsApp wajib diisi.'
+    setMessage(
+      $("loginMsg"),
+      "❌ Nickname wajib diisi."
     );
 
     return;
+  }
 
+
+  if(!whatsapp){
+
+    setMessage(
+      $("loginMsg"),
+      "❌ Nomor WhatsApp wajib diisi."
+    );
+
+    return;
   }
 
 
   if(
-    whatsapp.length < 8
+    whatsapp.length < 9 ||
+    whatsapp.length > 15
   ){
 
-    st(
-      'loginMsg',
-      '❌ Nomor WhatsApp tidak valid.'
+    setMessage(
+      $("loginMsg"),
+      "❌ Nomor WhatsApp tidak valid."
     );
 
     return;
-
   }
 
 
-  $('memberLoginBtn').disabled =
-    true;
-
-  $('activateBtn').disabled =
-    true;
+  $("memberLoginBtn").disabled = true;
+  $("activateBtn").disabled = true;
 
 
-  st(
-    'loginMsg',
-    mode === 'activate'
-      ?
-      'Mengaktifkan akun...'
-      :
-      'Memeriksa login...'
+  setMessage(
+    $("loginMsg"),
+    mode === "activate"
+      ? "Mengaktifkan akun..."
+      : "Memeriksa login..."
   );
 
 
@@ -1132,12 +986,12 @@ async function memberAuth(mode){
 
     const response =
       await fetch(
-        AUTH,
+        AUTH_URL,
         {
-          method:'POST',
+          method:"POST",
           headers:{
-            'Content-Type':
-              'application/json'
+            "Content-Type":
+              "application/json"
           },
           body:JSON.stringify({
             nickname,
@@ -1148,22 +1002,18 @@ async function memberAuth(mode){
       );
 
 
-    let result;
-
-    try{
-      result =
-        await response.json();
-    }catch{
-      result = {};
-    }
+    const result =
+      await response
+      .json()
+      .catch(() => ({}));
 
 
     if(!response.ok){
 
-      throw Error(
+      throw new Error(
         result.error ||
         result.message ||
-        'Autentikasi gagal.'
+        "Autentikasi gagal."
       );
 
     }
@@ -1171,89 +1021,88 @@ async function memberAuth(mode){
 
     if(!result.email){
 
-      throw Error(
-        'Data login member tidak lengkap.'
+      throw new Error(
+        "Data akun member tidak lengkap."
       );
 
     }
 
 
-    const password =
-      normalizeWhatsApp(
-        whatsapp
-      );
+    /*
+      Backend sudah memverifikasi:
+      nickname + nomor WA.
 
+      Baru setelah itu:
+      Supabase Auth login.
+    */
 
     const {
       error
     } =
-    await s.auth.signInWithPassword({
-      email:result.email,
-      password
-    });
+      await supabase.auth.signInWithPassword({
+        email:result.email,
+        password:whatsapp
+      });
 
 
-    if(error)
+    if(error){
       throw error;
+    }
 
 
     await route();
 
 
-  }catch(error){
+  }
 
-    await s.auth
+  catch(error){
+
+    await supabase.auth
       .signOut()
       .catch(()=>{});
 
 
-    sh('login');
+    show("login");
 
 
-    st(
-      'loginMsg',
-      '❌ ' +
+    setMessage(
+      $("loginMsg"),
+      "❌ " +
       (
-        error.message ||
-        'Login gagal.'
+        error?.message ||
+        "Login gagal."
       )
     );
 
+  }
 
-  }finally{
+  finally{
 
-    $('memberLoginBtn').disabled =
-      false;
-
-    $('activateBtn').disabled =
-      false;
+    $("memberLoginBtn").disabled = false;
+    $("activateBtn").disabled = false;
 
   }
 
 }
 
 
-/* =====================================================
-   MEMBER LOGIN EVENTS
-===================================================== */
-
-$('memberLoginBtn').onclick =
-  () => memberAuth('login');
+$("memberLoginBtn").onclick =
+  () => memberAuth("login");
 
 
-$('activateBtn').onclick =
-  () => memberAuth('activate');
+$("activateBtn").onclick =
+  () => memberAuth("activate");
 
 
-$('nickname').addEventListener(
-  'keydown',
-  e => {
+$("nickname").addEventListener(
+  "keydown",
+  event => {
 
-    if(e.key === 'Enter'){
+    if(event.key === "Enter"){
 
-      e.preventDefault();
+      event.preventDefault();
 
-      memberAuth('login');
+      memberAuth("login");
 
     }
 
@@ -1261,15 +1110,15 @@ $('nickname').addEventListener(
 );
 
 
-waInput.addEventListener(
-  'keydown',
-  e => {
+$("wa").addEventListener(
+  "keydown",
+  event => {
 
-    if(e.key === 'Enter'){
+    if(event.key === "Enter"){
 
-      e.preventDefault();
+      event.preventDefault();
 
-      memberAuth('login');
+      memberAuth("login");
 
     }
 
@@ -1277,102 +1126,37 @@ waInput.addEventListener(
 );
 
 
-/* =====================================================
-   LOGIN TABS
-===================================================== */
-
-$('memberTab').onclick =
-  () => {
-
-    $('memberTab')
-      .classList
-      .add('active');
-
-    $('adminTab')
-      .classList
-      .remove('active');
-
-    $('memberLogin')
-      .classList
-      .remove('hidden');
-
-    $('adminLogin')
-      .classList
-      .add('hidden');
-
-    st(
-      'loginMsg',
-      'Mode MEMBER.',
-      true
-    );
-
-  };
-
-
-$('adminTab').onclick =
-  () => {
-
-    $('adminTab')
-      .classList
-      .add('active');
-
-    $('memberTab')
-      .classList
-      .remove('active');
-
-    $('adminLogin')
-      .classList
-      .remove('hidden');
-
-    $('memberLogin')
-      .classList
-      .add('hidden');
-
-    st(
-      'loginMsg',
-      'Mode ADMIN.',
-      true
-    );
-
-  };
-
-
-/* =====================================================
+/* =========================
    ADMIN LOGIN
-===================================================== */
+========================= */
 
-$('loginBtn').onclick =
+$("loginBtn").onclick =
   async () => {
 
     const email =
-      $('email')
-        .value
-        .trim();
+      $("email").value.trim();
 
     const password =
-      $('pass')
-        .value;
+      $("pass").value;
 
 
     if(!email || !password){
 
-      st(
-        'loginMsg',
-        '❌ Email dan password admin wajib diisi.'
+      setMessage(
+        $("loginMsg"),
+        "❌ Email dan password admin wajib diisi."
       );
 
       return;
-
     }
 
 
-    $('loginBtn').disabled =
-      true;
+    $("loginBtn").disabled = true;
 
 
-    st(
-      'loginMsg',
-      'Sedang login admin...'
+    setMessage(
+      $("loginMsg"),
+      "Sedang login admin..."
     );
 
 
@@ -1381,55 +1165,61 @@ $('loginBtn').onclick =
       const {
         error
       } =
-      await s.auth.signInWithPassword({
-        email,
-        password
-      });
+      await supabase.auth
+        .signInWithPassword({
+          email,
+          password
+        });
 
 
-      if(error)
+      if(error){
         throw error;
+      }
 
 
       await route();
 
+    }
 
-    }catch(error){
+    catch(error){
 
-      await s.auth
+      await supabase.auth
         .signOut()
         .catch(()=>{});
 
 
-      sh('login');
+      show("login");
 
 
-      st(
-        'loginMsg',
-        '❌ Login gagal: ' +
-        error.message
+      setMessage(
+        $("loginMsg"),
+        "❌ Login gagal: " +
+        (
+          error?.message ||
+          "Kesalahan login."
+        )
       );
 
+    }
 
-    }finally{
+    finally{
 
-      $('loginBtn').disabled =
-        false;
+      $("loginBtn").disabled = false;
 
     }
 
   };
 
 
-$('pass').addEventListener(
-  'keydown',
-  e => {
+$("pass").addEventListener(
+  "keydown",
+  event => {
 
-    if(e.key === 'Enter'){
+    if(event.key === "Enter"){
 
-      e.preventDefault();
+      event.preventDefault();
 
-      $('loginBtn').click();
+      $("loginBtn").click();
 
     }
 
@@ -1437,353 +1227,299 @@ $('pass').addEventListener(
 );
 
 
-/* =====================================================
-   ADMIN MEMBERS
-===================================================== */
+/* =========================
+   ADMIN MEMBER
+========================= */
 
-async function members(){
+async function loadMembers(){
 
   const {
     data,
     error
   } =
-  await s.rpc(
-    'admin_get_members'
+  await supabase.rpc(
+    "admin_get_members"
   );
 
 
-  if(error)
+  if(error){
     throw error;
+  }
 
 
   const {
     data:summary,
     error:summaryError
   } =
-  await s.rpc(
-    'admin_get_nextpay_summary'
+  await supabase.rpc(
+    "admin_get_nextpay_summary"
   );
 
 
-  if(summaryError)
+  if(summaryError){
     throw summaryError;
+  }
 
 
-  const rows =
+  const members =
     data || [];
 
-  const next =
+  const nextpay =
     summary || [];
 
 
   const map =
     new Map(
-      next.map(
-        x =>
-        [x.member_id,x]
+      nextpay.map(
+        item => [
+          item.member_id,
+          item
+        ]
       )
     );
+
+
+  $("ac").textContent =
+    members.filter(
+      m => m.status === "ACTIVE"
+    ).length;
 
 
   let totalBalance = 0;
   let totalArrears = 0;
 
 
-  $('ac').textContent =
-    rows.filter(
-      x =>
-      x.status === 'ACTIVE'
-    ).length;
+  nextpay.forEach(item => {
 
+    const balance =
+      Number(item.balance) || 0;
 
-  next.forEach(
-    x => {
+    totalBalance += balance;
 
-      const balance =
-        +x.balance || 0;
-
-      totalBalance +=
-        balance;
-
-      if(balance < 0){
-
-        totalArrears +=
-          Math.abs(balance);
-
-      }
-
+    if(balance < 0){
+      totalArrears +=
+        Math.abs(balance);
     }
-  );
+
+  });
 
 
-  $('at').textContent =
-    id(totalBalance);
+  $("at").textContent =
+    money(totalBalance);
 
-  $('aa').textContent =
-    id(totalArrears);
-
-
-  $('ml').innerHTML =
-    '';
+  $("aa").textContent =
+    money(totalArrears);
 
 
-  rows.forEach(
-    x => {
-
-      const y =
-        map.get(x.id) || {};
-
-      const balance =
-        +y.balance || 0;
+  $("ml").innerHTML = "";
 
 
-      const div =
-        document.createElement(
-          'div'
-        );
+  members.forEach(member => {
+
+    const info =
+      map.get(member.id) || {};
 
 
-      div.className =
-        'item';
+    const balance =
+      Number(info.balance) || 0;
 
 
-      const statusIcon =
-        balance < 0
-          ?
-          '🔴'
-          :
-          (
-            y.next_pay_days === 1
-              ?
-              '⚠️'
-              :
-              '🟢'
-          );
+    const icon =
+      balance < 0
+        ? "🔴"
+        : Number(info.next_pay_days) === 1
+          ? "⚠️"
+          : "🟢";
 
 
-      div.innerHTML = `
-
-        <div class="top">
-
-          <b>
-            ${esc(x.member_name)}
-          </b>
-
-          <span class="badge ${
-            balance < 0
-              ?
-              'r'
-              :
-              (
-                y.next_pay_days === 1
-                  ?
-                  'y'
-                  :
-                  ''
-              )
-          }">
-
-            ${statusIcon}
-
-          </span>
-
-        </div>
+    const div =
+      document.createElement("div");
 
 
-        <div class="muted">
-
-          ${esc(x.status)}
-
-          • WA
-
-          ${esc(
-            x.whatsapp_number ||
-            '-'
-          )}
-
-        </div>
+    div.className = "item";
 
 
-        <div>
+    div.innerHTML = `
 
-          <b class="${
-            balance < 0
-              ?
-              'red'
-              :
-              'green'
-          }">
+      <div class="top">
 
-            ${id(balance)}
+        <b>
+          ${esc(member.member_name)}
+        </b>
 
-          </b>
+        <span class="badge ${
+          balance < 0
+            ? "r"
+            : Number(info.next_pay_days) === 1
+              ? "y"
+              : ""
+        }">
 
-          •
+          ${icon}
 
-          📌 NP
+        </span>
 
-          ${dt(y.next_pay_date)}
+      </div>
 
-        </div>
+      <div class="muted">
 
-      `;
+        ${esc(member.status)}
+        • WA
+        ${esc(member.whatsapp_number || "-")}
 
+      </div>
 
-      if(
-        x.status === 'ACTIVE'
-      ){
+      <div>
 
-        const button =
-          document.createElement(
-            'button'
-          );
+        <b class="${
+          balance < 0
+            ? "red"
+            : "green"
+        }">
 
+          ${money(balance)}
 
-        button.className =
-          'warn';
+        </b>
 
-        button.textContent =
-          'NONAKTIFKAN';
+        • 📌 NP
+        ${dateOnly(info.next_pay_date)}
 
-
-        button.onclick =
-          async () => {
-
-            const reason =
-              prompt(
-                'Alasan menonaktifkan member:'
-              );
+      </div>
+    `;
 
 
-            if(
-              !reason ||
-              !reason.trim()
-            )
-              return;
+    if(member.status === "ACTIVE"){
+
+      const button =
+        document.createElement("button");
+
+      button.className = "warn";
+
+      button.textContent =
+        "NONAKTIFKAN";
 
 
-            const {
-              error
-            } =
-            await s.rpc(
-              'admin_deactivate_member',
-              {
-                p_member_id:x.id,
-                p_reason:
-                  reason.trim()
-              }
+      button.onclick =
+        async () => {
+
+          const reason =
+            prompt(
+              "Alasan menonaktifkan member:"
             );
 
 
-            if(error){
+          if(!reason?.trim()){
+            return;
+          }
 
-              alert(
-                error.message
-              );
 
-              return;
-
+          const {
+            error
+          } =
+          await supabase.rpc(
+            "admin_deactivate_member",
+            {
+              p_member_id:member.id,
+              p_reason:reason.trim()
             }
+          );
 
 
-            await members();
-            await recap();
+          if(error){
 
-          };
+            setMessage(
+              $("ms"),
+              "❌ " +
+              error.message
+            );
+
+            return;
+          }
 
 
-        div.append(
-          button
-        );
+          await loadMembers();
+          await loadRecap();
 
-      }
+        };
 
 
-      $('ml').append(
-        div
-      );
+      div.appendChild(button);
 
     }
-  );
 
 
-  st(
-    'ms',
-    `✓ ${rows.length} member ditampilkan.`,
+    $("ml").appendChild(div);
+
+  });
+
+
+  setMessage(
+    $("ms"),
+    "✓ " +
+    members.length +
+    " member ditampilkan.",
     true
   );
 
 }
 
 
-/* =====================================================
-   ADMIN RECAP
-===================================================== */
+/* =========================
+   RECAP
+========================= */
 
-let recapRows = [];
+let recapData = [];
 
 
-async function recap(){
+async function loadRecap(){
 
   const {
     data,
     error
   } =
-  await s.rpc(
-    'admin_get_nextpay_summary'
+  await supabase.rpc(
+    "admin_get_nextpay_summary"
   );
 
 
-  if(error)
+  if(error){
     throw error;
+  }
 
 
-  recapRows =
+  recapData =
     data || [];
 
 
-  $('rl').innerHTML =
-    '';
+  $("rl").innerHTML = "";
 
 
   const text = [
-    '📋 REKAP KAS SOS',
-    '================'
+    "📋 REKAP KAS SOS",
+    "================"
   ];
 
 
-  recapRows.forEach(
-    (x,i) => {
+  recapData.forEach(
+    (item,index) => {
 
       const balance =
-        +x.balance || 0;
-
-      const days =
-        +x.next_pay_days || 0;
+        Number(item.balance) || 0;
 
 
       const icon =
         balance < 0
-          ?
-          '🔴'
-          :
-          (
-            days === 1
-              ?
-              '⚠️'
-              :
-              '🟢'
-          );
+          ? "🔴"
+          : Number(item.next_pay_days) === 1
+            ? "⚠️"
+            : "🟢";
 
 
       const div =
-        document.createElement(
-          'div'
-        );
+        document.createElement("div");
 
 
-      div.className =
-        'item';
+      div.className = "item";
 
 
       div.innerHTML = `
@@ -1791,62 +1527,41 @@ async function recap(){
         <div class="top">
 
           <b>
-            ${esc(x.member_name)}
+            ${esc(item.member_name)}
           </b>
 
           <b class="${
             balance < 0
-              ?
-              'red'
-              :
-              'green'
+              ? "red"
+              : "green"
           }">
 
-            ${id(balance)}
+            ${money(balance)}
 
           </b>
 
         </div>
 
-
         <div class="muted">
 
           ${icon}
+          ${esc(item.status_text || "-")}
 
-          ${esc(
-            x.status_text ||
-            '-'
-          )}
-
-          •
-
-          📌 NP
-
-          ${dt(
-            x.next_pay_date
-          )}
+          • 📌 NP
+          ${dateOnly(item.next_pay_date)}
 
         </div>
-
       `;
 
 
-      $('rl').append(
-        div
-      );
+      $("rl").appendChild(div);
 
 
       text.push(
-        `${i+1}. ${x.member_name}`,
-        `   ${icon} Saldo: ${id(balance)}`,
-        `   📌 NP: ${dt(x.next_pay_date)}${
-          x.next_pay_days != null
-            ?
-            ` (${x.next_pay_days} hari)`
-            :
-            ''
-        }`,
-        ''
+        `${index+1}. ${item.member_name}`,
+        `   ${icon} Saldo: ${money(balance)}`,
+        `   📌 NP: ${dateOnly(item.next_pay_date)}`,
+        ""
       );
 
     }
@@ -1854,516 +1569,439 @@ async function recap(){
 
 
   text.push(
-    '================',
-    '🟢 Saldo aman / ada saldo',
-    '🔴 Tunggakan / saldo minus',
-    '⚠️ TELAT SEHARI',
-    '📌 NP = NextPay'
+    "================",
+    "🟢 Saldo aman / ada saldo",
+    "🔴 Tunggakan / saldo minus",
+    "⚠️ TELAT SEHARI",
+    "📌 NP = NextPay"
   );
 
 
-  $('rt').textContent =
-    text.join('\n');
+  $("rt").textContent =
+    text.join("\n");
 
 
-  st(
-    'rs',
-    `✓ ${recapRows.length} member masuk rekap.`,
+  setMessage(
+    $("rs"),
+    "✓ " +
+    recapData.length +
+    " member masuk rekap.",
     true
   );
 
 }
 
 
-/* =====================================================
-   OPEN PAYMENT PROOF
-===================================================== */
+/* =========================
+   PAYMENT ADMIN
+========================= */
 
-async function proof(
-  path,
-  statusElement
-){
+async function loadPayments(){
 
   const {
     data,
     error
   } =
-  await s.storage
-    .from(
-      PAYMENT_BUCKET
-    )
-    .download(path);
+  await supabase.rpc(
+    "admin_get_payment_requests"
+  );
 
 
-  if(error)
+  if(error){
     throw error;
+  }
 
 
-  const url =
-    URL.createObjectURL(
-      data
-    );
-
-
-  const windowRef =
-    window.open(
-      url,
-      '_blank'
-    );
-
-
-  if(!windowRef)
-    location.href =
-      url;
-
-
-  setTimeout(
-    () =>
-      URL.revokeObjectURL(
-        url
-      ),
-    300000
-  );
-
-
-  st(
-    statusElement,
-    '✓ Bukti dibuka.',
-    true
-  );
-
-}
-
-
-/* =====================================================
-   ADMIN PAYMENTS
-===================================================== */
-
-async function payments(){
-
-  const {
-    data,
-    error
-  } =
-  await s.rpc(
-    'admin_get_payment_requests'
-  );
-
-
-  if(error)
-    throw error;
-
-
-  $('pl').innerHTML =
-    '';
+  $("pl").innerHTML = "";
 
 
   if(!data?.length){
 
-    $('pl').textContent =
-      'Belum ada pengajuan.';
+    $("pl").textContent =
+      "Belum ada pengajuan.";
 
-    st(
-      'ps',
-      '✓ Tidak ada pengajuan pending.',
+    setMessage(
+      $("ps"),
+      "✓ Tidak ada pengajuan pending.",
       true
     );
 
     return;
-
   }
 
 
-  data.forEach(
-    r => {
+  data.forEach(request => {
 
-      const div =
-        document.createElement(
-          'div'
-        );
+    const div =
+      document.createElement("div");
 
 
-      div.className =
-        'item';
+    div.className = "item";
 
 
-      div.innerHTML = `
+    div.innerHTML = `
 
-        <div class="top">
+      <div class="top">
 
-          <b>
-            ${esc(r.member_name)}
-          </b>
+        <b>
+          ${esc(request.member_name)}
+        </b>
 
-          <b>
-            ${id(r.amount)}
-          </b>
+        <b>
+          ${money(request.amount)}
+        </b>
 
-        </div>
+      </div>
 
+      <div class="muted">
 
-        <div class="muted">
+        ${esc(
+          request.payment_type || "KAS"
+        )}
 
-          ${esc(
-            r.payment_type ||
-            'KAS'
-          )}
+        •
+        ${esc(request.status)}
 
-          •
+        •
+        ${dateTime(request.submitted_at)}
 
-          ${esc(
-            r.status
-          )}
+      </div>
 
-          •
-
-          ${esc(
-            wt(r.submitted_at)
-          )}
-
-        </div>
-
-      `;
+    `;
 
 
-      if(
-        r.proof_storage_path
-      ){
+    if(request.proof_storage_path){
 
-        const proofButton =
-          document.createElement(
-            'button'
-          );
+      const proof =
+        document.createElement("button");
 
 
-        proofButton.className =
-          'ghost';
+      proof.className =
+        "ghost";
 
-        proofButton.textContent =
-          'BUKTI';
-
-
-        proofButton.onclick =
-          () =>
-          proof(
-            r.proof_storage_path,
-            'ps'
-          );
+      proof.textContent =
+        "BUKTI";
 
 
-        div.append(
-          proofButton
-        );
+      proof.onclick =
+        async () => {
 
-      }
-
-
-      if(
-        r.status === 'PENDING'
-      ){
-
-        const actions =
-          document.createElement(
-            'div'
-          );
-
-
-        actions.className =
-          'actions';
-
-
-        const approve =
-          document.createElement(
-            'button'
-          );
-
-
-        approve.textContent =
-          '✓ APPROVE';
-
-
-        const reject =
-          document.createElement(
-            'button'
-          );
-
-
-        reject.className =
-          'danger';
-
-        reject.textContent =
-          '✕ REJECT';
-
-
-        approve.onclick =
-          async () => {
-
-            if(
-              !confirm(
-                'Approve pembayaran ini?'
-              )
-            )
-              return;
-
-
-            const {
-              error
-            } =
-            await s.rpc(
-              'admin_approve_payment_request',
-              {
-                p_payment_request_id:
-                  r.id
-              }
+          const {
+            data:file,
+            error
+          } =
+          await supabase.storage
+            .from(BUCKET)
+            .download(
+              request.proof_storage_path
             );
 
 
-            if(error){
+          if(error){
 
-              st(
-                'ps',
-                '❌ ' +
-                error.message
-              );
-
-              return;
-
-            }
-
-
-            await payments();
-            await members();
-            await recap();
-
-          };
-
-
-        reject.onclick =
-          async () => {
-
-            const reason =
-              prompt(
-                'Alasan penolakan:'
-              );
-
-
-            if(
-              !reason ||
-              !reason.trim()
-            )
-              return;
-
-
-            const {
-              error
-            } =
-            await s.rpc(
-              'admin_reject_payment_request',
-              {
-                p_payment_request_id:
-                  r.id,
-                p_rejection_reason:
-                  reason.trim()
-              }
+            setMessage(
+              $("ps"),
+              "❌ " +
+              error.message
             );
 
-
-            if(error){
-
-              st(
-                'ps',
-                '❌ ' +
-                error.message
-              );
-
-              return;
-
-            }
+            return;
+          }
 
 
-            await payments();
-
-          };
-
-
-        actions.append(
-          approve,
-          reject
-        );
+          const url =
+            URL.createObjectURL(file);
 
 
-        div.append(
-          actions
-        );
+          window.open(
+            url,
+            "_blank"
+          );
 
-      }
+
+          setTimeout(
+            () =>
+              URL.revokeObjectURL(url),
+            300000
+          );
+
+        };
 
 
-      $('pl').append(
-        div
-      );
+      div.appendChild(proof);
 
     }
-  );
 
 
-  st(
-    'ps',
-    `✓ ${data.length} pengajuan ditampilkan.`,
+    if(request.status === "PENDING"){
+
+      const actions =
+        document.createElement("div");
+
+
+      actions.className =
+        "actions";
+
+
+      const approve =
+        document.createElement("button");
+
+
+      approve.textContent =
+        "✓ APPROVE";
+
+
+      approve.onclick =
+        async () => {
+
+          if(
+            !confirm(
+              "Approve pembayaran ini?"
+            )
+          ){
+            return;
+          }
+
+
+          const {
+            error
+          } =
+          await supabase.rpc(
+            "admin_approve_payment_request",
+            {
+              p_payment_request_id:
+                request.id
+            }
+          );
+
+
+          if(error){
+
+            setMessage(
+              $("ps"),
+              "❌ " +
+              error.message
+            );
+
+            return;
+          }
+
+
+          await loadPayments();
+          await loadMembers();
+          await loadRecap();
+
+        };
+
+
+      const reject =
+        document.createElement("button");
+
+
+      reject.className =
+        "danger";
+
+      reject.textContent =
+        "✕ REJECT";
+
+
+      reject.onclick =
+        async () => {
+
+          const reason =
+            prompt(
+              "Alasan penolakan:"
+            );
+
+
+          if(!reason?.trim()){
+            return;
+          }
+
+
+          const {
+            error
+          } =
+          await supabase.rpc(
+            "admin_reject_payment_request",
+            {
+              p_payment_request_id:
+                request.id,
+              p_rejection_reason:
+                reason.trim()
+            }
+          );
+
+
+          if(error){
+
+            setMessage(
+              $("ps"),
+              "❌ " +
+              error.message
+            );
+
+            return;
+          }
+
+
+          await loadPayments();
+
+        };
+
+
+      actions.append(
+        approve,
+        reject
+      );
+
+
+      div.appendChild(actions);
+
+    }
+
+
+    $("pl").appendChild(div);
+
+  });
+
+
+  setMessage(
+    $("ps"),
+    "✓ " +
+    data.length +
+    " pengajuan ditampilkan.",
     true
   );
 
 }
 
 
-/* =====================================================
+/* =========================
    MEMBER FINANCIAL
-===================================================== */
+========================= */
 
 let financialData = null;
 
 
-async function financial(){
+async function loadFinancial(){
 
   const {
     data,
     error
   } =
-  await s.rpc(
-    'member_financial_summary'
+  await supabase.rpc(
+    "member_financial_summary"
   );
 
 
-  if(error)
+  if(error){
     throw error;
+  }
 
 
   financialData =
     Array.isArray(data)
-      ?
-      data[0]
-      :
-      data;
+      ? data[0]
+      : data;
 
 
   if(!financialData){
 
-    throw Error(
-      'Data keuangan tidak ditemukan.'
+    throw new Error(
+      "Data keuangan tidak ditemukan."
     );
 
   }
 
 
   const balance =
-    +financialData.balance || 0;
+    Number(financialData.balance) || 0;
 
 
-  $('mb').textContent =
-    id(balance);
+  $("mb").textContent =
+    money(balance);
 
 
-  $('mb').className =
+  $("mb").className =
     balance < 0
-      ?
-      'red'
-      :
-      'green';
+      ? "red"
+      : "green";
 
 
-  $('mt').textContent =
-    financialData.status_text ||
-    '-';
+  $("mt").textContent =
+    financialData.status_text || "-";
 
 
-  $('mt').className =
-    financialData.status_code ===
-      'LATE_ONE_DAY'
-      ?
-      'yellow'
-      :
-      (
-        balance < 0
-          ?
-          'red'
-          :
-          'green'
-      );
+  $("mt").className =
+    balance < 0
+      ? "red"
+      : "green";
 
 
-  $('md').textContent =
-    id(
+  $("md").textContent =
+    money(
       financialData.daily_amount
     );
 
 
-  $('mp').textContent =
-    dt(
+  $("mp").textContent =
+    dateOnly(
       financialData.next_pay_date
     );
 
 
-  $('mf').textContent =
-`KAS/hari: ${id(financialData.daily_amount)}
-Kewajiban: ${id(financialData.total_due)}
-Pembayaran: ${id(financialData.total_paid)}
-Saldo: ${id(balance)}
-Saldo positif: ${id(financialData.positive_balance)}
-Tunggakan: ${id(financialData.arrears)}
-📌 NextPay: ${dt(financialData.next_pay_date)}${
-  financialData.next_pay_days != null
-    ?
-    ` (${financialData.next_pay_days} hari)`
-    :
-    ''
-}`;
+  $("mf").textContent =
+`KAS / hari: ${money(financialData.daily_amount)}
+Kewajiban: ${money(financialData.total_due)}
+Pembayaran: ${money(financialData.total_paid)}
+Saldo: ${money(balance)}
+Saldo positif: ${money(financialData.positive_balance)}
+Tunggakan: ${money(financialData.arrears)}
+📌 NextPay: ${dateOnly(financialData.next_pay_date)}
+${financialData.next_pay_days != null
+  ? `(${financialData.next_pay_days} hari)`
+  : ""}`;
 
 
-  if(!$('pa').value){
-
-    $('pa').value =
-      balance < 0
-        ?
-        Math.abs(balance)
-        :
-        (
-          balance ||
-          ''
-        );
-
-  }
-
-
-  paymentInfo();
+  updatePaymentInfo();
 
 }
 
 
-/* =====================================================
-   PAYMENT INFO
-===================================================== */
+/* =========================
+   PAYMENT PREVIEW
+========================= */
 
-function paymentInfo(){
+function updatePaymentInfo(){
+
+  if(!financialData){
+    return;
+  }
+
 
   const amount =
-    +$('pa').value || 0;
+    Number(
+      $("pa").value
+    ) || 0;
+
 
   const balance =
-    +financialData?.balance || 0;
+    Number(
+      financialData.balance
+    ) || 0;
 
 
   if(!amount){
 
-    $('pi').textContent =
-      'Nominal belum ditentukan.';
+    $("pi").textContent =
+      "Nominal belum ditentukan.";
 
     return;
-
   }
 
 
-  const remaining =
-    amount -
+  const arrears =
     Math.max(
       0,
       Math.abs(
@@ -2376,186 +2014,132 @@ function paymentInfo(){
 
 
   const excess =
-    amount -
     Math.max(
       0,
-      Math.abs(
-        Math.min(
-          0,
-          balance
-        )
-      )
-    ) -
-    Math.max(
-      0,
-      balance
+      amount - arrears
     );
 
 
-  if(
-    balance < 0
-  ){
+  if(balance < 0){
 
-    $('pi').textContent =
+    $("pi").textContent =
       excess > 0
-        ?
-        `Pembayaran ${id(amount)} • tunggakan ditutup, kelebihan ${id(excess)} menjadi saldo KAS.`
-        :
-        `Pembayaran ${id(amount)} • dialokasikan ke tunggakan terlebih dahulu.`;
 
-  }else{
+      ? `Pembayaran ${money(amount)} • tunggakan ditutup terlebih dahulu, kelebihan ${money(excess)} menjadi saldo.`
 
-    $('pi').textContent =
+      : `Pembayaran ${money(amount)} • dialokasikan ke tunggakan terlebih dahulu.`;
+
+  }
+
+  else{
+
+    $("pi").textContent =
       excess > 0
-        ?
-        `Pembayaran ${id(amount)} • kelebihan menjadi saldo KAS.`
-        :
-        `Pengajuan pembayaran ${id(amount)}.`;
+
+      ? `Pembayaran ${money(amount)} • kelebihan menjadi saldo KAS.`
+
+      : `Pembayaran ${money(amount)}.`;
 
   }
 
 }
 
 
-/* =====================================================
+/* =========================
    MEMBER HISTORY
-===================================================== */
+========================= */
 
-async function history(){
+async function loadHistory(){
 
   const {
     data,
     error
   } =
-  await s.rpc(
-    'member_payment_history'
+  await supabase.rpc(
+    "member_payment_history"
   );
 
 
-  if(error)
+  if(error){
     throw error;
+  }
 
 
-  $('hl').innerHTML =
-    '';
+  $("hl").innerHTML = "";
 
 
   if(!data?.length){
 
-    $('hl').textContent =
-      'Belum ada riwayat.';
+    $("hl").textContent =
+      "Belum ada riwayat.";
 
-    st(
-      'hs',
-      'Belum ada riwayat pembayaran.',
+
+    setMessage(
+      $("hs"),
+      "✓ Belum ada riwayat pembayaran.",
       true
     );
 
     return;
-
   }
 
 
-  data.forEach(
-    r => {
+  data.forEach(item => {
 
-      const div =
-        document.createElement(
-          'div'
-        );
+    const div =
+      document.createElement("div");
 
 
-      div.className =
-        'item';
+    div.className =
+      "item";
 
 
-      div.innerHTML = `
+    div.innerHTML = `
 
-        <div class="top">
+      <div class="top">
 
-          <b>
-            ${esc(
-              r.payment_type ||
-              'KAS'
-            )}
-          </b>
-
-          <b>
-            ${id(r.amount)}
-          </b>
-
-        </div>
-
-
-        <div class="muted">
-
+        <b>
           ${esc(
-            r.status
+            item.payment_type || "KAS"
           )}
+        </b>
 
-          •
+        <b>
+          ${money(item.amount)}
+        </b>
 
-          ${esc(
-            wt(r.submitted_at)
-          )}
+      </div>
 
-        </div>
+      <div class="muted">
 
-      `;
+        ${esc(item.status)}
+        •
+        ${dateTime(item.submitted_at)}
 
+      </div>
 
-      if(
-        r.proof_storage_path
-      ){
-
-        const button =
-          document.createElement(
-            'button'
-          );
+    `;
 
 
-        button.className =
-          'ghost';
+    $("hl").appendChild(div);
 
-        button.textContent =
-          'BUKTI';
+  });
 
 
-        button.onclick =
-          () =>
-          proof(
-            r.proof_storage_path,
-            'hs'
-          );
-
-
-        div.append(
-          button
-        );
-
-      }
-
-
-      $('hl').append(
-        div
-      );
-
-    }
-  );
-
-
-  st(
-    'hs',
-    `✓ ${data.length} riwayat ditampilkan.`,
+  setMessage(
+    $("hs"),
+    "✓ " +
+    data.length +
+    " riwayat ditampilkan.",
     true
   );
 
 }
 
 
-/* =====================================================
+/* =========================
    MEMBER BOOT
-===================================================== */
+========================= */
 
 async function memberBoot(){
 
@@ -2563,73 +2147,76 @@ async function memberBoot(){
     data:user,
     error:userError
   } =
-  await s.auth.getUser();
+  await supabase.auth.getUser();
 
 
-  if(userError)
+  if(userError){
     throw userError;
+  }
 
 
-  if(!user)
-    throw Error(
-      'Session login tidak ditemukan.'
-    );
+  if(!user){
 
-
-  const {
-    data:member,
-    error:memberError
-  } =
-  await s
-    .from('members')
-    .select(
-      'id,member_name,status,is_kas_exempt'
-    )
-    .eq(
-      'auth_user_id',
-      user.id
-    )
-    .maybeSingle();
-
-
-  if(memberError)
-    throw memberError;
-
-
-  if(!member)
-    throw Error(
-      'Akun belum terhubung dengan member.'
-    );
-
-
-  if(
-    member.status !==
-    'ACTIVE'
-  ){
-
-    throw Error(
-      'Status member tidak ACTIVE.'
+    throw new Error(
+      "Session login tidak ditemukan."
     );
 
   }
 
 
-  $('wel').textContent =
-    'Halo, ' +
+  const {
+    data:member,
+    error
+  } =
+  await supabase
+    .from("members")
+    .select(
+      "id,member_name,status,is_kas_exempt"
+    )
+    .eq(
+      "auth_user_id",
+      user.id
+    )
+    .maybeSingle();
+
+
+  if(error){
+    throw error;
+  }
+
+
+  if(!member){
+
+    throw new Error(
+      "Akun belum terhubung dengan member."
+    );
+
+  }
+
+
+  if(member.status !== "ACTIVE"){
+
+    throw new Error(
+      "Status member tidak ACTIVE."
+    );
+
+  }
+
+
+  $("wel").textContent =
+    "Halo, " +
     member.member_name;
 
 
-  if(
-    member.is_kas_exempt
-  ){
+  if(member.is_kas_exempt){
 
-    $('mt').textContent =
-      'KAS EXEMPT';
+    $("mt").textContent =
+      "KAS EXEMPT";
 
-    $('mf').textContent =
-      'Member ini dibebaskan dari kewajiban KAS.';
+    $("mf").textContent =
+      "Member ini dibebaskan dari kewajiban KAS.";
 
-    $('sp').disabled =
+    $("sp").disabled =
       true;
 
     return;
@@ -2637,32 +2224,19 @@ async function memberBoot(){
   }
 
 
-  $('sp').disabled =
+  $("sp").disabled =
     false;
 
 
-  await financial();
-  await history();
+  await loadFinancial();
+  await loadHistory();
 
 }
 
 
-/* =====================================================
-   ADMIN BOOT
-===================================================== */
-
-async function adminBoot(){
-
-  await members();
-  await payments();
-  await recap();
-
-}
-
-
-/* =====================================================
-   ROUTE
-===================================================== */
+/* =========================
+   ROUTER
+========================= */
 
 async function route(){
 
@@ -2670,135 +2244,69 @@ async function route(){
     data:user,
     error:userError
   } =
-  await s.auth.getUser();
+  await supabase.auth.getUser();
 
 
-  if(userError)
+  if(userError){
     throw userError;
+  }
 
 
-  if(!user)
-    throw Error(
-      'Session tidak ditemukan.'
+  if(!user){
+
+    throw new Error(
+      "Session tidak ditemukan."
     );
+
+  }
 
 
   const {
     data:isAdmin,
     error:adminError
   } =
-  await s.rpc(
-    'is_admin'
+  await supabase.rpc(
+    "is_admin"
   );
 
 
-  if(adminError)
+  if(adminError){
     throw adminError;
+  }
 
 
   if(isAdmin){
 
-    sh('admin');
+    show("admin");
 
-    await adminBoot();
-
-    return;
+    await loadMembers();
+    await loadPayments();
+    await loadRecap();
 
   }
 
+  else{
 
-  sh('member');
+    show("member");
 
-  await memberBoot();
+    await memberBoot();
+
+  }
 
 }
 
 
-/* =====================================================
-   ADMIN REFRESH
-===================================================== */
+/* =========================
+   ADMIN SETTINGS
+========================= */
 
-$('rm').onclick =
-  () =>
-  members()
-    .catch(
-      e =>
-      st(
-        'ms',
-        '❌ ' +
-        e.message
-      )
-    );
-
-
-$('rp').onclick =
-  () =>
-  payments()
-    .catch(
-      e =>
-      st(
-        'ps',
-        '❌ ' +
-        e.message
-      )
-    );
-
-
-$('rr').onclick =
-  () =>
-  recap()
-    .catch(
-      e =>
-      st(
-        'rs',
-        '❌ ' +
-        e.message
-      )
-    );
-
-
-/* =====================================================
-   COPY RECAP
-===================================================== */
-
-$('cp').onclick =
-  async () => {
-
-    try{
-
-      await navigator.clipboard.writeText(
-        $('rt').textContent
-      );
-
-
-      st(
-        'rs',
-        '✓ Rekap disalin.',
-        true
-      );
-
-
-    }catch{
-
-      st(
-        'rs',
-        '❌ Gagal menyalin.'
-      );
-
-    }
-
-  };
-
-
-/* =====================================================
-   KAS SETTING
-===================================================== */
-
-$('sk').onclick =
+$("sk").onclick =
   async () => {
 
     const amount =
-      +$('ka').value;
+      Number(
+        $("ka").value
+      );
 
 
     if(
@@ -2806,21 +2314,20 @@ $('sk').onclick =
       amount <= 0
     ){
 
-      st(
-        'ss',
-        '❌ Nominal KAS tidak valid.'
+      setMessage(
+        $("ss"),
+        "❌ Nominal KAS tidak valid."
       );
 
       return;
-
     }
 
 
     const {
       error
     } =
-    await s.rpc(
-      'admin_update_kas_daily_amount',
+    await supabase.rpc(
+      "admin_update_kas_daily_amount",
       {
         p_amount:amount
       }
@@ -2829,44 +2336,37 @@ $('sk').onclick =
 
     if(error){
 
-      st(
-        'ss',
-        '❌ ' +
+      setMessage(
+        $("ss"),
+        "❌ " +
         error.message
       );
 
       return;
-
     }
 
 
-    st(
-      'ss',
-      '✓ KAS: ' +
-      id(amount),
+    setMessage(
+      $("ss"),
+      "✓ KAS: " +
+      money(amount),
       true
     );
 
 
-    $('ka').value =
-      '';
-
-
-    await members();
-    await recap();
+    await loadMembers();
+    await loadRecap();
 
   };
 
 
-/* =====================================================
-   ADM SETTING
-===================================================== */
-
-$('sa').onclick =
+$("sa").onclick =
   async () => {
 
     const amount =
-      +$('ad').value;
+      Number(
+        $("ad").value
+      );
 
 
     if(
@@ -2874,21 +2374,20 @@ $('sa').onclick =
       amount < 0
     ){
 
-      st(
-        'ss',
-        '❌ Nominal ADM tidak valid.'
+      setMessage(
+        $("ss"),
+        "❌ Nominal ADM tidak valid."
       );
 
       return;
-
     }
 
 
     const {
       error
     } =
-    await s.rpc(
-      'admin_update_adm_amount',
+    await supabase.rpc(
+      "admin_update_adm_amount",
       {
         p_amount:amount
       }
@@ -2897,85 +2396,82 @@ $('sa').onclick =
 
     if(error){
 
-      st(
-        'ss',
-        '❌ ' +
+      setMessage(
+        $("ss"),
+        "❌ " +
         error.message
       );
 
       return;
-
     }
 
 
-    st(
-      'ss',
-      '✓ ADM: ' +
-      id(amount),
+    setMessage(
+      $("ss"),
+      "✓ ADM: " +
+      money(amount),
       true
     );
-
-
-    $('ad').value =
-      '';
 
   };
 
 
-/* =====================================================
+/* =========================
    CREATE MEMBER
-===================================================== */
+========================= */
 
-$('cm').onclick =
+$("cm").onclick =
   async () => {
 
-    const nickname =
-      $('mn')
-        .value
-        .trim();
-
+    const name =
+      $("mn").value.trim();
 
     const whatsapp =
-      normalizeWhatsApp(
-        $('mw').value
+      normalizePhone(
+        $("mw").value
       );
 
 
-    $('mw').value =
-      whatsapp;
+    if(!name){
 
-
-    if(
-      !nickname ||
-      !$('mj').value
-    ){
-
-      st(
-        'cs',
-        '❌ Nickname dan tanggal join wajib diisi.'
+      setMessage(
+        $("cs"),
+        "❌ Nickname wajib diisi."
       );
 
       return;
+    }
 
+
+    if(!$("mj").value){
+
+      setMessage(
+        $("cs"),
+        "❌ Tanggal join wajib diisi."
+      );
+
+      return;
     }
 
 
     if(
       whatsapp &&
-      whatsapp.length < 8
+      (
+        whatsapp.length < 9 ||
+        whatsapp.length > 15
+      )
     ){
 
-      st(
-        'cs',
-        '❌ Nomor WhatsApp tidak valid.'
+      setMessage(
+        $("cs"),
+        "❌ Nomor WhatsApp tidak valid."
       );
 
       return;
-
     }
 
 
-    $('cm').disabled =
+    $("cm").disabled =
       true;
 
 
@@ -2985,63 +2481,62 @@ $('cm').onclick =
         data,
         error
       } =
-      await s.rpc(
-        'create_member',
+      await supabase.rpc(
+        "create_member",
         {
-          p_member_name:nickname,
+          p_member_name:name,
           p_whatsapp_number:
             whatsapp || null,
           p_joined_at:
-            $('mj').value +
-            ':00+07:00',
-          p_member_type:'NORMAL',
+            $("mj").value +
+            ":00+07:00",
+          p_member_type:"NORMAL",
           p_notes:
-            $('mx').value.trim() ||
+            $("mx").value.trim() ||
             null
         }
       );
 
 
-      if(error)
+      if(error){
         throw error;
+      }
 
 
-      st(
-        'cs',
-        '✓ Member dibuat: ' +
+      setMessage(
+        $("cs"),
+        "✓ Member berhasil dibuat: " +
         data,
         true
       );
 
 
-      $('mn').value =
-        '';
-
-      $('mw').value =
-        '';
-
-      $('mx').value =
-        '';
+      $("mn").value = "";
+      $("mw").value = "";
+      $("mx").value = "";
 
 
-      setJoinDate();
+      await loadMembers();
+      await loadRecap();
 
+    }
 
-      await members();
-      await recap();
+    catch(error){
 
-
-    }catch(error){
-
-      st(
-        'cs',
-        '❌ ' +
-        error.message
+      setMessage(
+        $("cs"),
+        "❌ " +
+        (
+          error?.message ||
+          "Gagal membuat member."
+        )
       );
 
-    }finally{
+    }
 
-      $('cm').disabled =
+    finally{
+
+      $("cm").disabled =
         false;
 
     }
@@ -3049,29 +2544,47 @@ $('cm').onclick =
   };
 
 
-/* =====================================================
-   PAYMENT AMOUNT
-===================================================== */
+/* =========================
+   MEMBER PAYMENT
+========================= */
 
-$('pa').addEventListener(
-  'input',
-  paymentInfo
+$("pa").addEventListener(
+  "input",
+  async () => {
+
+    if(!financialData){
+
+      try{
+
+        await loadFinancial();
+
+      }
+
+      catch{
+
+        return;
+
+      }
+
+    }
+
+    updatePaymentInfo();
+
+  }
 );
 
 
-/* =====================================================
-   MEMBER PAYMENT SUBMIT
-===================================================== */
-
-$('sp').onclick =
+$("sp").onclick =
   async () => {
 
     const amount =
-      +$('pa').value;
+      Number(
+        $("pa").value
+      );
 
 
     const file =
-      $('pf').files[0];
+      $("pf").files[0];
 
 
     if(
@@ -3079,40 +2592,34 @@ $('sp').onclick =
       amount <= 0
     ){
 
-      st(
-        'sm',
-        '❌ Nominal pembayaran tidak valid.'
+      setMessage(
+        $("sm"),
+        "❌ Nominal pembayaran tidak valid."
       );
 
       return;
-
     }
 
 
     if(!file){
 
-      st(
-        'sm',
-        '❌ Bukti pembayaran wajib dipilih.'
+      setMessage(
+        $("sm"),
+        "❌ Bukti pembayaran wajib dipilih."
       );
 
       return;
-
     }
 
 
-    if(
-      file.size >
-      5242880
-    ){
+    if(file.size > 5242880){
 
-      st(
-        'sm',
-        '❌ File maksimal 5 MB.'
+      setMessage(
+        $("sm"),
+        "❌ File maksimal 5 MB."
       );
 
       return;
-
     }
 
 
@@ -3120,85 +2627,73 @@ $('sp').onclick =
       data:user,
       error:userError
     } =
-    await s.auth.getUser();
+    await supabase.auth.getUser();
 
 
-    if(userError)
-      throw userError;
+    if(userError || !user){
 
-
-    if(!user){
-
-      st(
-        'sm',
-        '❌ Session login hilang.'
+      setMessage(
+        $("sm"),
+        "❌ Session login hilang."
       );
 
       return;
-
     }
 
 
     const extension =
       file.name
-        .split('.')
-        .pop()
-        .toLowerCase();
+      .split(".")
+      .pop()
+      .toLowerCase();
 
 
     const path =
       user.id +
-      '/' +
+      "/" +
       crypto.randomUUID() +
-      '.' +
+      "." +
       extension;
 
 
-    $('sp').disabled =
+    $("sp").disabled =
       true;
 
 
     try{
 
-      st(
-        'sm',
-        'Upload bukti...'
-      );
-
-
       const {
         error:uploadError
       } =
-      await s.storage
-        .from(
-          PAYMENT_BUCKET
-        )
+      await supabase.storage
+        .from(BUCKET)
         .upload(
           path,
           file,
           {
-            cacheControl:'3600',
+            cacheControl:"3600",
             upsert:false,
             contentType:file.type
           }
         );
 
 
-      if(uploadError)
+      if(uploadError){
         throw uploadError;
+      }
 
 
       const {
         data:requestId,
         error:submitError
       } =
-      await s.rpc(
-        'submit_kas_payment',
+      await supabase.rpc(
+        "submit_kas_payment",
         {
           p_amount:amount,
           p_proof_storage_path:path,
           p_notes:
-            $('pn').value.trim() ||
+            $("pn").value.trim() ||
             null
         }
       );
@@ -3206,10 +2701,8 @@ $('sp').onclick =
 
       if(submitError){
 
-        await s.storage
-          .from(
-            PAYMENT_BUCKET
-          )
+        await supabase.storage
+          .from(BUCKET)
           .remove([path])
           .catch(()=>{});
 
@@ -3218,37 +2711,40 @@ $('sp').onclick =
       }
 
 
-      $('pf').value =
-        '';
-
-      $('pn').value =
-        '';
+      $("pa").value = "";
+      $("pf").value = "";
+      $("pn").value = "";
 
 
-      st(
-        'sm',
-        '✓ Pengajuan berhasil: ' +
+      setMessage(
+        $("sm"),
+        "✓ Pengajuan berhasil: " +
         requestId,
         true
       );
 
 
-      await financial();
-      await history();
+      await loadFinancial();
+      await loadHistory();
 
+    }
 
-    }catch(error){
+    catch(error){
 
-      st(
-        'sm',
-        '❌ ' +
-        error.message
+      setMessage(
+        $("sm"),
+        "❌ " +
+        (
+          error?.message ||
+          "Gagal mengajukan pembayaran."
+        )
       );
 
+    }
 
-    }finally{
+    finally{
 
-      $('sp').disabled =
+      $("sp").disabled =
         false;
 
     }
@@ -3256,82 +2752,138 @@ $('sp').onclick =
   };
 
 
-/* =====================================================
-   MEMBER REFRESH
-===================================================== */
+/* =========================
+   REFRESH / COPY / LOGOUT
+========================= */
 
-$('rh').onclick =
+$("rm").onclick =
   () =>
-  history()
+    loadMembers()
     .catch(
-      e =>
-      st(
-        'hs',
-        '❌ ' +
-        e.message
-      )
+      error =>
+        setMessage(
+          $("ms"),
+          "❌ " + error.message
+        )
     );
 
 
-$('mr').onclick =
+$("rp").onclick =
   () =>
-  memberBoot()
+    loadPayments()
     .catch(
-      e =>
-      st(
-        'mf',
-        '❌ ' +
-        e.message
-      )
+      error =>
+        setMessage(
+          $("ps"),
+          "❌ " + error.message
+        )
     );
 
 
-/* =====================================================
-   LOGOUT
-===================================================== */
+$("rr").onclick =
+  () =>
+    loadRecap()
+    .catch(
+      error =>
+        setMessage(
+          $("rs"),
+          "❌ " + error.message
+        )
+    );
+
+
+$("cp").onclick =
+  async () => {
+
+    try{
+
+      await navigator.clipboard
+        .writeText(
+          $("rt").textContent
+        );
+
+
+      setMessage(
+        $("rs"),
+        "✓ Rekap berhasil disalin.",
+        true
+      );
+
+    }
+
+    catch{
+
+      setMessage(
+        $("rs"),
+        "❌ Gagal menyalin rekap."
+      );
+
+    }
+
+  };
+
+
+$("rh").onclick =
+  () =>
+    loadHistory()
+    .catch(
+      error =>
+        setMessage(
+          $("hs"),
+          "❌ " + error.message
+        )
+    );
+
+
+$("mr").onclick =
+  () =>
+    memberBoot()
+    .catch(
+      error =>
+        setMessage(
+          $("mf"),
+          "❌ " + error.message
+        )
+    );
+
 
 async function logout(){
 
-  await s.auth.signOut();
+  await supabase.auth
+    .signOut()
+    .catch(()=>{});
 
-  sh('login');
 
-  $('pass').value =
-    '';
+  show("login");
 
-  $('wa').value =
-    '';
 
-  st(
-    'loginMsg',
-    'Sudah logout.',
+  $("wa").value = "";
+  $("pass").value = "";
+
+
+  setMessage(
+    $("loginMsg"),
+    "Sudah logout.",
     true
   );
 
 }
 
 
-$('al').onclick =
+$("al").onclick =
   logout;
 
 
-$('mlg').onclick =
+$("mlg").onclick =
   logout;
 
 
-/* =====================================================
-   AUTH STATE
-===================================================== */
-
-s.auth.onAuthStateChange(
+supabase.auth.onAuthStateChange(
   event => {
 
-    if(
-      event ===
-      'SIGNED_OUT'
-    ){
+    if(event === "SIGNED_OUT"){
 
-      sh('login');
+      show("login");
 
     }
 
@@ -3339,50 +2891,51 @@ s.auth.onAuthStateChange(
 );
 
 
-/* =====================================================
-   START APPLICATION
-===================================================== */
+/* =========================
+   INITIAL LOAD
+========================= */
 
-(async()=>{
+(async () => {
 
   try{
 
     const {
       data
     } =
-    await s.auth.getSession();
+    await supabase.auth
+      .getSession();
 
 
-    if(
-      data &&
-      data.session
-    ){
+    if(data?.session){
 
       await route();
 
-    }else{
+    }
 
-      sh('login');
+    else{
+
+      show("login");
 
     }
 
+  }
 
-  }catch(error){
+  catch(error){
 
-    await s.auth
+    await supabase.auth
       .signOut()
       .catch(()=>{});
 
 
-    sh('login');
+    show("login");
 
 
-    st(
-      'loginMsg',
-      '❌ ' +
+    setMessage(
+      $("loginMsg"),
+      "❌ " +
       (
-        error.message ||
-        'Aplikasi gagal dimuat.'
+        error?.message ||
+        "Gagal memuat sistem."
       )
     );
 
