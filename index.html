@@ -4,1555 +4,3389 @@ index.html
 <html lang="id">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>KAS SOS — Street Of Style</title>
+
 <style>
-:root{--g:#39d463;--r:#ff626b;--y:#f3c94b;--b:#62b8ff;--t:#edf7ef;--m:#98a89e;--p:#070b08e8;--l:#26362c}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;color:var(--t);font:11px Arial;background:#020403 url('./background.jpg') center/cover fixed no-repeat}
-body:before{content:"";position:fixed;inset:0;background:#0009;z-index:-1}
-.wrap{max-width:680px;margin:8px auto;padding:0 6px}
-.card,.stat,.item{background:var(--p);border:1px solid var(--l);border-radius:9px;padding:9px;margin:6px 0;backdrop-filter:blur(5px)}
+:root{
+  --g:#39d463;
+  --r:#ff626b;
+  --y:#f3c94b;
+  --b:#62b8ff;
+  --t:#edf7ef;
+  --m:#98a89e;
+  --p:#070b08ed;
+  --l:#26362c;
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--t);
+  font:11px Arial,sans-serif;
+  background:#020403 url('./background.jpg') center/cover fixed no-repeat;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:#0009;
+  z-index:-1;
+}
+
+.wrap{
+  max-width:680px;
+  margin:8px auto;
+  padding:0 6px;
+}
+
+.card,
+.stat,
+.item{
+  background:var(--p);
+  border:1px solid var(--l);
+  border-radius:9px;
+  padding:9px;
+  margin:6px 0;
+  backdrop-filter:blur(5px);
+}
+
 .hidden{display:none}
-.brand{max-width:390px;margin:12vh auto}
-.row,.top,.title,.actions{display:flex;gap:6px;align-items:center}
-.top,.title{justify-content:space-between}
-.grid{display:grid;gap:6px}
-.g2{grid-template-columns:1fr 1fr}
-.g3{grid-template-columns:repeat(3,1fr)}
-h1{font-size:19px;margin:0}
-h2{font-size:13px;margin:0 0 7px}
-.sub,.muted{color:var(--m)}
-.sub{color:var(--g);font-weight:700;margin:2px 0 10px}
-.stat b{display:block;font-size:14px;margin-top:2px}
+
+.brand{
+  max-width:390px;
+  margin:8vh auto;
+}
+
+.row,
+.top,
+.title,
+.actions{
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+
+.top,
+.title{
+  justify-content:space-between;
+}
+
+.grid{
+  display:grid;
+  gap:6px;
+}
+
+.g2{
+  grid-template-columns:1fr 1fr;
+}
+
+.g3{
+  grid-template-columns:repeat(3,1fr);
+}
+
+h1{
+  font-size:19px;
+  margin:0;
+}
+
+h2{
+  font-size:13px;
+  margin:0 0 7px;
+}
+
+.sub,
+.muted{
+  color:var(--m);
+}
+
+.sub{
+  color:var(--g);
+  font-weight:700;
+  margin:2px 0 10px;
+}
+
+.stat b{
+  display:block;
+  font-size:14px;
+  margin-top:2px;
+}
+
 .green{color:var(--g)}
 .red{color:var(--r)}
 .yellow{color:var(--y)}
 .blue{color:var(--b)}
-label{display:block;font-size:9px;font-weight:700;margin:5px 0 2px}
-input,select,textarea{width:100%;background:#040805;color:#fff;border:1px solid #2c3c32;border-radius:6px;padding:7px;font:11px Arial}
-textarea{min-height:50px}
-button{border:1px solid #31994a;background:#14823a;color:#fff;border-radius:6px;padding:7px 8px;font:700 9px Arial;cursor:pointer}
-button:disabled{opacity:.45}
-.ghost{background:#101813;border-color:#34473a}
-.danger{background:#792129;border-color:#a83b45}
-.warn{background:#67510f;border-color:#9e7b20}
-.bluebtn{background:#145b91;border-color:#2b80c2}
-.purple{background:#56209a;border-color:#7d45c8}
-.actions>*{flex:1}
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:8px 0}
-.tabs button.active{background:#14823a;border-color:#39d463}
-.badge{font-size:8px;padding:3px 6px;border-radius:99px;background:#16341e;color:#a8f3b4;border:1px solid #2a6938}
-.badge.r{background:#40171b;color:#ffb0b4;border-color:#703039}
-.badge.y{background:#443612;color:#f8df83;border-color:#75601e}
-.status{white-space:pre-wrap;margin-top:6px;padding:7px;border:1px solid #24352a;border-radius:6px;color:#b9c9be;background:#050b07}
-.ok{border-color:#286b39;color:#aaf4b5}
-.err{border-color:#70323a;color:#ffadb2}
-.copy{font:9px/1.45 monospace;white-space:pre-wrap;max-height:200px;overflow:auto;background:#030604;border:1px dashed #304237;padding:7px;border-radius:6px}
-.foot{text-align:center;color:#7c8c82;font-size:8px;padding:8px}
-@media(max-width:520px){.g3{grid-template-columns:1fr 1fr}.brand{margin-top:8vh}}
+
+label{
+  display:block;
+  font-size:9px;
+  font-weight:700;
+  margin:5px 0 2px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  background:#040805;
+  color:#fff;
+  border:1px solid #2c3c32;
+  border-radius:6px;
+  padding:8px;
+  font:11px Arial,sans-serif;
+  outline:none;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:var(--g);
+  box-shadow:0 0 0 1px #39d46333;
+}
+
+textarea{
+  min-height:50px;
+  resize:vertical;
+}
+
+button{
+  border:1px solid #31994a;
+  background:#14823a;
+  color:#fff;
+  border-radius:6px;
+  padding:8px;
+  font:700 9px Arial,sans-serif;
+  cursor:pointer;
+  min-height:31px;
+}
+
+button:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+.ghost{
+  background:#101813;
+  border-color:#34473a;
+}
+
+.danger{
+  background:#792129;
+  border-color:#a83b45;
+}
+
+.warn{
+  background:#67510f;
+  border-color:#9e7b20;
+}
+
+.bluebtn{
+  background:#145b91;
+  border-color:#2b80c2;
+}
+
+.purple{
+  background:#56209a;
+  border-color:#7d45c8;
+}
+
+.actions>*{
+  flex:1;
+}
+
+.tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5px;
+  margin:8px 0;
+}
+
+.tabs button.active{
+  background:#14823a;
+  border-color:#39d463;
+}
+
+.badge{
+  font-size:8px;
+  padding:3px 6px;
+  border-radius:99px;
+  background:#16341e;
+  color:#a8f3b4;
+  border:1px solid #2a6938;
+}
+
+.badge.r{
+  background:#40171b;
+  color:#ffb0b4;
+  border-color:#703039;
+}
+
+.badge.y{
+  background:#443612;
+  color:#f8df83;
+  border-color:#75601e;
+}
+
+.status{
+  white-space:pre-wrap;
+  margin-top:6px;
+  padding:7px;
+  border:1px solid #24352a;
+  border-radius:6px;
+  color:#b9c9be;
+  background:#050b07;
+}
+
+.ok{
+  border-color:#286b39;
+  color:#aaf4b5;
+}
+
+.err{
+  border-color:#70323a;
+  color:#ffadb2;
+}
+
+.copy{
+  font:9px/1.45 monospace;
+  white-space:pre-wrap;
+  max-height:200px;
+  overflow:auto;
+  background:#030604;
+  border:1px dashed #304237;
+  padding:7px;
+  border-radius:6px;
+}
+
+.foot{
+  text-align:center;
+  color:#7c8c82;
+  font-size:8px;
+  padding:8px;
+}
+
+@media(max-width:520px){
+  .g3{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .brand{
+    margin-top:5vh;
+  }
+
+  h1{
+    font-size:17px;
+  }
+}
 </style>
 </head>
 
 <body>
+
 <main class="wrap">
 
+<!-- ================= LOGIN ================= -->
+
 <section id="login" class="card brand">
-<div class="row">
-<b style="font-size:22px">💰</b>
-<div>
-<h1>KAS SOS — Street Of Style</h1>
-<div class="sub">KAS MANAGEMENT</div>
-</div>
-</div>
 
-<div class="tabs">
-<button id="memberTab" class="active">MEMBER</button>
-<button id="adminTab" class="ghost">ADMIN</button>
-</div>
+  <div class="row">
+    <b style="font-size:22px">💰</b>
 
-<div id="memberLogin">
-<label>Nickname</label>
-<input id="nickname" autocomplete="username" placeholder="Nickname dari daftar admin">
+    <div>
+      <h1>KAS SOS — Street Of Style</h1>
+      <div class="sub">KAS MANAGEMENT</div>
+    </div>
+  </div>
 
-<label>Nomor WhatsApp</label>
-<input id="wa" type="tel" inputmode="numeric" autocomplete="current-password" placeholder="08xxxxxxxxxx">
+  <div class="tabs">
+    <button id="memberTab" class="active">
+      MEMBER
+    </button>
 
-<div class="actions">
-<button id="memberLoginBtn">LOGIN MEMBER</button>
-<button id="activateBtn" class="bluebtn">AKTIVASI</button>
-</div>
+    <button id="adminTab" class="ghost">
+      ADMIN
+    </button>
+  </div>
 
-<div class="muted" style="margin-top:6px">
-Nickname harus sudah dibuat admin.
-Satu nickname hanya boleh terhubung ke satu nomor WhatsApp.
-</div>
-</div>
 
-<div id="adminLogin" class="hidden">
-<label>Email Admin</label>
-<input id="email" type="email" autocomplete="username">
+  <!-- MEMBER LOGIN -->
 
-<label>Password Admin</label>
-<input id="pass" type="password" autocomplete="current-password">
+  <div id="memberLogin">
 
-<button id="loginBtn">LOGIN ADMIN</button>
-</div>
+    <label>Nickname</label>
 
-<div id="loginMsg" class="status">Belum login.</div>
+    <input
+      id="nickname"
+      type="text"
+      autocomplete="username"
+      autocapitalize="off"
+      spellcheck="false"
+      placeholder="Nickname dari daftar admin"
+    >
+
+
+    <label>Nomor WhatsApp</label>
+
+    <input
+      id="wa"
+      type="text"
+      inputmode="numeric"
+      pattern="[0-9]*"
+      autocomplete="off"
+      autocapitalize="off"
+      spellcheck="false"
+      maxlength="15"
+      placeholder="08xxxxxxxxxx"
+    >
+
+
+    <div class="actions">
+
+      <button id="memberLoginBtn">
+        LOGIN MEMBER
+      </button>
+
+      <button id="activateBtn" class="bluebtn">
+        AKTIVASI
+      </button>
+
+    </div>
+
+
+    <div class="muted" style="margin-top:6px">
+      Nickname harus sudah dibuat admin.
+      Satu nickname hanya boleh terhubung
+      ke satu nomor WhatsApp.
+    </div>
+
+  </div>
+
+
+  <!-- ADMIN LOGIN -->
+
+  <div id="adminLogin" class="hidden">
+
+    <label>Email Admin</label>
+
+    <input
+      id="email"
+      type="email"
+      autocomplete="username"
+    >
+
+
+    <label>Password Admin</label>
+
+    <input
+      id="pass"
+      type="password"
+      autocomplete="current-password"
+    >
+
+
+    <button id="loginBtn">
+      LOGIN ADMIN
+    </button>
+
+  </div>
+
+
+  <div id="loginMsg" class="status">
+    Belum login.
+  </div>
+
 </section>
 
+
+<!-- ================= ADMIN ================= -->
 
 <section id="admin" class="hidden">
 
-<div class="card title">
-<b>Street Of Style</b>
-<span class="badge">ADMIN</span>
-</div>
-
-<div class="grid g3">
-<div class="stat">
-<span class="muted">Member</span>
-<b id="ac">0</b>
-</div>
-
-<div class="stat">
-<span class="muted">Saldo</span>
-<b id="at" class="green">Rp0</b>
-</div>
-
-<div class="stat">
-<span class="muted">Tunggakan</span>
-<b id="aa" class="red">Rp0</b>
-</div>
-</div>
-
-<div class="card">
-<div class="title">
-<b>Member</b>
-<button id="rm" class="ghost">REFRESH</button>
-</div>
-
-<div id="ml">Memuat...</div>
-<div id="ms" class="status">-</div>
-</div>
+  <div class="card title">
+    <b>Street Of Style</b>
+    <span class="badge">ADMIN</span>
+  </div>
 
 
-<div class="card">
-<b>Pengaturan</b>
+  <div class="grid g3">
 
-<div class="g2 grid">
+    <div class="stat">
+      <span class="muted">Member</span>
+      <b id="ac">0</b>
+    </div>
 
-<div>
-<label>KAS / hari</label>
-<input id="ka" type="number" min="1">
-<button id="sk">SIMPAN KAS</button>
-</div>
+    <div class="stat">
+      <span class="muted">Saldo</span>
+      <b id="at" class="green">Rp0</b>
+    </div>
 
-<div>
-<label>ADM standar</label>
-<input id="ad" type="number" min="0">
-<button id="sa" class="bluebtn">SIMPAN ADM</button>
-</div>
+    <div class="stat">
+      <span class="muted">Tunggakan</span>
+      <b id="aa" class="red">Rp0</b>
+    </div>
 
-</div>
-
-<div id="ss" class="status">-</div>
-</div>
+  </div>
 
 
-<div class="card">
-<div class="title">
-<b>Pengajuan</b>
-<button id="rp" class="ghost">REFRESH</button>
-</div>
+  <!-- MEMBER LIST -->
 
-<div id="pl">Memuat...</div>
-<div id="ps" class="status">-</div>
-</div>
+  <div class="card">
 
+    <div class="title">
+      <b>Member</b>
 
-<div class="card">
+      <button id="rm" class="ghost">
+        REFRESH
+      </button>
+    </div>
 
-<div class="title">
-<b>Rekap NextPay</b>
+    <div id="ml">
+      Memuat...
+    </div>
 
-<div class="actions">
-<button id="rr" class="ghost">REFRESH</button>
-<button id="cp" class="purple">COPY</button>
-</div>
-</div>
+    <div id="ms" class="status">
+      -
+    </div>
 
-<div id="rl"></div>
-<div id="rt" class="copy">Belum ada data.</div>
-<div id="rs" class="status">-</div>
-
-</div>
+  </div>
 
 
-<div class="card">
+  <!-- SETTINGS -->
 
-<b>Tambah Nickname / Member</b>
+  <div class="card">
 
-<label>Nickname</label>
-<input id="mn" placeholder="Nickname resmi member">
+    <b>Pengaturan</b>
 
-<label>WhatsApp</label>
-<input id="mw" type="tel">
+    <div class="g2 grid">
 
-<label>Join WIB</label>
-<input id="mj" type="datetime-local">
+      <div>
 
-<label>Catatan</label>
-<textarea id="mx"></textarea>
+        <label>KAS / hari</label>
 
-<button id="cm">BUAT MEMBER</button>
+        <input
+          id="ka"
+          type="number"
+          min="1"
+          inputmode="numeric"
+        >
 
-<div id="cs" class="status">-</div>
+        <button id="sk">
+          SIMPAN KAS
+        </button>
 
-</div>
+      </div>
 
 
-<div class="card">
-<button id="al" class="danger">LOGOUT ADMIN</button>
-</div>
+      <div>
+
+        <label>ADM standar</label>
+
+        <input
+          id="ad"
+          type="number"
+          min="0"
+          inputmode="numeric"
+        >
+
+        <button id="sa" class="bluebtn">
+          SIMPAN ADM
+        </button>
+
+      </div>
+
+    </div>
+
+    <div id="ss" class="status">
+      -
+    </div>
+
+  </div>
+
+
+  <!-- PAYMENT REQUEST -->
+
+  <div class="card">
+
+    <div class="title">
+
+      <b>Pengajuan</b>
+
+      <button id="rp" class="ghost">
+        REFRESH
+      </button>
+
+    </div>
+
+    <div id="pl">
+      Memuat...
+    </div>
+
+    <div id="ps" class="status">
+      -
+    </div>
+
+  </div>
+
+
+  <!-- RECAP -->
+
+  <div class="card">
+
+    <div class="title">
+
+      <b>Rekap NextPay</b>
+
+      <div class="actions">
+
+        <button id="rr" class="ghost">
+          REFRESH
+        </button>
+
+        <button id="cp" class="purple">
+          COPY
+        </button>
+
+      </div>
+
+    </div>
+
+    <div id="rl"></div>
+
+    <div id="rt" class="copy">
+      Belum ada data.
+    </div>
+
+    <div id="rs" class="status">
+      -
+    </div>
+
+  </div>
+
+
+  <!-- CREATE MEMBER -->
+
+  <div class="card">
+
+    <b>Tambah Nickname / Member</b>
+
+    <label>Nickname</label>
+
+    <input
+      id="mn"
+      type="text"
+      autocomplete="off"
+    >
+
+
+    <label>WhatsApp</label>
+
+    <input
+      id="mw"
+      type="text"
+      inputmode="numeric"
+      pattern="[0-9]*"
+      maxlength="15"
+      autocomplete="off"
+      placeholder="08xxxxxxxxxx"
+    >
+
+
+    <label>Join WIB</label>
+
+    <input
+      id="mj"
+      type="datetime-local"
+    >
+
+
+    <label>Catatan</label>
+
+    <textarea id="mx"></textarea>
+
+    <button id="cm">
+      BUAT MEMBER
+    </button>
+
+    <div id="cs" class="status">
+      -
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <button id="al" class="danger">
+      LOGOUT ADMIN
+    </button>
+
+  </div>
 
 </section>
 
+
+<!-- ================= MEMBER DASHBOARD ================= -->
 
 <section id="member" class="hidden">
 
-<div class="card title">
-<b id="wel">Dashboard Member</b>
-<span class="badge">MEMBER</span>
-</div>
+  <div class="card title">
 
-<div class="grid g2">
+    <b id="wel">
+      Dashboard Member
+    </b>
 
-<div class="stat">
-<span class="muted">Saldo</span>
-<b id="mb">Rp0</b>
-</div>
+    <span class="badge">
+      MEMBER
+    </span>
 
-<div class="stat">
-<span class="muted">Status</span>
-<b id="mt">-</b>
-</div>
-
-<div class="stat">
-<span class="muted">KAS / hari</span>
-<b id="md">Rp0</b>
-</div>
-
-<div class="stat">
-<span class="muted">📌 NP</span>
-<b id="mp" class="blue">-</b>
-</div>
-
-</div>
+  </div>
 
 
-<div class="card">
-<b>Ringkasan</b>
-<div id="mf" class="status">Memuat...</div>
-</div>
+  <div class="grid g2">
+
+    <div class="stat">
+      <span class="muted">Saldo</span>
+      <b id="mb">Rp0</b>
+    </div>
+
+    <div class="stat">
+      <span class="muted">Status</span>
+      <b id="mt">-</b>
+    </div>
+
+    <div class="stat">
+      <span class="muted">KAS / hari</span>
+      <b id="md">Rp0</b>
+    </div>
+
+    <div class="stat">
+      <span class="muted">📌 NP</span>
+      <b id="mp" class="blue">-</b>
+    </div>
+
+  </div>
 
 
-<div class="card">
+  <div class="card">
 
-<b>Ajukan Pembayaran</b>
+    <b>Ringkasan</b>
 
-<label>Nominal bebas</label>
-<input id="pa" type="number" min="1">
+    <div id="mf" class="status">
+      Memuat...
+    </div>
 
-<div id="pi" class="status">-</div>
-
-<label>Bukti</label>
-<input id="pf" type="file" accept="image/jpeg,image/png,image/webp,application/pdf">
-
-<label>Catatan</label>
-<textarea id="pn"></textarea>
-
-<button id="sp">AJUKAN</button>
-
-<div id="sm" class="status">-</div>
-
-</div>
+  </div>
 
 
-<div class="card">
+  <!-- PAYMENT -->
 
-<div class="title">
-<b>Riwayat</b>
-<button id="rh" class="ghost">REFRESH</button>
-</div>
+  <div class="card">
 
-<div id="hl">Memuat...</div>
-<div id="hs" class="status">-</div>
+    <b>Ajukan Pembayaran</b>
 
-</div>
+    <label>Nominal bebas</label>
+
+    <input
+      id="pa"
+      type="number"
+      min="1"
+      inputmode="numeric"
+    >
+
+    <div id="pi" class="status">
+      -
+    </div>
 
 
-<div class="card">
-<div class="actions">
-<button id="mr" class="ghost">REFRESH</button>
-<button id="mlg" class="danger">LOGOUT</button>
-</div>
-</div>
+    <label>Bukti</label>
+
+    <input
+      id="pf"
+      type="file"
+      accept="image/jpeg,image/png,image/webp,application/pdf"
+    >
+
+
+    <label>Catatan</label>
+
+    <textarea id="pn"></textarea>
+
+
+    <button id="sp">
+      AJUKAN
+    </button>
+
+
+    <div id="sm" class="status">
+      -
+    </div>
+
+  </div>
+
+
+  <!-- HISTORY -->
+
+  <div class="card">
+
+    <div class="title">
+
+      <b>Riwayat</b>
+
+      <button id="rh" class="ghost">
+        REFRESH
+      </button>
+
+    </div>
+
+    <div id="hl">
+      Memuat...
+    </div>
+
+    <div id="hs" class="status">
+      -
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="actions">
+
+      <button id="mr" class="ghost">
+        REFRESH
+      </button>
+
+      <button id="mlg" class="danger">
+        LOGOUT
+      </button>
+
+    </div>
+
+  </div>
 
 </section>
 
-<div class="foot">KAS SOS • Street Of Style • 2026</div>
+
+<div class="foot">
+  KAS SOS • Street Of Style • 2026
+</div>
 
 </main>
 
 
 <script type="module">
 
-import{createClient}from'https://esm.sh/@supabase/supabase-js@2';
+import {
+  createClient
+} from 'https://esm.sh/@supabase/supabase-js@2';
 
-const s=createClient(
-'https://nwfodyefdxsdmdrxzfby.supabase.co',
-'sb_publishable_M6BDC3TNoLQTTW3XSOgvyQ_6Y_0l0BD'
-);
 
-const AUTH=
-'https://nwfodyefdxsdmdrxzfby.supabase.co/functions/v1/member-auth';
+/* =====================================================
+   SUPABASE
+===================================================== */
 
-const B='Bukti oembayaran kas';
+const SUPABASE_URL =
+  'https://nwfodyefdxdsmdrxzfby.supabase.co';
 
-const $=x=>document.getElementById(x);
+const SUPABASE_KEY =
+  'sb_publishable_M6BDC3TNoLQTTW3XSOgvyQ_6Y_0l0BD';
 
-const id=x=>new Intl.NumberFormat(
-'id-ID',
-{
-style:'currency',
-currency:'IDR',
-maximumFractionDigits:0
+const s =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* =====================================================
+   MEMBER AUTH FUNCTION
+===================================================== */
+
+const AUTH =
+  SUPABASE_URL +
+  '/functions/v1/member-auth';
+
+
+/* =====================================================
+   STORAGE
+===================================================== */
+
+const PAYMENT_BUCKET =
+  'Bukti oembayaran kas';
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+const $ =
+  x => document.getElementById(x);
+
+
+const id =
+  x =>
+  new Intl.NumberFormat(
+    'id-ID',
+    {
+      style:'currency',
+      currency:'IDR',
+      maximumFractionDigits:0
+    }
+  ).format(+x || 0);
+
+
+const esc =
+  x =>
+  String(x ?? '').replace(
+    /[&<>"']/g,
+    c => ({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#039;'
+    }[c])
+  );
+
+
+const dt =
+  x =>
+  x
+  ?
+  new Intl.DateTimeFormat(
+    'id-ID',
+    {
+      timeZone:'Asia/Jakarta',
+      dateStyle:'medium'
+    }
+  ).format(
+    new Date(
+      String(x).slice(0,10) +
+      'T00:00:00+07:00'
+    )
+  )
+  :
+  '-';
+
+
+const wt =
+  x =>
+  x
+  ?
+  new Intl.DateTimeFormat(
+    'id-ID',
+    {
+      timeZone:'Asia/Jakarta',
+      dateStyle:'medium',
+      timeStyle:'short'
+    }
+  ).format(
+    new Date(x)
+  )
+  :
+  '-';
+
+
+const st =
+  (k,t,ok=false) => {
+
+    $(k).textContent = t;
+
+    $(k).classList.toggle(
+      'ok',
+      ok
+    );
+
+    $(k).classList.toggle(
+      'err',
+      !ok &&
+      t.includes('❌')
+    );
+
+  };
+
+
+const sh =
+  x => {
+
+    ['login','admin','member']
+      .forEach(
+        k =>
+        $(k).classList.toggle(
+          'hidden',
+          k !== x
+        )
+      );
+
+  };
+
+
+/* =====================================================
+   DATE DEFAULT
+===================================================== */
+
+function setJoinDate(){
+
+  const now =
+    new Date();
+
+  const parts =
+    new Intl.DateTimeFormat(
+      'en-CA',
+      {
+        timeZone:'Asia/Jakarta',
+        year:'numeric',
+        month:'2-digit',
+        day:'2-digit',
+        hour:'2-digit',
+        minute:'2-digit',
+        hourCycle:'h23'
+      }
+    ).formatToParts(now);
+
+  const get =
+    type =>
+    parts.find(
+      x => x.type === type
+    )?.value;
+
+  $('mj').value =
+    `${get('year')}-${get('month')}-${get('day')}T${get('hour')}:${get('minute')}`;
+
 }
-).format(+x||0);
 
-const e=x=>String(x??'').replace(
-/[&<>"']/g,
-c=>({
-'&':'&amp;',
-'<':'&lt;',
-'>':'&gt;',
-'"':'&quot;',
-"'":'&#039;'
-}[c])
-);
-
-const dt=x=>x?
-new Intl.DateTimeFormat(
-'id-ID',
-{
-timeZone:'Asia/Jakarta',
-dateStyle:'medium'
-}
-).format(
-new Date(String(x).slice(0,10)+'T00:00:00+07:00')
-)
-:'-';
-
-const wt=x=>x?
-new Intl.DateTimeFormat(
-'id-ID',
-{
-timeZone:'Asia/Jakarta',
-dateStyle:'medium',
-timeStyle:'short'
-}
-).format(new Date(x))
-:'-';
-
-const st=(k,t,ok=false)=>{
-$(k).textContent=t;
-$(k).classList.toggle('ok',ok);
-$(k).classList.toggle(
-'err',
-!ok&&t.includes('❌')
-);
-};
-
-const sh=x=>{
-['login','admin','member'].forEach(
-k=>$(k).classList.toggle('hidden',k!==x)
-);
-};
-
-let F=null;
-let R=[];
+setJoinDate();
 
 
-function join(){
+/* =====================================================
+   NORMALIZE WHATSAPP
+===================================================== */
 
-const n=new Date();
+function normalizeWhatsApp(value){
 
-const p=new Intl.DateTimeFormat(
-'en-CA',
-{
-timeZone:'Asia/Jakarta',
-year:'numeric',
-month:'2-digit',
-day:'2-digit',
-hour:'2-digit',
-minute:'2-digit',
-hourCycle:'h23'
-}
-).formatToParts(n);
+  let n =
+    String(value || '')
+      .replace(/\D/g,'');
 
-const g=t=>p.find(x=>x.type===t)?.value;
+  if(n.startsWith('62')){
+    n =
+      '0' +
+      n.slice(2);
+  }
 
-$('mj').value=
-`${g('year')}-${g('month')}-${g('day')}T${g('hour')}:${g('minute')}`;
+  if(n.startsWith('8')){
+    n =
+      '0' +
+      n;
+  }
+
+  return n.slice(0,15);
 
 }
 
-join();
 
+/* =====================================================
+   WHATSAPP INPUT FIX
+===================================================== */
+
+const waInput =
+  $('wa');
+
+const mwInput =
+  $('mw');
+
+
+function numericInputFix(input){
+
+  if(!input)return;
+
+
+  input.addEventListener(
+    'beforeinput',
+    function(e){
+
+      if(
+        e.data &&
+        /\D/.test(e.data)
+      ){
+        e.preventDefault();
+      }
+
+    }
+  );
+
+
+  input.addEventListener(
+    'input',
+    function(){
+
+      this.value =
+        this.value
+          .replace(/[^0-9]/g,'')
+          .slice(0,15);
+
+    }
+  );
+
+
+  input.addEventListener(
+    'paste',
+    function(e){
+
+      e.preventDefault();
+
+      const text =
+        (
+          e.clipboardData ||
+          window.clipboardData
+        ).getData('text');
+
+      this.value =
+        normalizeWhatsApp(text);
+
+    }
+  );
+
+}
+
+
+numericInputFix(waInput);
+numericInputFix(mwInput);
+
+
+/* =====================================================
+   MEMBER AUTH
+===================================================== */
 
 async function memberAuth(mode){
 
-const nickname=$('nickname').value.trim();
-const whatsapp=$('wa').value.trim();
+  const nickname =
+    $('nickname')
+      .value
+      .trim();
 
-if(!nickname||!whatsapp)
-return st(
-'loginMsg',
-'❌ Nickname dan nomor WhatsApp wajib diisi.'
-);
-
-$('memberLoginBtn').disabled=true;
-$('activateBtn').disabled=true;
-
-st(
-'loginMsg',
-mode==='activate'
-?'Mengaktifkan akun...'
-:'Memeriksa login...'
-);
-
-try{
-
-const r=await fetch(
-AUTH,
-{
-method:'POST',
-headers:{
-'Content-Type':'application/json'
-},
-body:JSON.stringify({
-nickname,
-whatsapp,
-mode
-})
-}
-);
-
-const j=await r.json();
-
-if(!r.ok)
-throw Error(
-j.error||'Autentikasi gagal.'
-);
-
-const password=
-whatsapp
-.replace(/\D/g,'')
-.replace(/^62/,'0')
-.replace(/^8/,'08');
-
-const {error}=await s.auth.signInWithPassword({
-email:j.email,
-password
-});
-
-if(error)
-throw error;
-
-await route();
-
-}catch(x){
-
-await s.auth.signOut().catch(()=>{});
-
-sh('login');
-
-st(
-'loginMsg',
-'❌ '+x.message
-);
-
-}finally{
-
-$('memberLoginBtn').disabled=false;
-$('activateBtn').disabled=false;
-
-}
-
-}
+  const whatsapp =
+    normalizeWhatsApp(
+      $('wa').value
+    );
 
 
-$('memberLoginBtn').onclick=
-()=>memberAuth('login');
-
-$('activateBtn').onclick=
-()=>memberAuth('activate');
-
-$('wa').onkeydown=
-x=>x.key==='Enter'&&memberAuth('login');
-
-$('nickname').onkeydown=
-x=>x.key==='Enter'&&memberAuth('login');
+  $('wa').value =
+    whatsapp;
 
 
-$('memberTab').onclick=()=>{
+  if(
+    !nickname ||
+    !whatsapp
+  ){
 
-$('memberTab').classList.add('active');
-$('adminTab').classList.remove('active');
+    st(
+      'loginMsg',
+      '❌ Nickname dan nomor WhatsApp wajib diisi.'
+    );
 
-$('memberLogin').classList.remove('hidden');
-$('adminLogin').classList.add('hidden');
+    return;
 
-st(
-'loginMsg',
-'Mode MEMBER.',
-true
-);
-
-};
+  }
 
 
-$('adminTab').onclick=()=>{
+  if(
+    whatsapp.length < 8
+  ){
 
-$('adminTab').classList.add('active');
-$('memberTab').classList.remove('active');
+    st(
+      'loginMsg',
+      '❌ Nomor WhatsApp tidak valid.'
+    );
 
-$('adminLogin').classList.remove('hidden');
-$('memberLogin').classList.add('hidden');
+    return;
 
-st(
-'loginMsg',
-'Mode ADMIN.',
-true
-);
-
-};
+  }
 
 
-$('loginBtn').onclick=async()=>{
+  $('memberLoginBtn').disabled =
+    true;
 
-const a=$('email').value.trim();
-const p=$('pass').value;
+  $('activateBtn').disabled =
+    true;
 
-if(!a||!p)
-return st(
-'loginMsg',
-'❌ Email dan password admin wajib diisi.'
-);
 
-$('loginBtn').disabled=true;
+  st(
+    'loginMsg',
+    mode === 'activate'
+      ?
+      'Mengaktifkan akun...'
+      :
+      'Memeriksa login...'
+  );
 
-st(
-'loginMsg',
-'Sedang login admin...'
-);
 
-try{
+  try{
 
-const{error}=
-await s.auth.signInWithPassword({
-email:a,
-password:p
-});
+    const response =
+      await fetch(
+        AUTH,
+        {
+          method:'POST',
+          headers:{
+            'Content-Type':
+              'application/json'
+          },
+          body:JSON.stringify({
+            nickname,
+            whatsapp,
+            mode
+          })
+        }
+      );
 
-if(error)
-throw error;
 
-await route();
+    let result;
 
-}catch(x){
+    try{
+      result =
+        await response.json();
+    }catch{
+      result = {};
+    }
 
-await s.auth.signOut().catch(()=>{});
 
-sh('login');
+    if(!response.ok){
 
-st(
-'loginMsg',
-'❌ Login gagal: '+x.message
-);
+      throw Error(
+        result.error ||
+        result.message ||
+        'Autentikasi gagal.'
+      );
 
-}finally{
+    }
 
-$('loginBtn').disabled=false;
+
+    if(!result.email){
+
+      throw Error(
+        'Data login member tidak lengkap.'
+      );
+
+    }
+
+
+    const password =
+      normalizeWhatsApp(
+        whatsapp
+      );
+
+
+    const {
+      error
+    } =
+    await s.auth.signInWithPassword({
+      email:result.email,
+      password
+    });
+
+
+    if(error)
+      throw error;
+
+
+    await route();
+
+
+  }catch(error){
+
+    await s.auth
+      .signOut()
+      .catch(()=>{});
+
+
+    sh('login');
+
+
+    st(
+      'loginMsg',
+      '❌ ' +
+      (
+        error.message ||
+        'Login gagal.'
+      )
+    );
+
+
+  }finally{
+
+    $('memberLoginBtn').disabled =
+      false;
+
+    $('activateBtn').disabled =
+      false;
+
+  }
 
 }
 
-};
+
+/* =====================================================
+   MEMBER LOGIN EVENTS
+===================================================== */
+
+$('memberLoginBtn').onclick =
+  () => memberAuth('login');
 
 
-$('pass').onkeydown=
-x=>x.key==='Enter'&&$('loginBtn').click();
+$('activateBtn').onclick =
+  () => memberAuth('activate');
 
+
+$('nickname').addEventListener(
+  'keydown',
+  e => {
+
+    if(e.key === 'Enter'){
+
+      e.preventDefault();
+
+      memberAuth('login');
+
+    }
+
+  }
+);
+
+
+waInput.addEventListener(
+  'keydown',
+  e => {
+
+    if(e.key === 'Enter'){
+
+      e.preventDefault();
+
+      memberAuth('login');
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   LOGIN TABS
+===================================================== */
+
+$('memberTab').onclick =
+  () => {
+
+    $('memberTab')
+      .classList
+      .add('active');
+
+    $('adminTab')
+      .classList
+      .remove('active');
+
+    $('memberLogin')
+      .classList
+      .remove('hidden');
+
+    $('adminLogin')
+      .classList
+      .add('hidden');
+
+    st(
+      'loginMsg',
+      'Mode MEMBER.',
+      true
+    );
+
+  };
+
+
+$('adminTab').onclick =
+  () => {
+
+    $('adminTab')
+      .classList
+      .add('active');
+
+    $('memberTab')
+      .classList
+      .remove('active');
+
+    $('adminLogin')
+      .classList
+      .remove('hidden');
+
+    $('memberLogin')
+      .classList
+      .add('hidden');
+
+    st(
+      'loginMsg',
+      'Mode ADMIN.',
+      true
+    );
+
+  };
+
+
+/* =====================================================
+   ADMIN LOGIN
+===================================================== */
+
+$('loginBtn').onclick =
+  async () => {
+
+    const email =
+      $('email')
+        .value
+        .trim();
+
+    const password =
+      $('pass')
+        .value;
+
+
+    if(!email || !password){
+
+      st(
+        'loginMsg',
+        '❌ Email dan password admin wajib diisi.'
+      );
+
+      return;
+
+    }
+
+
+    $('loginBtn').disabled =
+      true;
+
+
+    st(
+      'loginMsg',
+      'Sedang login admin...'
+    );
+
+
+    try{
+
+      const {
+        error
+      } =
+      await s.auth.signInWithPassword({
+        email,
+        password
+      });
+
+
+      if(error)
+        throw error;
+
+
+      await route();
+
+
+    }catch(error){
+
+      await s.auth
+        .signOut()
+        .catch(()=>{});
+
+
+      sh('login');
+
+
+      st(
+        'loginMsg',
+        '❌ Login gagal: ' +
+        error.message
+      );
+
+
+    }finally{
+
+      $('loginBtn').disabled =
+        false;
+
+    }
+
+  };
+
+
+$('pass').addEventListener(
+  'keydown',
+  e => {
+
+    if(e.key === 'Enter'){
+
+      e.preventDefault();
+
+      $('loginBtn').click();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   ADMIN MEMBERS
+===================================================== */
 
 async function members(){
 
-const{data:a,error:x}=
-await s.rpc('admin_get_members');
+  const {
+    data,
+    error
+  } =
+  await s.rpc(
+    'admin_get_members'
+  );
 
-if(x)throw x;
 
-const{data:z,error:q}=
-await s.rpc('admin_get_nextpay_summary');
+  if(error)
+    throw error;
 
-if(q)throw q;
 
-z=z||[];
+  const {
+    data:summary,
+    error:summaryError
+  } =
+  await s.rpc(
+    'admin_get_nextpay_summary'
+  );
 
-const m=new Map(
-z.map(x=>[x.member_id,x])
-);
 
-let tot=0;
-let arr=0;
+  if(summaryError)
+    throw summaryError;
 
-$('ac').textContent=
-(a||[]).filter(
-x=>x.status==='ACTIVE'
-).length;
 
-z.forEach(x=>{
+  const rows =
+    data || [];
 
-tot+=+x.balance||0;
+  const next =
+    summary || [];
 
-if(+x.balance<0)
-arr+=Math.abs(+x.balance);
 
-});
+  const map =
+    new Map(
+      next.map(
+        x =>
+        [x.member_id,x]
+      )
+    );
 
-$('at').textContent=id(tot);
-$('aa').textContent=id(arr);
 
-$('ml').innerHTML='';
+  let totalBalance = 0;
+  let totalArrears = 0;
 
-(a||[]).forEach(x=>{
 
-const y=m.get(x.id)||{};
-const b=+y.balance||0;
+  $('ac').textContent =
+    rows.filter(
+      x =>
+      x.status === 'ACTIVE'
+    ).length;
 
-const d=document.createElement('div');
 
-d.className='item';
+  next.forEach(
+    x => {
 
-d.innerHTML=`
-<div class="top">
-<b>${e(x.member_name)}</b>
-<span class="badge ${
-b<0?'r':
-y.next_pay_days===1?'y':''
-}">
-${
-b<0?'🔴':
-y.next_pay_days===1?'⚠️':'🟢'
+      const balance =
+        +x.balance || 0;
+
+      totalBalance +=
+        balance;
+
+      if(balance < 0){
+
+        totalArrears +=
+          Math.abs(balance);
+
+      }
+
+    }
+  );
+
+
+  $('at').textContent =
+    id(totalBalance);
+
+  $('aa').textContent =
+    id(totalArrears);
+
+
+  $('ml').innerHTML =
+    '';
+
+
+  rows.forEach(
+    x => {
+
+      const y =
+        map.get(x.id) || {};
+
+      const balance =
+        +y.balance || 0;
+
+
+      const div =
+        document.createElement(
+          'div'
+        );
+
+
+      div.className =
+        'item';
+
+
+      const statusIcon =
+        balance < 0
+          ?
+          '🔴'
+          :
+          (
+            y.next_pay_days === 1
+              ?
+              '⚠️'
+              :
+              '🟢'
+          );
+
+
+      div.innerHTML = `
+
+        <div class="top">
+
+          <b>
+            ${esc(x.member_name)}
+          </b>
+
+          <span class="badge ${
+            balance < 0
+              ?
+              'r'
+              :
+              (
+                y.next_pay_days === 1
+                  ?
+                  'y'
+                  :
+                  ''
+              )
+          }">
+
+            ${statusIcon}
+
+          </span>
+
+        </div>
+
+
+        <div class="muted">
+
+          ${esc(x.status)}
+
+          • WA
+
+          ${esc(
+            x.whatsapp_number ||
+            '-'
+          )}
+
+        </div>
+
+
+        <div>
+
+          <b class="${
+            balance < 0
+              ?
+              'red'
+              :
+              'green'
+          }">
+
+            ${id(balance)}
+
+          </b>
+
+          •
+
+          📌 NP
+
+          ${dt(y.next_pay_date)}
+
+        </div>
+
+      `;
+
+
+      if(
+        x.status === 'ACTIVE'
+      ){
+
+        const button =
+          document.createElement(
+            'button'
+          );
+
+
+        button.className =
+          'warn';
+
+        button.textContent =
+          'NONAKTIFKAN';
+
+
+        button.onclick =
+          async () => {
+
+            const reason =
+              prompt(
+                'Alasan menonaktifkan member:'
+              );
+
+
+            if(
+              !reason ||
+              !reason.trim()
+            )
+              return;
+
+
+            const {
+              error
+            } =
+            await s.rpc(
+              'admin_deactivate_member',
+              {
+                p_member_id:x.id,
+                p_reason:
+                  reason.trim()
+              }
+            );
+
+
+            if(error){
+
+              alert(
+                error.message
+              );
+
+              return;
+
+            }
+
+
+            await members();
+            await recap();
+
+          };
+
+
+        div.append(
+          button
+        );
+
+      }
+
+
+      $('ml').append(
+        div
+      );
+
+    }
+  );
+
+
+  st(
+    'ms',
+    `✓ ${rows.length} member ditampilkan.`,
+    true
+  );
+
 }
-</span>
-</div>
 
-<div class="muted">
-${e(x.status)} • WA ${e(x.whatsapp_number||'-')}
-</div>
 
-<div>
-<b class="${b<0?'red':'green'}">
-${id(b)}
-</b>
-•
-📌 NP ${dt(y.next_pay_date)}
-</div>
-`;
+/* =====================================================
+   ADMIN RECAP
+===================================================== */
 
-if(x.status==='ACTIVE'){
-
-const w=document.createElement('button');
-
-w.className='warn';
-w.textContent='NONAKTIFKAN';
-
-w.onclick=async()=>{
-
-const r=prompt(
-'Alasan menonaktifkan member:'
-);
-
-if(!r?.trim())return;
-
-const{error}=
-await s.rpc(
-'admin_deactivate_member',
-{
-p_member_id:x.id,
-p_reason:r.trim()
-}
-);
-
-if(error)
-alert(error.message);
-
-else{
-
-await members();
-await recap();
-
-}
-
-};
-
-d.append(w);
-
-}
-
-$('ml').append(d);
-
-});
-
-st(
-'ms',
-`✓ ${(a||[]).length} member ditampilkan.`,
-true
-);
-
-}
+let recapRows = [];
 
 
 async function recap(){
 
-const{data:x,error:q}=
-await s.rpc(
-'admin_get_nextpay_summary'
-);
+  const {
+    data,
+    error
+  } =
+  await s.rpc(
+    'admin_get_nextpay_summary'
+  );
 
-if(q)throw q;
 
-R=x||[];
+  if(error)
+    throw error;
 
-$('rl').innerHTML='';
 
-let t=[
-'📋 REKAP KAS SOS',
-'================'
-];
+  recapRows =
+    data || [];
 
-R.forEach((x,i)=>{
 
-const b=+x.balance||0;
-const n=+x.next_pay_days||0;
+  $('rl').innerHTML =
+    '';
 
-const c=
-b<0?'🔴':
-n===1?'⚠️':'🟢';
 
-const d=document.createElement('div');
+  const text = [
+    '📋 REKAP KAS SOS',
+    '================'
+  ];
 
-d.className='item';
 
-d.innerHTML=`
-<div class="top">
-<b>${e(x.member_name)}</b>
-<b class="${b<0?'red':'green'}">
-${id(b)}
-</b>
-</div>
+  recapRows.forEach(
+    (x,i) => {
 
-<div class="muted">
-${c}
-${e(x.status_text||'-')}
-•
-📌 NP ${dt(x.next_pay_date)}
-</div>
-`;
+      const balance =
+        +x.balance || 0;
 
-$('rl').append(d);
+      const days =
+        +x.next_pay_days || 0;
 
-t.push(
-`${i+1}. ${x.member_name}`,
-`   ${c} Saldo: ${id(b)}`,
-`   📌 NP: ${dt(x.next_pay_date)}${
-x.next_pay_days!=null
-?` (${x.next_pay_days} hari)`
-:''
-}`,
-''
-);
 
-});
+      const icon =
+        balance < 0
+          ?
+          '🔴'
+          :
+          (
+            days === 1
+              ?
+              '⚠️'
+              :
+              '🟢'
+          );
 
-t.push(
-'================',
-'🟢 Saldo aman / ada saldo',
-'🔴 Tunggakan / saldo minus',
-'⚠️ TELAT SEHARI',
-'📌 NP = NextPay'
-);
 
-$('rt').textContent=t.join('\n');
+      const div =
+        document.createElement(
+          'div'
+        );
 
-st(
-'rs',
-`✓ ${R.length} member masuk rekap.`,
-true
-);
+
+      div.className =
+        'item';
+
+
+      div.innerHTML = `
+
+        <div class="top">
+
+          <b>
+            ${esc(x.member_name)}
+          </b>
+
+          <b class="${
+            balance < 0
+              ?
+              'red'
+              :
+              'green'
+          }">
+
+            ${id(balance)}
+
+          </b>
+
+        </div>
+
+
+        <div class="muted">
+
+          ${icon}
+
+          ${esc(
+            x.status_text ||
+            '-'
+          )}
+
+          •
+
+          📌 NP
+
+          ${dt(
+            x.next_pay_date
+          )}
+
+        </div>
+
+      `;
+
+
+      $('rl').append(
+        div
+      );
+
+
+      text.push(
+        `${i+1}. ${x.member_name}`,
+        `   ${icon} Saldo: ${id(balance)}`,
+        `   📌 NP: ${dt(x.next_pay_date)}${
+          x.next_pay_days != null
+            ?
+            ` (${x.next_pay_days} hari)`
+            :
+            ''
+        }`,
+        ''
+      );
+
+    }
+  );
+
+
+  text.push(
+    '================',
+    '🟢 Saldo aman / ada saldo',
+    '🔴 Tunggakan / saldo minus',
+    '⚠️ TELAT SEHARI',
+    '📌 NP = NextPay'
+  );
+
+
+  $('rt').textContent =
+    text.join('\n');
+
+
+  st(
+    'rs',
+    `✓ ${recapRows.length} member masuk rekap.`,
+    true
+  );
 
 }
 
 
-async function proof(p,k){
+/* =====================================================
+   OPEN PAYMENT PROOF
+===================================================== */
 
-const{data:x,error:q}=
-await s.storage
-.from(B)
-.download(p);
+async function proof(
+  path,
+  statusElement
+){
 
-if(q)throw q;
+  const {
+    data,
+    error
+  } =
+  await s.storage
+    .from(
+      PAYMENT_BUCKET
+    )
+    .download(path);
 
-const u=URL.createObjectURL(x);
 
-const w=window.open(u,'_blank');
+  if(error)
+    throw error;
 
-if(!w)
-location.href=u;
 
-setTimeout(
-()=>URL.revokeObjectURL(u),
-300000
-);
+  const url =
+    URL.createObjectURL(
+      data
+    );
 
-st(
-k,
-'✓ Bukti dibuka.',
-true
-);
+
+  const windowRef =
+    window.open(
+      url,
+      '_blank'
+    );
+
+
+  if(!windowRef)
+    location.href =
+      url;
+
+
+  setTimeout(
+    () =>
+      URL.revokeObjectURL(
+        url
+      ),
+    300000
+  );
+
+
+  st(
+    statusElement,
+    '✓ Bukti dibuka.',
+    true
+  );
 
 }
 
+
+/* =====================================================
+   ADMIN PAYMENTS
+===================================================== */
 
 async function payments(){
 
-const{data:x,error:q}=
-await s.rpc(
-'admin_get_payment_requests'
-);
+  const {
+    data,
+    error
+  } =
+  await s.rpc(
+    'admin_get_payment_requests'
+  );
 
-if(q)throw q;
 
-$('pl').innerHTML='';
+  if(error)
+    throw error;
 
-if(!x?.length){
 
-$('pl').textContent=
-'Belum ada pengajuan.';
+  $('pl').innerHTML =
+    '';
 
-return;
+
+  if(!data?.length){
+
+    $('pl').textContent =
+      'Belum ada pengajuan.';
+
+    st(
+      'ps',
+      '✓ Tidak ada pengajuan pending.',
+      true
+    );
+
+    return;
+
+  }
+
+
+  data.forEach(
+    r => {
+
+      const div =
+        document.createElement(
+          'div'
+        );
+
+
+      div.className =
+        'item';
+
+
+      div.innerHTML = `
+
+        <div class="top">
+
+          <b>
+            ${esc(r.member_name)}
+          </b>
+
+          <b>
+            ${id(r.amount)}
+          </b>
+
+        </div>
+
+
+        <div class="muted">
+
+          ${esc(
+            r.payment_type ||
+            'KAS'
+          )}
+
+          •
+
+          ${esc(
+            r.status
+          )}
+
+          •
+
+          ${esc(
+            wt(r.submitted_at)
+          )}
+
+        </div>
+
+      `;
+
+
+      if(
+        r.proof_storage_path
+      ){
+
+        const proofButton =
+          document.createElement(
+            'button'
+          );
+
+
+        proofButton.className =
+          'ghost';
+
+        proofButton.textContent =
+          'BUKTI';
+
+
+        proofButton.onclick =
+          () =>
+          proof(
+            r.proof_storage_path,
+            'ps'
+          );
+
+
+        div.append(
+          proofButton
+        );
+
+      }
+
+
+      if(
+        r.status === 'PENDING'
+      ){
+
+        const actions =
+          document.createElement(
+            'div'
+          );
+
+
+        actions.className =
+          'actions';
+
+
+        const approve =
+          document.createElement(
+            'button'
+          );
+
+
+        approve.textContent =
+          '✓ APPROVE';
+
+
+        const reject =
+          document.createElement(
+            'button'
+          );
+
+
+        reject.className =
+          'danger';
+
+        reject.textContent =
+          '✕ REJECT';
+
+
+        approve.onclick =
+          async () => {
+
+            if(
+              !confirm(
+                'Approve pembayaran ini?'
+              )
+            )
+              return;
+
+
+            const {
+              error
+            } =
+            await s.rpc(
+              'admin_approve_payment_request',
+              {
+                p_payment_request_id:
+                  r.id
+              }
+            );
+
+
+            if(error){
+
+              st(
+                'ps',
+                '❌ ' +
+                error.message
+              );
+
+              return;
+
+            }
+
+
+            await payments();
+            await members();
+            await recap();
+
+          };
+
+
+        reject.onclick =
+          async () => {
+
+            const reason =
+              prompt(
+                'Alasan penolakan:'
+              );
+
+
+            if(
+              !reason ||
+              !reason.trim()
+            )
+              return;
+
+
+            const {
+              error
+            } =
+            await s.rpc(
+              'admin_reject_payment_request',
+              {
+                p_payment_request_id:
+                  r.id,
+                p_rejection_reason:
+                  reason.trim()
+              }
+            );
+
+
+            if(error){
+
+              st(
+                'ps',
+                '❌ ' +
+                error.message
+              );
+
+              return;
+
+            }
+
+
+            await payments();
+
+          };
+
+
+        actions.append(
+          approve,
+          reject
+        );
+
+
+        div.append(
+          actions
+        );
+
+      }
+
+
+      $('pl').append(
+        div
+      );
+
+    }
+  );
+
+
+  st(
+    'ps',
+    `✓ ${data.length} pengajuan ditampilkan.`,
+    true
+  );
 
 }
 
-x.forEach(r=>{
 
-const d=document.createElement('div');
+/* =====================================================
+   MEMBER FINANCIAL
+===================================================== */
 
-d.className='item';
-
-d.innerHTML=`
-<div class="top">
-<b>${e(r.member_name)}</b>
-<b>${id(r.amount)}</b>
-</div>
-
-<div class="muted">
-${e(r.payment_type)}
-•
-${e(r.status)}
-•
-${e(wt(r.submitted_at))}
-</div>
-`;
-
-if(r.proof_storage_path){
-
-const b=document.createElement('button');
-
-b.className='ghost';
-b.textContent='BUKTI';
-
-b.onclick=
-()=>proof(
-r.proof_storage_path,
-'ps'
-);
-
-d.append(b);
-
-}
-
-if(r.status==='PENDING'){
-
-const a=document.createElement('div');
-a.className='actions';
-
-const y=document.createElement('button');
-y.textContent='✓ APPROVE';
-
-const n=document.createElement('button');
-n.className='danger';
-n.textContent='✕ REJECT';
-
-y.onclick=async()=>{
-
-if(!confirm(
-'Approve pembayaran ini?'
-))return;
-
-const{error}=
-await s.rpc(
-'admin_approve_payment_request',
-{
-p_payment_request_id:r.id
-}
-);
-
-if(error)
-st('ps','❌ '+error.message);
-
-else{
-
-await payments();
-await members();
-await recap();
-
-}
-
-};
-
-n.onclick=async()=>{
-
-const v=prompt(
-'Alasan penolakan:'
-);
-
-if(!v?.trim())return;
-
-const{error}=
-await s.rpc(
-'admin_reject_payment_request',
-{
-p_payment_request_id:r.id,
-p_rejection_reason:v.trim()
-}
-);
-
-if(error)
-st('ps','❌ '+error.message);
-
-else
-await payments();
-
-};
-
-a.append(y,n);
-d.append(a);
-
-}
-
-$('pl').append(d);
-
-});
-
-st(
-'ps',
-`✓ ${x.length} pengajuan ditampilkan.`,
-true
-);
-
-}
+let financialData = null;
 
 
 async function financial(){
 
-const{data:x,error:q}=
-await s.rpc(
-'member_financial_summary'
-);
+  const {
+    data,
+    error
+  } =
+  await s.rpc(
+    'member_financial_summary'
+  );
 
-if(q)throw q;
 
-F=Array.isArray(x)?x[0]:x;
+  if(error)
+    throw error;
 
-if(!F)
-throw Error(
-'Data keuangan tidak ditemukan.'
-);
 
-const b=+F.balance||0;
+  financialData =
+    Array.isArray(data)
+      ?
+      data[0]
+      :
+      data;
 
-$('mb').textContent=id(b);
 
-$('mb').className=
-b<0?'red':'green';
+  if(!financialData){
 
-$('mt').textContent=
-F.status_text||'-';
+    throw Error(
+      'Data keuangan tidak ditemukan.'
+    );
 
-$('mt').className=
-F.status_code==='LATE_ONE_DAY'
-?'yellow':
-b<0?'red':'green';
+  }
 
-$('md').textContent=
-id(F.daily_amount);
 
-$('mp').textContent=
-dt(F.next_pay_date);
+  const balance =
+    +financialData.balance || 0;
 
-$('mf').textContent=
-`KAS/hari: ${id(F.daily_amount)}
-Kewajiban: ${id(F.total_due)}
-Pembayaran: ${id(F.total_paid)}
-Saldo: ${id(b)}
-Saldo positif: ${id(F.positive_balance)}
-Tunggakan: ${id(F.arrears)}
-📌 NextPay: ${dt(F.next_pay_date)}${
-F.next_pay_days!=null
-?` (${F.next_pay_days} hari)`
-:''
+
+  $('mb').textContent =
+    id(balance);
+
+
+  $('mb').className =
+    balance < 0
+      ?
+      'red'
+      :
+      'green';
+
+
+  $('mt').textContent =
+    financialData.status_text ||
+    '-';
+
+
+  $('mt').className =
+    financialData.status_code ===
+      'LATE_ONE_DAY'
+      ?
+      'yellow'
+      :
+      (
+        balance < 0
+          ?
+          'red'
+          :
+          'green'
+      );
+
+
+  $('md').textContent =
+    id(
+      financialData.daily_amount
+    );
+
+
+  $('mp').textContent =
+    dt(
+      financialData.next_pay_date
+    );
+
+
+  $('mf').textContent =
+`KAS/hari: ${id(financialData.daily_amount)}
+Kewajiban: ${id(financialData.total_due)}
+Pembayaran: ${id(financialData.total_paid)}
+Saldo: ${id(balance)}
+Saldo positif: ${id(financialData.positive_balance)}
+Tunggakan: ${id(financialData.arrears)}
+📌 NextPay: ${dt(financialData.next_pay_date)}${
+  financialData.next_pay_days != null
+    ?
+    ` (${financialData.next_pay_days} hari)`
+    :
+    ''
 }`;
 
-if(!$('pa').value)
-$('pa').value=
-b<0
-?Math.abs(b)
-:b||'';
 
-payInfo();
+  if(!$('pa').value){
+
+    $('pa').value =
+      balance < 0
+        ?
+        Math.abs(balance)
+        :
+        (
+          balance ||
+          ''
+        );
+
+  }
+
+
+  paymentInfo();
+
+}
+
+
+/* =====================================================
+   PAYMENT INFO
+===================================================== */
+
+function paymentInfo(){
+
+  const amount =
+    +$('pa').value || 0;
+
+  const balance =
+    +financialData?.balance || 0;
+
+
+  if(!amount){
+
+    $('pi').textContent =
+      'Nominal belum ditentukan.';
+
+    return;
+
+  }
+
+
+  const remaining =
+    amount -
+    Math.max(
+      0,
+      Math.abs(
+        Math.min(
+          0,
+          balance
+        )
+      )
+    );
+
+
+  const excess =
+    amount -
+    Math.max(
+      0,
+      Math.abs(
+        Math.min(
+          0,
+          balance
+        )
+      )
+    ) -
+    Math.max(
+      0,
+      balance
+    );
+
+
+  if(
+    balance < 0
+  ){
+
+    $('pi').textContent =
+      excess > 0
+        ?
+        `Pembayaran ${id(amount)} • tunggakan ditutup, kelebihan ${id(excess)} menjadi saldo KAS.`
+        :
+        `Pembayaran ${id(amount)} • dialokasikan ke tunggakan terlebih dahulu.`;
+
+  }else{
+
+    $('pi').textContent =
+      excess > 0
+        ?
+        `Pembayaran ${id(amount)} • kelebihan menjadi saldo KAS.`
+        :
+        `Pengajuan pembayaran ${id(amount)}.`;
+
+  }
 
 }
 
 
-function payInfo(){
-
-const a=+$('pa').value||0;
-const b=+F?.balance||0;
-
-const x=
-b<0
-?a-Math.abs(b)
-:a-b;
-
-$('pi').textContent=
-!a
-?'Nominal belum ditentukan.'
-:x>0
-?`Pembayaran ${id(a)} • kelebihan ${id(x)} menjadi saldo KAS berikutnya.`
-:`Pengajuan ${id(a)}.`;
-
-}
-
+/* =====================================================
+   MEMBER HISTORY
+===================================================== */
 
 async function history(){
 
-const{data:x,error:q}=
-await s.rpc(
-'member_payment_history'
-);
+  const {
+    data,
+    error
+  } =
+  await s.rpc(
+    'member_payment_history'
+  );
 
-if(q)throw q;
 
-$('hl').innerHTML='';
+  if(error)
+    throw error;
 
-if(!x?.length){
 
-$('hl').textContent=
-'Belum ada riwayat.';
+  $('hl').innerHTML =
+    '';
 
-return;
+
+  if(!data?.length){
+
+    $('hl').textContent =
+      'Belum ada riwayat.';
+
+    st(
+      'hs',
+      'Belum ada riwayat pembayaran.',
+      true
+    );
+
+    return;
+
+  }
+
+
+  data.forEach(
+    r => {
+
+      const div =
+        document.createElement(
+          'div'
+        );
+
+
+      div.className =
+        'item';
+
+
+      div.innerHTML = `
+
+        <div class="top">
+
+          <b>
+            ${esc(
+              r.payment_type ||
+              'KAS'
+            )}
+          </b>
+
+          <b>
+            ${id(r.amount)}
+          </b>
+
+        </div>
+
+
+        <div class="muted">
+
+          ${esc(
+            r.status
+          )}
+
+          •
+
+          ${esc(
+            wt(r.submitted_at)
+          )}
+
+        </div>
+
+      `;
+
+
+      if(
+        r.proof_storage_path
+      ){
+
+        const button =
+          document.createElement(
+            'button'
+          );
+
+
+        button.className =
+          'ghost';
+
+        button.textContent =
+          'BUKTI';
+
+
+        button.onclick =
+          () =>
+          proof(
+            r.proof_storage_path,
+            'hs'
+          );
+
+
+        div.append(
+          button
+        );
+
+      }
+
+
+      $('hl').append(
+        div
+      );
+
+    }
+  );
+
+
+  st(
+    'hs',
+    `✓ ${data.length} riwayat ditampilkan.`,
+    true
+  );
 
 }
 
-x.forEach(r=>{
 
-const d=document.createElement('div');
-
-d.className='item';
-
-d.innerHTML=`
-<div class="top">
-<b>${e(r.payment_type||'KAS')}</b>
-<b>${id(r.amount)}</b>
-</div>
-
-<div class="muted">
-${e(r.status)}
-•
-${e(wt(r.submitted_at))}
-</div>
-`;
-
-if(r.proof_storage_path){
-
-const b=document.createElement('button');
-
-b.className='ghost';
-b.textContent='BUKTI';
-
-b.onclick=
-()=>proof(
-r.proof_storage_path,
-'hs'
-);
-
-d.append(b);
-
-}
-
-$('hl').append(d);
-
-});
-
-st(
-'hs',
-`✓ ${x.length} riwayat ditampilkan.`,
-true
-);
-
-}
-
+/* =====================================================
+   MEMBER BOOT
+===================================================== */
 
 async function memberBoot(){
 
-const{data:u,error:q}=
-await s.auth.getUser();
+  const {
+    data:user,
+    error:userError
+  } =
+  await s.auth.getUser();
 
-if(q)throw q;
 
-const{data:m,error:x}=
-await s
-.from('members')
-.select(
-'id,member_name,status,is_kas_exempt'
-)
-.eq('auth_user_id',u.user.id)
-.maybeSingle();
+  if(userError)
+    throw userError;
 
-if(x)throw x;
 
-if(!m)
-throw Error(
-'Akun belum terhubung dengan member.'
-);
+  if(!user)
+    throw Error(
+      'Session login tidak ditemukan.'
+    );
 
-if(m.status!=='ACTIVE')
-throw Error(
-'Status member tidak ACTIVE.'
-);
 
-$('wel').textContent=
-'Halo, '+m.member_name;
+  const {
+    data:member,
+    error:memberError
+  } =
+  await s
+    .from('members')
+    .select(
+      'id,member_name,status,is_kas_exempt'
+    )
+    .eq(
+      'auth_user_id',
+      user.id
+    )
+    .maybeSingle();
 
-if(m.is_kas_exempt){
 
-$('mt').textContent=
-'KAS EXEMPT';
+  if(memberError)
+    throw memberError;
 
-$('mf').textContent=
-'Member ini dibebaskan dari kewajiban KAS.';
 
-$('sp').disabled=true;
+  if(!member)
+    throw Error(
+      'Akun belum terhubung dengan member.'
+    );
 
-return;
+
+  if(
+    member.status !==
+    'ACTIVE'
+  ){
+
+    throw Error(
+      'Status member tidak ACTIVE.'
+    );
+
+  }
+
+
+  $('wel').textContent =
+    'Halo, ' +
+    member.member_name;
+
+
+  if(
+    member.is_kas_exempt
+  ){
+
+    $('mt').textContent =
+      'KAS EXEMPT';
+
+    $('mf').textContent =
+      'Member ini dibebaskan dari kewajiban KAS.';
+
+    $('sp').disabled =
+      true;
+
+    return;
+
+  }
+
+
+  $('sp').disabled =
+    false;
+
+
+  await financial();
+  await history();
 
 }
 
-$('sp').disabled=false;
 
-await financial();
-await history();
-
-}
-
+/* =====================================================
+   ADMIN BOOT
+===================================================== */
 
 async function adminBoot(){
 
-await members();
-await payments();
-await recap();
+  await members();
+  await payments();
+  await recap();
 
 }
 
+
+/* =====================================================
+   ROUTE
+===================================================== */
 
 async function route(){
 
-const{data:u,error:q}=
-await s.auth.getUser();
-
-if(q)throw q;
-
-const{data:a,error:x}=
-await s.rpc('is_admin');
-
-if(x)throw x;
-
-if(a){
-
-sh('admin');
-
-return adminBoot();
-
-}
-
-sh('member');
-
-return memberBoot();
-
-}
+  const {
+    data:user,
+    error:userError
+  } =
+  await s.auth.getUser();
 
 
-$('rm').onclick=
-()=>members()
-.catch(x=>st('ms','❌ '+x.message));
-
-$('rp').onclick=
-()=>payments()
-.catch(x=>st('ps','❌ '+x.message));
-
-$('rr').onclick=
-()=>recap()
-.catch(x=>st('rs','❌ '+x.message));
+  if(userError)
+    throw userError;
 
 
-$('cp').onclick=async()=>{
+  if(!user)
+    throw Error(
+      'Session tidak ditemukan.'
+    );
 
-try{
 
-await navigator.clipboard.writeText(
-$('rt').textContent
-);
+  const {
+    data:isAdmin,
+    error:adminError
+  } =
+  await s.rpc(
+    'is_admin'
+  );
 
-st(
-'rs',
-'✓ Rekap disalin.',
-true
-);
 
-}catch{
+  if(adminError)
+    throw adminError;
 
-st(
-'rs',
-'❌ Gagal menyalin.'
-);
+
+  if(isAdmin){
+
+    sh('admin');
+
+    await adminBoot();
+
+    return;
+
+  }
+
+
+  sh('member');
+
+  await memberBoot();
 
 }
 
-};
+
+/* =====================================================
+   ADMIN REFRESH
+===================================================== */
+
+$('rm').onclick =
+  () =>
+  members()
+    .catch(
+      e =>
+      st(
+        'ms',
+        '❌ ' +
+        e.message
+      )
+    );
 
 
-$('sk').onclick=async()=>{
+$('rp').onclick =
+  () =>
+  payments()
+    .catch(
+      e =>
+      st(
+        'ps',
+        '❌ ' +
+        e.message
+      )
+    );
 
-const n=+$('ka').value;
 
-if(!Number.isInteger(n)||n<=0)
-return st(
-'ss',
-'❌ Nominal KAS tidak valid.'
+$('rr').onclick =
+  () =>
+  recap()
+    .catch(
+      e =>
+      st(
+        'rs',
+        '❌ ' +
+        e.message
+      )
+    );
+
+
+/* =====================================================
+   COPY RECAP
+===================================================== */
+
+$('cp').onclick =
+  async () => {
+
+    try{
+
+      await navigator.clipboard.writeText(
+        $('rt').textContent
+      );
+
+
+      st(
+        'rs',
+        '✓ Rekap disalin.',
+        true
+      );
+
+
+    }catch{
+
+      st(
+        'rs',
+        '❌ Gagal menyalin.'
+      );
+
+    }
+
+  };
+
+
+/* =====================================================
+   KAS SETTING
+===================================================== */
+
+$('sk').onclick =
+  async () => {
+
+    const amount =
+      +$('ka').value;
+
+
+    if(
+      !Number.isInteger(amount) ||
+      amount <= 0
+    ){
+
+      st(
+        'ss',
+        '❌ Nominal KAS tidak valid.'
+      );
+
+      return;
+
+    }
+
+
+    const {
+      error
+    } =
+    await s.rpc(
+      'admin_update_kas_daily_amount',
+      {
+        p_amount:amount
+      }
+    );
+
+
+    if(error){
+
+      st(
+        'ss',
+        '❌ ' +
+        error.message
+      );
+
+      return;
+
+    }
+
+
+    st(
+      'ss',
+      '✓ KAS: ' +
+      id(amount),
+      true
+    );
+
+
+    $('ka').value =
+      '';
+
+
+    await members();
+    await recap();
+
+  };
+
+
+/* =====================================================
+   ADM SETTING
+===================================================== */
+
+$('sa').onclick =
+  async () => {
+
+    const amount =
+      +$('ad').value;
+
+
+    if(
+      !Number.isInteger(amount) ||
+      amount < 0
+    ){
+
+      st(
+        'ss',
+        '❌ Nominal ADM tidak valid.'
+      );
+
+      return;
+
+    }
+
+
+    const {
+      error
+    } =
+    await s.rpc(
+      'admin_update_adm_amount',
+      {
+        p_amount:amount
+      }
+    );
+
+
+    if(error){
+
+      st(
+        'ss',
+        '❌ ' +
+        error.message
+      );
+
+      return;
+
+    }
+
+
+    st(
+      'ss',
+      '✓ ADM: ' +
+      id(amount),
+      true
+    );
+
+
+    $('ad').value =
+      '';
+
+  };
+
+
+/* =====================================================
+   CREATE MEMBER
+===================================================== */
+
+$('cm').onclick =
+  async () => {
+
+    const nickname =
+      $('mn')
+        .value
+        .trim();
+
+
+    const whatsapp =
+      normalizeWhatsApp(
+        $('mw').value
+      );
+
+
+    $('mw').value =
+      whatsapp;
+
+
+    if(
+      !nickname ||
+      !$('mj').value
+    ){
+
+      st(
+        'cs',
+        '❌ Nickname dan tanggal join wajib diisi.'
+      );
+
+      return;
+
+    }
+
+
+    if(
+      whatsapp &&
+      whatsapp.length < 8
+    ){
+
+      st(
+        'cs',
+        '❌ Nomor WhatsApp tidak valid.'
+      );
+
+      return;
+
+    }
+
+
+    $('cm').disabled =
+      true;
+
+
+    try{
+
+      const {
+        data,
+        error
+      } =
+      await s.rpc(
+        'create_member',
+        {
+          p_member_name:nickname,
+          p_whatsapp_number:
+            whatsapp || null,
+          p_joined_at:
+            $('mj').value +
+            ':00+07:00',
+          p_member_type:'NORMAL',
+          p_notes:
+            $('mx').value.trim() ||
+            null
+        }
+      );
+
+
+      if(error)
+        throw error;
+
+
+      st(
+        'cs',
+        '✓ Member dibuat: ' +
+        data,
+        true
+      );
+
+
+      $('mn').value =
+        '';
+
+      $('mw').value =
+        '';
+
+      $('mx').value =
+        '';
+
+
+      setJoinDate();
+
+
+      await members();
+      await recap();
+
+
+    }catch(error){
+
+      st(
+        'cs',
+        '❌ ' +
+        error.message
+      );
+
+    }finally{
+
+      $('cm').disabled =
+        false;
+
+    }
+
+  };
+
+
+/* =====================================================
+   PAYMENT AMOUNT
+===================================================== */
+
+$('pa').addEventListener(
+  'input',
+  paymentInfo
 );
 
-const{error}=
-await s.rpc(
-'admin_update_kas_daily_amount',
-{
-p_amount:n
-}
-);
 
-if(error)
-return st(
-'ss',
-'❌ '+error.message
-);
+/* =====================================================
+   MEMBER PAYMENT SUBMIT
+===================================================== */
 
-st(
-'ss',
-'✓ KAS: '+id(n),
-true
-);
+$('sp').onclick =
+  async () => {
 
-$('ka').value='';
-
-await members();
-await recap();
-
-};
+    const amount =
+      +$('pa').value;
 
 
-$('sa').onclick=async()=>{
-
-const n=+$('ad').value;
-
-if(!Number.isInteger(n)||n<0)
-return st(
-'ss',
-'❌ Nominal ADM tidak valid.'
-);
-
-const{error}=
-await s.rpc(
-'admin_update_adm_amount',
-{
-p_amount:n
-}
-);
-
-if(error)
-return st(
-'ss',
-'❌ '+error.message
-);
-
-st(
-'ss',
-'✓ ADM: '+id(n),
-true
-);
-
-$('ad').value='';
-
-};
+    const file =
+      $('pf').files[0];
 
 
-$('cm').onclick=async()=>{
+    if(
+      !Number.isInteger(amount) ||
+      amount <= 0
+    ){
 
-const n=$('mn').value.trim();
+      st(
+        'sm',
+        '❌ Nominal pembayaran tidak valid.'
+      );
 
-if(!n||!$('mj').value)
-return st(
-'cs',
-'❌ Nickname dan join wajib diisi.'
-);
+      return;
 
-const{data:x,error:q}=
-await s.rpc(
-'create_member',
-{
-p_member_name:n,
-p_whatsapp_number:
-$('mw').value.trim()||null,
-p_joined_at:
-$('mj').value+':00+07:00',
-p_member_type:'NORMAL',
-p_notes:
-$('mx').value.trim()||null
-}
-);
-
-if(q)
-return st(
-'cs',
-'❌ '+q.message
-);
-
-st(
-'cs',
-'✓ Member dibuat: '+x,
-true
-);
-
-$('mn').value='';
-$('mw').value='';
-$('mx').value='';
-
-join();
-
-await members();
-await recap();
-
-};
+    }
 
 
-$('pa').oninput=payInfo;
+    if(!file){
+
+      st(
+        'sm',
+        '❌ Bukti pembayaran wajib dipilih.'
+      );
+
+      return;
+
+    }
 
 
-$('sp').onclick=async()=>{
+    if(
+      file.size >
+      5242880
+    ){
 
-const a=+$('pa').value;
-const f=$('pf').files[0];
+      st(
+        'sm',
+        '❌ File maksimal 5 MB.'
+      );
 
-if(!Number.isInteger(a)||a<=0)
-return st(
-'sm',
-'❌ Nominal tidak valid.'
-);
+      return;
 
-if(!f)
-return st(
-'sm',
-'❌ Bukti wajib dipilih.'
-);
-
-if(f.size>5242880)
-return st(
-'sm',
-'❌ File maksimal 5 MB.'
-);
-
-const{data:u,error:q}=
-await s.auth.getUser();
-
-if(q)throw q;
-
-if(!u.user)
-return st(
-'sm',
-'❌ Session hilang.'
-);
-
-const path=
-u.user.id+'/'+
-crypto.randomUUID()+'.'+
-f.name
-.split('.')
-.pop()
-.toLowerCase();
-
-$('sp').disabled=true;
-
-try{
-
-st(
-'sm',
-'Upload bukti...'
-);
-
-const{error:x}=
-await s.storage
-.from(B)
-.upload(
-path,
-f,
-{
-cacheControl:'3600',
-upsert:false,
-contentType:f.type
-}
-);
-
-if(x)throw x;
-
-const{data:i,error:z}=
-await s.rpc(
-'submit_kas_payment',
-{
-p_amount:a,
-p_proof_storage_path:path,
-p_notes:
-$('pn').value.trim()||null
-}
-);
-
-if(z){
-
-await s.storage
-.from(B)
-.remove([path])
-.catch(()=>{});
-
-throw z;
-
-}
-
-$('pf').value='';
-$('pn').value='';
-
-st(
-'sm',
-'✓ Pengajuan berhasil: '+i,
-true
-);
-
-await financial();
-await history();
-
-}catch(x){
-
-st(
-'sm',
-'❌ '+x.message
-);
-
-}finally{
-
-$('sp').disabled=false;
-
-}
-
-};
+    }
 
 
-$('rh').onclick=
-()=>history()
-.catch(x=>st('hs','❌ '+x.message));
+    const {
+      data:user,
+      error:userError
+    } =
+    await s.auth.getUser();
 
-$('mr').onclick=
-()=>memberBoot()
-.catch(x=>st('mf','❌ '+x.message));
 
+    if(userError)
+      throw userError;
+
+
+    if(!user){
+
+      st(
+        'sm',
+        '❌ Session login hilang.'
+      );
+
+      return;
+
+    }
+
+
+    const extension =
+      file.name
+        .split('.')
+        .pop()
+        .toLowerCase();
+
+
+    const path =
+      user.id +
+      '/' +
+      crypto.randomUUID() +
+      '.' +
+      extension;
+
+
+    $('sp').disabled =
+      true;
+
+
+    try{
+
+      st(
+        'sm',
+        'Upload bukti...'
+      );
+
+
+      const {
+        error:uploadError
+      } =
+      await s.storage
+        .from(
+          PAYMENT_BUCKET
+        )
+        .upload(
+          path,
+          file,
+          {
+            cacheControl:'3600',
+            upsert:false,
+            contentType:file.type
+          }
+        );
+
+
+      if(uploadError)
+        throw uploadError;
+
+
+      const {
+        data:requestId,
+        error:submitError
+      } =
+      await s.rpc(
+        'submit_kas_payment',
+        {
+          p_amount:amount,
+          p_proof_storage_path:path,
+          p_notes:
+            $('pn').value.trim() ||
+            null
+        }
+      );
+
+
+      if(submitError){
+
+        await s.storage
+          .from(
+            PAYMENT_BUCKET
+          )
+          .remove([path])
+          .catch(()=>{});
+
+        throw submitError;
+
+      }
+
+
+      $('pf').value =
+        '';
+
+      $('pn').value =
+        '';
+
+
+      st(
+        'sm',
+        '✓ Pengajuan berhasil: ' +
+        requestId,
+        true
+      );
+
+
+      await financial();
+      await history();
+
+
+    }catch(error){
+
+      st(
+        'sm',
+        '❌ ' +
+        error.message
+      );
+
+
+    }finally{
+
+      $('sp').disabled =
+        false;
+
+    }
+
+  };
+
+
+/* =====================================================
+   MEMBER REFRESH
+===================================================== */
+
+$('rh').onclick =
+  () =>
+  history()
+    .catch(
+      e =>
+      st(
+        'hs',
+        '❌ ' +
+        e.message
+      )
+    );
+
+
+$('mr').onclick =
+  () =>
+  memberBoot()
+    .catch(
+      e =>
+      st(
+        'mf',
+        '❌ ' +
+        e.message
+      )
+    );
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
 
 async function logout(){
 
-await s.auth.signOut();
+  await s.auth.signOut();
 
-sh('login');
+  sh('login');
 
-$('pass').value='';
-$('wa').value='';
+  $('pass').value =
+    '';
 
-st(
-'loginMsg',
-'Sudah logout.'
-);
+  $('wa').value =
+    '';
+
+  st(
+    'loginMsg',
+    'Sudah logout.',
+    true
+  );
 
 }
 
-$('al').onclick=logout;
-$('mlg').onclick=logout;
+
+$('al').onclick =
+  logout;
+
+
+$('mlg').onclick =
+  logout;
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
 
 s.auth.onAuthStateChange(
-ev=>{
-if(ev==='SIGNED_OUT')
-sh('login');
-}
+  event => {
+
+    if(
+      event ===
+      'SIGNED_OUT'
+    ){
+
+      sh('login');
+
+    }
+
+  }
 );
 
+
+/* =====================================================
+   START APPLICATION
+===================================================== */
 
 (async()=>{
 
-try{
+  try{
 
-const{data}=
-await s.auth.getSession();
+    const {
+      data
+    } =
+    await s.auth.getSession();
 
-if(data.session)
-await route();
 
-}catch(x){
+    if(
+      data &&
+      data.session
+    ){
 
-await s.auth.signOut().catch(()=>{});
+      await route();
 
-sh('login');
+    }else{
 
-st(
-'loginMsg',
-'❌ '+x.message
-);
+      sh('login');
 
-}
+    }
+
+
+  }catch(error){
+
+    await s.auth
+      .signOut()
+      .catch(()=>{});
+
+
+    sh('login');
+
+
+    st(
+      'loginMsg',
+      '❌ ' +
+      (
+        error.message ||
+        'Aplikasi gagal dimuat.'
+      )
+    );
+
+  }
 
 })();
 
