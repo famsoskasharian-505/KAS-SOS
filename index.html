@@ -1,30 +1,20 @@
+index.html
+
 <!doctype html>
 <html lang="id">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>KAS SOS — Street Of Style</title>
-
 <style>
-:root{
- --g:#39d463;--r:#ff626b;--y:#f3c94b;--b:#62b8ff;
- --t:#edf7ef;--m:#98a89e;--p:#070b08e8;--l:#26362c
-}
+:root{--g:#39d463;--r:#ff626b;--y:#f3c94b;--b:#62b8ff;--t:#edf7ef;--m:#98a89e;--p:#070b08e8;--l:#26362c}
 *{box-sizing:border-box}
-body{
- margin:0;min-height:100vh;color:var(--t);font:11px Arial;
- background:#020403 url('./background.jpg') center/cover fixed no-repeat
-}
-body:before{
- content:"";position:fixed;inset:0;background:#0009;z-index:-1
-}
+body{margin:0;min-height:100vh;color:var(--t);font:11px Arial;background:#020403 url('./background.jpg') center/cover fixed no-repeat}
+body:before{content:"";position:fixed;inset:0;background:#0009;z-index:-1}
 .wrap{max-width:680px;margin:8px auto;padding:0 6px}
-.card,.stat,.item{
- background:var(--p);border:1px solid var(--l);border-radius:9px;
- padding:9px;margin:6px 0;backdrop-filter:blur(5px)
-}
+.card,.stat,.item{background:var(--p);border:1px solid var(--l);border-radius:9px;padding:9px;margin:6px 0;backdrop-filter:blur(5px)}
 .hidden{display:none}
-.brand{max-width:380px;margin:15vh auto}
+.brand{max-width:390px;margin:12vh auto}
 .row,.top,.title,.actions{display:flex;gap:6px;align-items:center}
 .top,.title{justify-content:space-between}
 .grid{display:grid;gap:6px}
@@ -40,15 +30,9 @@ h2{font-size:13px;margin:0 0 7px}
 .yellow{color:var(--y)}
 .blue{color:var(--b)}
 label{display:block;font-size:9px;font-weight:700;margin:5px 0 2px}
-input,select,textarea{
- width:100%;background:#040805;color:#fff;border:1px solid #2c3c32;
- border-radius:6px;padding:7px;font:11px Arial
-}
+input,select,textarea{width:100%;background:#040805;color:#fff;border:1px solid #2c3c32;border-radius:6px;padding:7px;font:11px Arial}
 textarea{min-height:50px}
-button{
- border:1px solid #31994a;background:#14823a;color:#fff;
- border-radius:6px;padding:7px 8px;font:700 9px Arial;cursor:pointer
-}
+button{border:1px solid #31994a;background:#14823a;color:#fff;border-radius:6px;padding:7px 8px;font:700 9px Arial;cursor:pointer}
 button:disabled{opacity:.45}
 .ghost{background:#101813;border-color:#34473a}
 .danger{background:#792129;border-color:#a83b45}
@@ -56,37 +40,24 @@ button:disabled{opacity:.45}
 .bluebtn{background:#145b91;border-color:#2b80c2}
 .purple{background:#56209a;border-color:#7d45c8}
 .actions>*{flex:1}
-.badge{
- font-size:8px;padding:3px 6px;border-radius:99px;
- background:#16341e;color:#a8f3b4;border:1px solid #2a6938
-}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:8px 0}
+.tabs button.active{background:#14823a;border-color:#39d463}
+.badge{font-size:8px;padding:3px 6px;border-radius:99px;background:#16341e;color:#a8f3b4;border:1px solid #2a6938}
 .badge.r{background:#40171b;color:#ffb0b4;border-color:#703039}
 .badge.y{background:#443612;color:#f8df83;border-color:#75601e}
-.status{
- white-space:pre-wrap;margin-top:6px;padding:7px;border:1px solid #24352a;
- border-radius:6px;color:#b9c9be;background:#050b07
-}
+.status{white-space:pre-wrap;margin-top:6px;padding:7px;border:1px solid #24352a;border-radius:6px;color:#b9c9be;background:#050b07}
 .ok{border-color:#286b39;color:#aaf4b5}
 .err{border-color:#70323a;color:#ffadb2}
-.copy{
- font:9px/1.45 monospace;white-space:pre-wrap;max-height:200px;
- overflow:auto;background:#030604;border:1px dashed #304237;
- padding:7px;border-radius:6px
-}
+.copy{font:9px/1.45 monospace;white-space:pre-wrap;max-height:200px;overflow:auto;background:#030604;border:1px dashed #304237;padding:7px;border-radius:6px}
 .foot{text-align:center;color:#7c8c82;font-size:8px;padding:8px}
-@media(max-width:520px){
- .g3{grid-template-columns:1fr 1fr}
- .brand{margin-top:10vh}
-}
+@media(max-width:520px){.g3{grid-template-columns:1fr 1fr}.brand{margin-top:8vh}}
 </style>
 </head>
 
 <body>
-
 <main class="wrap">
 
 <section id="login" class="card brand">
-
 <div class="row">
 <b style="font-size:22px">💰</b>
 <div>
@@ -95,18 +66,40 @@ button:disabled{opacity:.45}
 </div>
 </div>
 
-<label>Email</label>
-<input id="email" type="email" autocomplete="username">
-
-<label>Password</label>
-<input id="pass" type="password" autocomplete="current-password">
-
-<button id="loginBtn">LOGIN</button>
-
-<div id="loginMsg" class="status">
-Belum login.
+<div class="tabs">
+<button id="memberTab" class="active">MEMBER</button>
+<button id="adminTab" class="ghost">ADMIN</button>
 </div>
 
+<div id="memberLogin">
+<label>Nickname</label>
+<input id="nickname" autocomplete="username" placeholder="Nickname dari daftar admin">
+
+<label>Nomor WhatsApp</label>
+<input id="wa" type="tel" inputmode="numeric" autocomplete="current-password" placeholder="08xxxxxxxxxx">
+
+<div class="actions">
+<button id="memberLoginBtn">LOGIN MEMBER</button>
+<button id="activateBtn" class="bluebtn">AKTIVASI</button>
+</div>
+
+<div class="muted" style="margin-top:6px">
+Nickname harus sudah dibuat admin.
+Satu nickname hanya boleh terhubung ke satu nomor WhatsApp.
+</div>
+</div>
+
+<div id="adminLogin" class="hidden">
+<label>Email Admin</label>
+<input id="email" type="email" autocomplete="username">
+
+<label>Password Admin</label>
+<input id="pass" type="password" autocomplete="current-password">
+
+<button id="loginBtn">LOGIN ADMIN</button>
+</div>
+
+<div id="loginMsg" class="status">Belum login.</div>
 </section>
 
 
@@ -118,7 +111,6 @@ Belum login.
 </div>
 
 <div class="grid g3">
-
 <div class="stat">
 <span class="muted">Member</span>
 <b id="ac">0</b>
@@ -133,26 +125,20 @@ Belum login.
 <span class="muted">Tunggakan</span>
 <b id="aa" class="red">Rp0</b>
 </div>
-
 </div>
 
-
 <div class="card">
-
 <div class="title">
 <b>Member</b>
 <button id="rm" class="ghost">REFRESH</button>
 </div>
 
 <div id="ml">Memuat...</div>
-
 <div id="ms" class="status">-</div>
-
 </div>
 
 
 <div class="card">
-
 <b>Pengaturan</b>
 
 <div class="g2 grid">
@@ -172,43 +158,33 @@ Belum login.
 </div>
 
 <div id="ss" class="status">-</div>
-
 </div>
 
 
 <div class="card">
-
 <div class="title">
 <b>Pengajuan</b>
 <button id="rp" class="ghost">REFRESH</button>
 </div>
 
 <div id="pl">Memuat...</div>
-
 <div id="ps" class="status">-</div>
-
 </div>
 
 
 <div class="card">
 
 <div class="title">
-
 <b>Rekap NextPay</b>
 
 <div class="actions">
 <button id="rr" class="ghost">REFRESH</button>
 <button id="cp" class="purple">COPY</button>
 </div>
-
 </div>
 
 <div id="rl"></div>
-
-<div id="rt" class="copy">
-Belum ada data.
-</div>
-
+<div id="rt" class="copy">Belum ada data.</div>
 <div id="rs" class="status">-</div>
 
 </div>
@@ -216,13 +192,13 @@ Belum ada data.
 
 <div class="card">
 
-<b>Tambah Member</b>
+<b>Tambah Nickname / Member</b>
 
-<label>Nama</label>
-<input id="mn">
+<label>Nickname</label>
+<input id="mn" placeholder="Nickname resmi member">
 
 <label>WhatsApp</label>
-<input id="mw">
+<input id="mw" type="tel">
 
 <label>Join WIB</label>
 <input id="mj" type="datetime-local">
@@ -238,9 +214,7 @@ Belum ada data.
 
 
 <div class="card">
-<button id="al" class="danger">
-LOGOUT ADMIN
-</button>
+<button id="al" class="danger">LOGOUT ADMIN</button>
 </div>
 
 </section>
@@ -252,7 +226,6 @@ LOGOUT ADMIN
 <b id="wel">Dashboard Member</b>
 <span class="badge">MEMBER</span>
 </div>
-
 
 <div class="grid g2">
 
@@ -280,13 +253,8 @@ LOGOUT ADMIN
 
 
 <div class="card">
-
 <b>Ringkasan</b>
-
-<div id="mf" class="status">
-Memuat...
-</div>
-
+<div id="mf" class="status">Memuat...</div>
 </div>
 
 
@@ -297,27 +265,17 @@ Memuat...
 <label>Nominal bebas</label>
 <input id="pa" type="number" min="1">
 
-<div id="pi" class="status">
--
-</div>
+<div id="pi" class="status">-</div>
 
 <label>Bukti</label>
-<input
- id="pf"
- type="file"
- accept="image/jpeg,image/png,image/webp,application/pdf"
->
+<input id="pf" type="file" accept="image/jpeg,image/png,image/webp,application/pdf">
 
 <label>Catatan</label>
 <textarea id="pn"></textarea>
 
-<button id="sp">
-AJUKAN
-</button>
+<button id="sp">AJUKAN</button>
 
-<div id="sm" class="status">
--
-</div>
+<div id="sm" class="status">-</div>
 
 </div>
 
@@ -325,149 +283,103 @@ AJUKAN
 <div class="card">
 
 <div class="title">
-
 <b>Riwayat</b>
-
-<button id="rh" class="ghost">
-REFRESH
-</button>
-
+<button id="rh" class="ghost">REFRESH</button>
 </div>
 
-<div id="hl">
-Memuat...
-</div>
-
-<div id="hs" class="status">
--
-</div>
+<div id="hl">Memuat...</div>
+<div id="hs" class="status">-</div>
 
 </div>
 
 
 <div class="card">
-
 <div class="actions">
-
-<button id="mr" class="ghost">
-REFRESH
-</button>
-
-<button id="mlg" class="danger">
-LOGOUT
-</button>
-
+<button id="mr" class="ghost">REFRESH</button>
+<button id="mlg" class="danger">LOGOUT</button>
 </div>
-
 </div>
 
 </section>
 
-
-<div class="foot">
-KAS SOS • Street Of Style • 2026
-</div>
+<div class="foot">KAS SOS • Street Of Style • 2026</div>
 
 </main>
 
 
 <script type="module">
 
-import {
- createClient
-} from
-'https://esm.sh/@supabase/supabase-js@2';
-
+import{createClient}from'https://esm.sh/@supabase/supabase-js@2';
 
 const s=createClient(
- 'https://nwfodyefdxdsmdrxzfby.supabase.co',
- 'sb_publishable_M6BDC3TNoLQTTW3XSOgvyQ_6Y_0l0BD'
+'https://nwfodyefdxsdmdrxzfby.supabase.co',
+'sb_publishable_M6BDC3TNoLQTTW3XSOgvyQ_6Y_0l0BD'
 );
 
+const AUTH=
+'https://nwfodyefdxsdmdrxzfby.supabase.co/functions/v1/member-auth';
 
 const B='Bukti oembayaran kas';
 
 const $=x=>document.getElementById(x);
 
-const id=x=>
- new Intl.NumberFormat(
-  'id-ID',
-  {
-   style:'currency',
-   currency:'IDR',
-   maximumFractionDigits:0
-  }
- ).format(+x||0);
-
-const dt=x=>
- x
- ?new Intl.DateTimeFormat(
-   'id-ID',
-   {
-    timeZone:'Asia/Jakarta',
-    dateStyle:'medium'
-   }
-  ).format(
-   new Date(
-    String(x).slice(0,10)+
-    'T00:00:00+07:00'
-   )
-  )
- :'-';
-
-const wt=x=>
- x
- ?new Intl.DateTimeFormat(
-   'id-ID',
-   {
-    timeZone:'Asia/Jakarta',
-    dateStyle:'medium',
-    timeStyle:'short'
-   }
-  ).format(new Date(x))
- :'-';
-
-const e=x=>
- String(x??'').replace(
-  /[&<>"']/g,
-  c=>({
-   '&':'&amp;',
-   '<':'&lt;',
-   '>':'&gt;',
-   '"':'&quot;',
-   "'":'&#039;'
-  }[c])
- );
-
-
-function st(x,t,o=0){
-
- $(x).textContent=t;
-
- $(x).classList.toggle(
-  'ok',
-  !!o
- );
-
- $(x).classList.toggle(
-  'err',
-  !o&&t.includes('❌')
- );
-
+const id=x=>new Intl.NumberFormat(
+'id-ID',
+{
+style:'currency',
+currency:'IDR',
+maximumFractionDigits:0
 }
+).format(+x||0);
 
+const e=x=>String(x??'').replace(
+/[&<>"']/g,
+c=>({
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;',
+"'":'&#039;'
+}[c])
+);
 
-function sh(x){
-
- ['login','admin','member']
- .forEach(
-  i=>$(i).classList.add('hidden')
- );
-
- $(x).classList.remove('hidden');
-
+const dt=x=>x?
+new Intl.DateTimeFormat(
+'id-ID',
+{
+timeZone:'Asia/Jakarta',
+dateStyle:'medium'
 }
+).format(
+new Date(String(x).slice(0,10)+'T00:00:00+07:00')
+)
+:'-';
 
+const wt=x=>x?
+new Intl.DateTimeFormat(
+'id-ID',
+{
+timeZone:'Asia/Jakarta',
+dateStyle:'medium',
+timeStyle:'short'
+}
+).format(new Date(x))
+:'-';
+
+const st=(k,t,ok=false)=>{
+$(k).textContent=t;
+$(k).classList.toggle('ok',ok);
+$(k).classList.toggle(
+'err',
+!ok&&t.includes('❌')
+);
+};
+
+const sh=x=>{
+['login','admin','member'].forEach(
+k=>$(k).classList.toggle('hidden',k!==x)
+);
+};
 
 let F=null;
 let R=[];
@@ -475,1001 +387,991 @@ let R=[];
 
 function join(){
 
- const n=new Date();
+const n=new Date();
 
- const p=
- new Intl.DateTimeFormat(
-  'en-CA',
-  {
-   timeZone:'Asia/Jakarta',
-   year:'numeric',
-   month:'2-digit',
-   day:'2-digit',
-   hour:'2-digit',
-   minute:'2-digit',
-   hourCycle:'h23'
-  }
- ).formatToParts(n);
+const p=new Intl.DateTimeFormat(
+'en-CA',
+{
+timeZone:'Asia/Jakarta',
+year:'numeric',
+month:'2-digit',
+day:'2-digit',
+hour:'2-digit',
+minute:'2-digit',
+hourCycle:'h23'
+}
+).formatToParts(n);
 
- const g=t=>
-  p.find(x=>x.type==t)?.value;
+const g=t=>p.find(x=>x.type===t)?.value;
 
- $('mj').value=
- `${g('year')}-${g('month')}-${g('day')}T${g('hour')}:${g('minute')}`;
+$('mj').value=
+`${g('year')}-${g('month')}-${g('day')}T${g('hour')}:${g('minute')}`;
 
 }
 
 join();
 
 
+async function memberAuth(mode){
+
+const nickname=$('nickname').value.trim();
+const whatsapp=$('wa').value.trim();
+
+if(!nickname||!whatsapp)
+return st(
+'loginMsg',
+'❌ Nickname dan nomor WhatsApp wajib diisi.'
+);
+
+$('memberLoginBtn').disabled=true;
+$('activateBtn').disabled=true;
+
+st(
+'loginMsg',
+mode==='activate'
+?'Mengaktifkan akun...'
+:'Memeriksa login...'
+);
+
+try{
+
+const r=await fetch(
+AUTH,
+{
+method:'POST',
+headers:{
+'Content-Type':'application/json'
+},
+body:JSON.stringify({
+nickname,
+whatsapp,
+mode
+})
+}
+);
+
+const j=await r.json();
+
+if(!r.ok)
+throw Error(
+j.error||'Autentikasi gagal.'
+);
+
+const password=
+whatsapp
+.replace(/\D/g,'')
+.replace(/^62/,'0')
+.replace(/^8/,'08');
+
+const {error}=await s.auth.signInWithPassword({
+email:j.email,
+password
+});
+
+if(error)
+throw error;
+
+await route();
+
+}catch(x){
+
+await s.auth.signOut().catch(()=>{});
+
+sh('login');
+
+st(
+'loginMsg',
+'❌ '+x.message
+);
+
+}finally{
+
+$('memberLoginBtn').disabled=false;
+$('activateBtn').disabled=false;
+
+}
+
+}
+
+
+$('memberLoginBtn').onclick=
+()=>memberAuth('login');
+
+$('activateBtn').onclick=
+()=>memberAuth('activate');
+
+$('wa').onkeydown=
+x=>x.key==='Enter'&&memberAuth('login');
+
+$('nickname').onkeydown=
+x=>x.key==='Enter'&&memberAuth('login');
+
+
+$('memberTab').onclick=()=>{
+
+$('memberTab').classList.add('active');
+$('adminTab').classList.remove('active');
+
+$('memberLogin').classList.remove('hidden');
+$('adminLogin').classList.add('hidden');
+
+st(
+'loginMsg',
+'Mode MEMBER.',
+true
+);
+
+};
+
+
+$('adminTab').onclick=()=>{
+
+$('adminTab').classList.add('active');
+$('memberTab').classList.remove('active');
+
+$('adminLogin').classList.remove('hidden');
+$('memberLogin').classList.add('hidden');
+
+st(
+'loginMsg',
+'Mode ADMIN.',
+true
+);
+
+};
+
+
+$('loginBtn').onclick=async()=>{
+
+const a=$('email').value.trim();
+const p=$('pass').value;
+
+if(!a||!p)
+return st(
+'loginMsg',
+'❌ Email dan password admin wajib diisi.'
+);
+
+$('loginBtn').disabled=true;
+
+st(
+'loginMsg',
+'Sedang login admin...'
+);
+
+try{
+
+const{error}=
+await s.auth.signInWithPassword({
+email:a,
+password:p
+});
+
+if(error)
+throw error;
+
+await route();
+
+}catch(x){
+
+await s.auth.signOut().catch(()=>{});
+
+sh('login');
+
+st(
+'loginMsg',
+'❌ Login gagal: '+x.message
+);
+
+}finally{
+
+$('loginBtn').disabled=false;
+
+}
+
+};
+
+
+$('pass').onkeydown=
+x=>x.key==='Enter'&&$('loginBtn').click();
+
+
 async function members(){
 
- let {
-  data:a,
-  error:x
- }=await s.rpc(
-  'admin_get_members'
- );
+const{data:a,error:x}=
+await s.rpc('admin_get_members');
 
- if(x)throw x;
+if(x)throw x;
 
+const{data:z,error:q}=
+await s.rpc('admin_get_nextpay_summary');
 
- let {
-  data:z,
-  error:q
- }=await s.rpc(
-  'admin_get_nextpay_summary'
- );
+if(q)throw q;
 
- if(q)throw q;
+z=z||[];
 
- z=z||[];
+const m=new Map(
+z.map(x=>[x.member_id,x])
+);
 
- let m=
- new Map(
-  z.map(x=>[
-   x.member_id,
-   x
-  ])
- );
+let tot=0;
+let arr=0;
 
+$('ac').textContent=
+(a||[]).filter(
+x=>x.status==='ACTIVE'
+).length;
 
- let tot=0;
- let arr=0;
+z.forEach(x=>{
 
- $('ac').textContent=
-  (a||[]).filter(
-   x=>x.status==='ACTIVE'
-  ).length;
+tot+=+x.balance||0;
 
- z.forEach(x=>{
-  tot+=+x.balance||0;
+if(+x.balance<0)
+arr+=Math.abs(+x.balance);
 
-  if(+x.balance<0)
-   arr+=Math.abs(+x.balance);
- });
+});
 
- $('at').textContent=id(tot);
- $('aa').textContent=id(arr);
+$('at').textContent=id(tot);
+$('aa').textContent=id(arr);
 
- $('ml').innerHTML='';
+$('ml').innerHTML='';
 
- (a||[]).forEach(x=>{
+(a||[]).forEach(x=>{
 
-  let y=m.get(x.id)||{};
-  let b=+y.balance||0;
+const y=m.get(x.id)||{};
+const b=+y.balance||0;
 
-  let d=
-  document.createElement('div');
+const d=document.createElement('div');
 
-  d.className='item';
+d.className='item';
 
-  d.innerHTML=
-  `<div class="top">
-   <b>${e(x.member_name)}</b>
-   <span class="badge ${b<0?'r':y.next_pay_days===1?'y':''}">
-   ${b<0?'🔴':y.next_pay_days===1?'⚠️':'🟢'}
-   </span>
-  </div>
+d.innerHTML=`
+<div class="top">
+<b>${e(x.member_name)}</b>
+<span class="badge ${
+b<0?'r':
+y.next_pay_days===1?'y':''
+}">
+${
+b<0?'🔴':
+y.next_pay_days===1?'⚠️':'🟢'
+}
+</span>
+</div>
 
-  <div class="muted">
-   ${e(x.status)}
-   • mulai ${e(x.kas_effective_date||'-')}
-  </div>
+<div class="muted">
+${e(x.status)} • WA ${e(x.whatsapp_number||'-')}
+</div>
 
-  <div>
-   <b class="${b<0?'red':'green'}">
-   ${id(b)}
-   </b>
-   • 📌 NP ${dt(y.next_pay_date)}
-  </div>`;
+<div>
+<b class="${b<0?'red':'green'}">
+${id(b)}
+</b>
+•
+📌 NP ${dt(y.next_pay_date)}
+</div>
+`;
 
-  if(x.status==='ACTIVE'){
+if(x.status==='ACTIVE'){
 
-   let a=
-   document.createElement('div');
+const w=document.createElement('button');
 
-   a.className='actions';
+w.className='warn';
+w.textContent='NONAKTIFKAN';
 
-   let b=
-   document.createElement('button');
+w.onclick=async()=>{
 
-   b.className='warn';
-   b.textContent='NONAKTIFKAN';
+const r=prompt(
+'Alasan menonaktifkan member:'
+);
 
-   b.onclick=async()=>{
+if(!r?.trim())return;
 
-    let r=
-    prompt(
-     'Alasan menonaktifkan member:'
-    );
+const{error}=
+await s.rpc(
+'admin_deactivate_member',
+{
+p_member_id:x.id,
+p_reason:r.trim()
+}
+);
 
-    if(!r?.trim())return;
+if(error)
+alert(error.message);
 
-    try{
+else{
 
-     let {
-      error
-     }=await s.rpc(
-      'admin_deactivate_member',
-      {
-       p_member_id:x.id,
-       p_reason:r.trim()
-      }
-     );
+await members();
+await recap();
 
-     if(error)throw error;
+}
 
-     await members();
-     await recap();
+};
 
-    }catch(q){
+d.append(w);
 
-     alert(q.message);
+}
 
-    }
+$('ml').append(d);
 
-   };
+});
 
-   a.append(b);
-   d.append(a);
-
-  }
-
-  $('ml').append(d);
-
- });
-
- st(
-  'ms',
-  `✓ ${(a||[]).length} member ditampilkan.`,
-  1
- );
+st(
+'ms',
+`✓ ${(a||[]).length} member ditampilkan.`,
+true
+);
 
 }
 
 
 async function recap(){
 
- let {
-  data:x,
-  error:q
- }=await s.rpc(
-  'admin_get_nextpay_summary'
- );
-
- if(q)throw q;
-
- R=x||[];
-
- $('rl').innerHTML='';
-
- let t=[
-  '📋 REKAP KAS SOS',
-  '================'
- ];
-
- R.forEach((x,i)=>{
-
-  let b=+x.balance||0;
-  let n=+x.next_pay_days||0;
-
-  let c=
-   b<0
-   ?'🔴'
-   :n===1
-   ?'⚠️'
-   :'🟢';
-
-  let d=
-   document.createElement('div');
-
-  d.className='item';
-
-  d.innerHTML=
-  `<div class="top">
-   <b>${e(x.member_name)}</b>
-   <b class="${b<0?'red':'green'}">
-   ${id(b)}
-   </b>
-  </div>
-
-  <div class="muted">
-   ${c} ${e(x.status_text||'-')}
-   • 📌 NP ${dt(x.next_pay_date)}
-  </div>`;
-
-  $('rl').append(d);
-
-  t.push(
-   `${i+1}. ${x.member_name}`,
-   `   ${c} Saldo: ${id(b)}`,
-   `   📌 NP: ${dt(x.next_pay_date)}${x.next_pay_days!=null?` (${x.next_pay_days} hari)`:''}`,
-   ''
-  );
-
- });
-
- t.push(
-  '================',
-  '🟢 Saldo aman / ada saldo',
-  '🔴 Tunggakan / saldo minus',
-  '⚠️ TELAT SEHARI',
-  '📌 NP = NextPay'
- );
-
- $('rt').textContent=
-  t.join('\n');
-
- st(
-  'rs',
-  `✓ ${R.length} member masuk rekap.`,
-  1
- );
-
-}
-
-
-async function payments(){
-
- let {
-  data:x,
-  error:q
- }=await s.rpc(
-  'admin_get_payment_requests'
- );
-
- if(q)throw q;
-
- $('pl').innerHTML='';
-
- if(!x?.length){
-
-  $('pl').textContent=
-   'Belum ada pengajuan.';
-
-  return;
-
- }
-
- x.forEach(r=>{
-
-  let d=
-  document.createElement('div');
-
-  d.className='item';
-
-  d.innerHTML=
-  `<div class="top">
-   <b>${e(r.member_name)}</b>
-   <b>${id(r.amount)}</b>
-  </div>
-
-  <div class="muted">
-   ${e(r.payment_type)}
-   • ${e(r.status)}
-   • ${e(wt(r.submitted_at))}
-  </div>`;
-
-  if(r.proof_storage_path){
-
-   let b=
-   document.createElement('button');
-
-   b.className='ghost';
-   b.textContent='BUKTI';
-
-   b.onclick=()=>
-    proof(
-     r.proof_storage_path,
-     'ps'
-    );
-
-   d.append(b);
-
-  }
-
-  if(r.status==='PENDING'){
-
-   let a=
-   document.createElement('div');
-
-   a.className='actions';
-
-   let y=
-   document.createElement('button');
-
-   y.textContent='✓ APPROVE';
-
-   let n=
-   document.createElement('button');
-
-   n.className='danger';
-   n.textContent='✕ REJECT';
-
-   y.onclick=async()=>{
-
-    if(
-     !confirm(
-      'Approve pembayaran ini?'
-     )
-    )return;
-
-    try{
-
-     let {
-      error
-     }=await s.rpc(
-      'admin_approve_payment_request',
-      {
-       p_payment_request_id:r.id
-      }
-     );
-
-     if(error)throw error;
-
-     await payments();
-     await members();
-     await recap();
-
-    }catch(z){
-
-     st(
-      'ps',
-      '❌ '+z.message
-     );
-
-    }
-
-   };
-
-   n.onclick=async()=>{
-
-    let v=
-    prompt(
-     'Alasan penolakan:'
-    );
-
-    if(!v?.trim())return;
-
-    try{
-
-     let {
-      error
-     }=await s.rpc(
-      'admin_reject_payment_request',
-      {
-       p_payment_request_id:r.id,
-       p_rejection_reason:v.trim()
-      }
-     );
-
-     if(error)throw error;
-
-     await payments();
-
-    }catch(z){
-
-     st(
-      'ps',
-      '❌ '+z.message
-     );
-
-    }
-
-   };
-
-   a.append(y,n);
-   d.append(a);
-
-  }
-
-  $('pl').append(d);
-
- });
-
- st(
-  'ps',
-  `✓ ${x.length} pengajuan ditampilkan.`,
-  1
- );
+const{data:x,error:q}=
+await s.rpc(
+'admin_get_nextpay_summary'
+);
+
+if(q)throw q;
+
+R=x||[];
+
+$('rl').innerHTML='';
+
+let t=[
+'📋 REKAP KAS SOS',
+'================'
+];
+
+R.forEach((x,i)=>{
+
+const b=+x.balance||0;
+const n=+x.next_pay_days||0;
+
+const c=
+b<0?'🔴':
+n===1?'⚠️':'🟢';
+
+const d=document.createElement('div');
+
+d.className='item';
+
+d.innerHTML=`
+<div class="top">
+<b>${e(x.member_name)}</b>
+<b class="${b<0?'red':'green'}">
+${id(b)}
+</b>
+</div>
+
+<div class="muted">
+${c}
+${e(x.status_text||'-')}
+•
+📌 NP ${dt(x.next_pay_date)}
+</div>
+`;
+
+$('rl').append(d);
+
+t.push(
+`${i+1}. ${x.member_name}`,
+`   ${c} Saldo: ${id(b)}`,
+`   📌 NP: ${dt(x.next_pay_date)}${
+x.next_pay_days!=null
+?` (${x.next_pay_days} hari)`
+:''
+}`,
+''
+);
+
+});
+
+t.push(
+'================',
+'🟢 Saldo aman / ada saldo',
+'🔴 Tunggakan / saldo minus',
+'⚠️ TELAT SEHARI',
+'📌 NP = NextPay'
+);
+
+$('rt').textContent=t.join('\n');
+
+st(
+'rs',
+`✓ ${R.length} member masuk rekap.`,
+true
+);
 
 }
 
 
 async function proof(p,k){
 
- let {
-  data:x,
-  error:q
- }=await s.storage
-   .from(B)
-   .download(p);
+const{data:x,error:q}=
+await s.storage
+.from(B)
+.download(p);
 
- if(q)throw q;
+if(q)throw q;
 
- let u=
- URL.createObjectURL(x);
+const u=URL.createObjectURL(x);
 
- let w=
- window.open(
-  u,
-  '_blank'
- );
+const w=window.open(u,'_blank');
 
- if(!w)
-  location.href=u;
+if(!w)
+location.href=u;
 
- setTimeout(
-  ()=>URL.revokeObjectURL(u),
-  300000
- );
+setTimeout(
+()=>URL.revokeObjectURL(u),
+300000
+);
 
- st(
-  k,
-  '✓ Bukti dibuka.',
-  1
- );
+st(
+k,
+'✓ Bukti dibuka.',
+true
+);
+
+}
+
+
+async function payments(){
+
+const{data:x,error:q}=
+await s.rpc(
+'admin_get_payment_requests'
+);
+
+if(q)throw q;
+
+$('pl').innerHTML='';
+
+if(!x?.length){
+
+$('pl').textContent=
+'Belum ada pengajuan.';
+
+return;
+
+}
+
+x.forEach(r=>{
+
+const d=document.createElement('div');
+
+d.className='item';
+
+d.innerHTML=`
+<div class="top">
+<b>${e(r.member_name)}</b>
+<b>${id(r.amount)}</b>
+</div>
+
+<div class="muted">
+${e(r.payment_type)}
+•
+${e(r.status)}
+•
+${e(wt(r.submitted_at))}
+</div>
+`;
+
+if(r.proof_storage_path){
+
+const b=document.createElement('button');
+
+b.className='ghost';
+b.textContent='BUKTI';
+
+b.onclick=
+()=>proof(
+r.proof_storage_path,
+'ps'
+);
+
+d.append(b);
+
+}
+
+if(r.status==='PENDING'){
+
+const a=document.createElement('div');
+a.className='actions';
+
+const y=document.createElement('button');
+y.textContent='✓ APPROVE';
+
+const n=document.createElement('button');
+n.className='danger';
+n.textContent='✕ REJECT';
+
+y.onclick=async()=>{
+
+if(!confirm(
+'Approve pembayaran ini?'
+))return;
+
+const{error}=
+await s.rpc(
+'admin_approve_payment_request',
+{
+p_payment_request_id:r.id
+}
+);
+
+if(error)
+st('ps','❌ '+error.message);
+
+else{
+
+await payments();
+await members();
+await recap();
+
+}
+
+};
+
+n.onclick=async()=>{
+
+const v=prompt(
+'Alasan penolakan:'
+);
+
+if(!v?.trim())return;
+
+const{error}=
+await s.rpc(
+'admin_reject_payment_request',
+{
+p_payment_request_id:r.id,
+p_rejection_reason:v.trim()
+}
+);
+
+if(error)
+st('ps','❌ '+error.message);
+
+else
+await payments();
+
+};
+
+a.append(y,n);
+d.append(a);
+
+}
+
+$('pl').append(d);
+
+});
+
+st(
+'ps',
+`✓ ${x.length} pengajuan ditampilkan.`,
+true
+);
 
 }
 
 
 async function financial(){
 
- let {
-  data:x,
-  error:q
- }=await s.rpc(
-  'member_financial_summary'
- );
+const{data:x,error:q}=
+await s.rpc(
+'member_financial_summary'
+);
 
- if(q)throw q;
+if(q)throw q;
 
- F=
- Array.isArray(x)
- ?x[0]
- :x;
+F=Array.isArray(x)?x[0]:x;
 
- if(!F)
-  throw Error(
-   'Data keuangan tidak ditemukan.'
-  );
+if(!F)
+throw Error(
+'Data keuangan tidak ditemukan.'
+);
 
- let b=+F.balance||0;
+const b=+F.balance||0;
 
- $('mb').textContent=id(b);
+$('mb').textContent=id(b);
 
- $('mb').className=
-  b<0?'red':'green';
+$('mb').className=
+b<0?'red':'green';
 
- $('mt').textContent=
-  F.status_text||'-';
+$('mt').textContent=
+F.status_text||'-';
 
- $('mt').className=
-  F.status_code==='LATE_ONE_DAY'
-  ?'yellow'
-  :b<0
-  ?'red'
-  :'green';
+$('mt').className=
+F.status_code==='LATE_ONE_DAY'
+?'yellow':
+b<0?'red':'green';
 
- $('md').textContent=
-  id(F.daily_amount);
+$('md').textContent=
+id(F.daily_amount);
 
- $('mp').textContent=
-  dt(F.next_pay_date);
+$('mp').textContent=
+dt(F.next_pay_date);
 
- $('mf').textContent=
- `KAS/hari: ${id(F.daily_amount)}
+$('mf').textContent=
+`KAS/hari: ${id(F.daily_amount)}
 Kewajiban: ${id(F.total_due)}
 Pembayaran: ${id(F.total_paid)}
 Saldo: ${id(b)}
 Saldo positif: ${id(F.positive_balance)}
 Tunggakan: ${id(F.arrears)}
-📌 NextPay: ${dt(F.next_pay_date)}${F.next_pay_days!=null?` (${F.next_pay_days} hari)`:''}`;
+📌 NextPay: ${dt(F.next_pay_date)}${
+F.next_pay_days!=null
+?` (${F.next_pay_days} hari)`
+:''
+}`;
 
- if(!$('pa').value)
-  $('pa').value=
-   b<0
-   ?Math.abs(b)
-   :b||'';
+if(!$('pa').value)
+$('pa').value=
+b<0
+?Math.abs(b)
+:b||'';
 
- payInfo();
+payInfo();
 
 }
 
 
 function payInfo(){
 
- let a=+$('pa').value||0;
- let b=+F?.balance||0;
+const a=+$('pa').value||0;
+const b=+F?.balance||0;
 
- let x=
-  b<0
-  ?a-Math.abs(b)
-  :a-b;
+const x=
+b<0
+?a-Math.abs(b)
+:a-b;
 
- $('pi').textContent=
-  !a
-  ?'Nominal belum ditentukan.'
-  :x>0
-  ?`Pembayaran ${id(a)} • kelebihan ${id(x)} menjadi saldo KAS berikutnya.`
-  :`Pengajuan ${id(a)}.`;
+$('pi').textContent=
+!a
+?'Nominal belum ditentukan.'
+:x>0
+?`Pembayaran ${id(a)} • kelebihan ${id(x)} menjadi saldo KAS berikutnya.`
+:`Pengajuan ${id(a)}.`;
 
 }
 
 
 async function history(){
 
- let {
-  data:x,
-  error:q
- }=await s.rpc(
-  'member_payment_history'
- );
+const{data:x,error:q}=
+await s.rpc(
+'member_payment_history'
+);
 
- if(q)throw q;
+if(q)throw q;
 
- $('hl').innerHTML='';
+$('hl').innerHTML='';
 
- if(!x?.length){
+if(!x?.length){
 
-  $('hl').textContent=
-   'Belum ada riwayat.';
+$('hl').textContent=
+'Belum ada riwayat.';
 
-  return;
+return;
 
- }
+}
 
- x.forEach(r=>{
+x.forEach(r=>{
 
-  let d=
-  document.createElement('div');
+const d=document.createElement('div');
 
-  d.className='item';
+d.className='item';
 
-  d.innerHTML=
-  `<div class="top">
-   <b>${e(r.payment_type||'KAS')}</b>
-   <b>${id(r.amount)}</b>
-  </div>
+d.innerHTML=`
+<div class="top">
+<b>${e(r.payment_type||'KAS')}</b>
+<b>${id(r.amount)}</b>
+</div>
 
-  <div class="muted">
-   ${e(r.status)}
-   • ${e(wt(r.submitted_at))}
-  </div>`;
+<div class="muted">
+${e(r.status)}
+•
+${e(wt(r.submitted_at))}
+</div>
+`;
 
-  if(r.proof_storage_path){
+if(r.proof_storage_path){
 
-   let b=
-   document.createElement('button');
+const b=document.createElement('button');
 
-   b.className='ghost';
-   b.textContent='BUKTI';
+b.className='ghost';
+b.textContent='BUKTI';
 
-   b.onclick=()=>
-    proof(
-     r.proof_storage_path,
-     'hs'
-    );
+b.onclick=
+()=>proof(
+r.proof_storage_path,
+'hs'
+);
 
-   d.append(b);
+d.append(b);
 
-  }
+}
 
-  $('hl').append(d);
+$('hl').append(d);
 
- });
+});
 
- st(
-  'hs',
-  `✓ ${x.length} riwayat ditampilkan.`,
-  1
- );
+st(
+'hs',
+`✓ ${x.length} riwayat ditampilkan.`,
+true
+);
 
 }
 
 
 async function memberBoot(){
 
- let {
-  data:u,
-  error:q
- }=await s.auth.getUser();
+const{data:u,error:q}=
+await s.auth.getUser();
 
- if(q)throw q;
+if(q)throw q;
 
- let {
-  data:m,
-  error:x
- }=await s
-  .from('members')
-  .select(
-   'id,member_name,status,is_kas_exempt'
-  )
-  .eq(
-   'auth_user_id',
-   u.user.id
-  )
-  .maybeSingle();
+const{data:m,error:x}=
+await s
+.from('members')
+.select(
+'id,member_name,status,is_kas_exempt'
+)
+.eq('auth_user_id',u.user.id)
+.maybeSingle();
 
- if(x)throw x;
+if(x)throw x;
 
- if(!m)
-  throw Error(
-   'Akun belum terhubung dengan member.'
-  );
+if(!m)
+throw Error(
+'Akun belum terhubung dengan member.'
+);
 
- if(m.status!=='ACTIVE')
-  throw Error(
-   'Status member tidak ACTIVE.'
-  );
+if(m.status!=='ACTIVE')
+throw Error(
+'Status member tidak ACTIVE.'
+);
 
- $('wel').textContent=
-  'Halo, '+m.member_name;
+$('wel').textContent=
+'Halo, '+m.member_name;
 
- if(m.is_kas_exempt){
+if(m.is_kas_exempt){
 
-  $('mt').textContent=
-   'KAS EXEMPT';
+$('mt').textContent=
+'KAS EXEMPT';
 
-  $('mf').textContent=
-   'Member ini dibebaskan dari kewajiban KAS.';
+$('mf').textContent=
+'Member ini dibebaskan dari kewajiban KAS.';
 
-  $('sp').disabled=true;
+$('sp').disabled=true;
 
-  return;
+return;
 
- }
+}
 
- $('sp').disabled=false;
+$('sp').disabled=false;
 
- await financial();
- await history();
+await financial();
+await history();
 
 }
 
 
 async function adminBoot(){
 
- await members();
- await payments();
- await recap();
+await members();
+await payments();
+await recap();
 
 }
 
 
 async function route(){
 
- let {
-  data:u,
-  error:q
- }=await s.auth.getUser();
+const{data:u,error:q}=
+await s.auth.getUser();
 
- if(q)throw q;
+if(q)throw q;
 
- let {
-  data:a,
-  error:x
- }=await s.rpc(
-  'is_admin'
- );
+const{data:a,error:x}=
+await s.rpc('is_admin');
 
- if(x)throw x;
+if(x)throw x;
 
- if(a){
+if(a){
 
-  sh('admin');
+sh('admin');
 
-  return adminBoot();
+return adminBoot();
 
- }
+}
 
- sh('member');
+sh('member');
 
- return memberBoot();
+return memberBoot();
 
 }
 
 
-$('loginBtn').onclick=
-async()=>{
-
- let a=
- $('email').value.trim();
-
- let p=
- $('pass').value;
-
- if(!a||!p)
-  return st(
-   'loginMsg',
-   '❌ Email dan password wajib diisi.'
-  );
-
- $('loginBtn').disabled=true;
-
- st(
-  'loginMsg',
-  'Sedang login...'
- );
-
- try{
-
-  let {
-   error
-  }=
-  await s.auth
-   .signInWithPassword({
-    email:a,
-    password:p
-   });
-
-  if(error)throw error;
-
-  await route();
-
- }catch(x){
-
-  try{
-   await s.auth.signOut()
-  }catch{}
-
-  sh('login');
-
-  st(
-   'loginMsg',
-   '❌ Login gagal: '+x.message
-  );
-
- }finally{
-
-  $('loginBtn').disabled=false;
-
- }
-
-};
-
-
-$('pass').onkeydown=
-x=>
- x.key==='Enter'&&
- $('loginBtn').click();
-
-
 $('rm').onclick=
 ()=>members()
- .catch(
-  x=>st(
-   'ms',
-   '❌ '+x.message
-  )
- );
-
+.catch(x=>st('ms','❌ '+x.message));
 
 $('rp').onclick=
 ()=>payments()
- .catch(
-  x=>st(
-   'ps',
-   '❌ '+x.message
-  )
- );
-
+.catch(x=>st('ps','❌ '+x.message));
 
 $('rr').onclick=
 ()=>recap()
- .catch(
-  x=>st(
-   'rs',
-   '❌ '+x.message
-  )
- );
+.catch(x=>st('rs','❌ '+x.message));
 
 
-$('cp').onclick=
-async()=>{
+$('cp').onclick=async()=>{
 
- try{
+try{
 
-  await navigator.clipboard.writeText(
-   $('rt').textContent
-  );
+await navigator.clipboard.writeText(
+$('rt').textContent
+);
 
-  st(
-   'rs',
-   '✓ Rekap disalin.',
-   1
-  );
+st(
+'rs',
+'✓ Rekap disalin.',
+true
+);
 
- }catch{
+}catch{
 
-  st(
-   'rs',
-   '❌ Gagal menyalin.'
-  );
+st(
+'rs',
+'❌ Gagal menyalin.'
+);
 
- }
+}
 
 };
 
 
-$('sk').onclick=
-async()=>{
+$('sk').onclick=async()=>{
 
- let n=+$('ka').value;
+const n=+$('ka').value;
 
- if(
-  !Number.isInteger(n)||
-  n<=0
- )
-  return st(
-   'ss',
-   '❌ Nominal KAS tidak valid.'
-  );
+if(!Number.isInteger(n)||n<=0)
+return st(
+'ss',
+'❌ Nominal KAS tidak valid.'
+);
 
- try{
+const{error}=
+await s.rpc(
+'admin_update_kas_daily_amount',
+{
+p_amount:n
+}
+);
 
-  let {
-   error
-  }=await s.rpc(
-   'admin_update_kas_daily_amount',
-   {
-    p_amount:n
-   }
-  );
+if(error)
+return st(
+'ss',
+'❌ '+error.message
+);
 
-  if(error)throw error;
+st(
+'ss',
+'✓ KAS: '+id(n),
+true
+);
 
-  st(
-   'ss',
-   '✓ KAS: '+id(n),
-   1
-  );
+$('ka').value='';
 
-  $('ka').value='';
-
-  await members();
-  await recap();
-
- }catch(x){
-
-  st(
-   'ss',
-   '❌ '+x.message
-  );
-
- }
+await members();
+await recap();
 
 };
 
 
-$('sa').onclick=
-async()=>{
+$('sa').onclick=async()=>{
 
- let n=+$('ad').value;
+const n=+$('ad').value;
 
- if(
-  !Number.isInteger(n)||
-  n<0
- )
-  return st(
-   'ss',
-   '❌ Nominal ADM tidak valid.'
-  );
+if(!Number.isInteger(n)||n<0)
+return st(
+'ss',
+'❌ Nominal ADM tidak valid.'
+);
 
- try{
+const{error}=
+await s.rpc(
+'admin_update_adm_amount',
+{
+p_amount:n
+}
+);
 
-  let {
-   error
-  }=await s.rpc(
-   'admin_update_adm_amount',
-   {
-    p_amount:n
-   }
-  );
+if(error)
+return st(
+'ss',
+'❌ '+error.message
+);
 
-  if(error)throw error;
+st(
+'ss',
+'✓ ADM: '+id(n),
+true
+);
 
-  st(
-   'ss',
-   '✓ ADM: '+id(n),
-   1
-  );
-
-  $('ad').value='';
-
- }catch(x){
-
-  st(
-   'ss',
-   '❌ '+x.message
-  );
-
- }
+$('ad').value='';
 
 };
 
 
-$('cm').onclick=
-async()=>{
+$('cm').onclick=async()=>{
 
- let n=
- $('mn').value.trim();
+const n=$('mn').value.trim();
 
- if(
-  !n||
-  !$('mj').value
- )
-  return st(
-   'cs',
-   '❌ Nama dan join wajib diisi.'
-  );
+if(!n||!$('mj').value)
+return st(
+'cs',
+'❌ Nickname dan join wajib diisi.'
+);
 
- try{
+const{data:x,error:q}=
+await s.rpc(
+'create_member',
+{
+p_member_name:n,
+p_whatsapp_number:
+$('mw').value.trim()||null,
+p_joined_at:
+$('mj').value+':00+07:00',
+p_member_type:'NORMAL',
+p_notes:
+$('mx').value.trim()||null
+}
+);
 
-  let {
-   data:x,
-   error:q
-  }=await s.rpc(
-   'create_member',
-   {
-    p_member_name:n,
-    p_whatsapp_number:
-     $('mw').value.trim()||null,
-    p_joined_at:
-     $('mj').value+
-     ':00+07:00',
-    p_member_type:'NORMAL',
-    p_notes:
-     $('mx').value.trim()||null
-   }
-  );
+if(q)
+return st(
+'cs',
+'❌ '+q.message
+);
 
-  if(q)throw q;
+st(
+'cs',
+'✓ Member dibuat: '+x,
+true
+);
 
-  st(
-   'cs',
-   '✓ Member dibuat: '+x,
-   1
-  );
+$('mn').value='';
+$('mw').value='';
+$('mx').value='';
 
-  $('mn').value='';
-  $('mw').value='';
-  $('mx').value='';
+join();
 
-  join();
-
-  await members();
-  await recap();
-
- }catch(x){
-
-  st(
-   'cs',
-   '❌ '+x.message
-  );
-
- }
+await members();
+await recap();
 
 };
 
@@ -1477,206 +1379,180 @@ async()=>{
 $('pa').oninput=payInfo;
 
 
-$('sp').onclick=
-async()=>{
+$('sp').onclick=async()=>{
 
- let a=+$('pa').value;
- let f=$('pf').files[0];
+const a=+$('pa').value;
+const f=$('pf').files[0];
 
- if(
-  !Number.isInteger(a)||
-  a<=0
- )
-  return st(
-   'sm',
-   '❌ Nominal tidak valid.'
-  );
+if(!Number.isInteger(a)||a<=0)
+return st(
+'sm',
+'❌ Nominal tidak valid.'
+);
 
- if(!f)
-  return st(
-   'sm',
-   '❌ Bukti wajib dipilih.'
-  );
+if(!f)
+return st(
+'sm',
+'❌ Bukti wajib dipilih.'
+);
 
- if(f.size>5242880)
-  return st(
-   'sm',
-   '❌ File maksimal 5 MB.'
-  );
+if(f.size>5242880)
+return st(
+'sm',
+'❌ File maksimal 5 MB.'
+);
 
- let {
-  data:u,
-  error:q
- }=await s.auth.getUser();
+const{data:u,error:q}=
+await s.auth.getUser();
 
- if(q)throw q;
+if(q)throw q;
 
- if(!u.user)
-  return st(
-   'sm',
-   '❌ Session hilang.'
-  );
+if(!u.user)
+return st(
+'sm',
+'❌ Session hilang.'
+);
 
- let path=
-  u.user.id+
-  '/'+
-  crypto.randomUUID()+
-  '.'+
-  f.name.split('.').pop()
-  .toLowerCase();
+const path=
+u.user.id+'/'+
+crypto.randomUUID()+'.'+
+f.name
+.split('.')
+.pop()
+.toLowerCase();
 
- $('sp').disabled=true;
+$('sp').disabled=true;
 
- try{
+try{
 
-  st(
-   'sm',
-   'Upload bukti...'
-  );
+st(
+'sm',
+'Upload bukti...'
+);
 
-  let {
-   error:x
-  }=await s.storage
-   .from(B)
-   .upload(
-    path,
-    f,
-    {
-     cacheControl:'3600',
-     upsert:false,
-     contentType:f.type
-    }
-   );
+const{error:x}=
+await s.storage
+.from(B)
+.upload(
+path,
+f,
+{
+cacheControl:'3600',
+upsert:false,
+contentType:f.type
+}
+);
 
-  if(x)throw x;
+if(x)throw x;
 
-  let {
-   data:i,
-   error:z
-  }=await s.rpc(
-   'submit_kas_payment',
-   {
-    p_amount:a,
-    p_proof_storage_path:path,
-    p_notes:
-     $('pn').value.trim()||null
-   }
-  );
+const{data:i,error:z}=
+await s.rpc(
+'submit_kas_payment',
+{
+p_amount:a,
+p_proof_storage_path:path,
+p_notes:
+$('pn').value.trim()||null
+}
+);
 
-  if(z){
+if(z){
 
-   try{
-    await s.storage
-     .from(B)
-     .remove([path]);
-   }catch{}
+await s.storage
+.from(B)
+.remove([path])
+.catch(()=>{});
 
-   throw z;
+throw z;
 
-  }
+}
 
-  $('pf').value='';
-  $('pn').value='';
+$('pf').value='';
+$('pn').value='';
 
-  st(
-   'sm',
-   '✓ Pengajuan berhasil: '+i,
-   1
-  );
+st(
+'sm',
+'✓ Pengajuan berhasil: '+i,
+true
+);
 
-  await financial();
-  await history();
+await financial();
+await history();
 
- }catch(x){
+}catch(x){
 
-  st(
-   'sm',
-   '❌ '+x.message
-  );
+st(
+'sm',
+'❌ '+x.message
+);
 
- }finally{
+}finally{
 
-  $('sp').disabled=false;
+$('sp').disabled=false;
 
- }
+}
 
 };
 
 
 $('rh').onclick=
 ()=>history()
- .catch(
-  x=>st(
-   'hs',
-   '❌ '+x.message
-  )
- );
-
+.catch(x=>st('hs','❌ '+x.message));
 
 $('mr').onclick=
 ()=>memberBoot()
- .catch(
-  x=>st(
-   'mf',
-   '❌ '+x.message
-  )
- );
+.catch(x=>st('mf','❌ '+x.message));
 
 
 async function logout(){
 
- await s.auth.signOut();
+await s.auth.signOut();
 
- sh('login');
+sh('login');
 
- $('pass').value='';
+$('pass').value='';
+$('wa').value='';
 
- st(
-  'loginMsg',
-  'Sudah logout.'
- );
+st(
+'loginMsg',
+'Sudah logout.'
+);
 
 }
-
 
 $('al').onclick=logout;
 $('mlg').onclick=logout;
 
-
 s.auth.onAuthStateChange(
- e=>{
-  if(e==='SIGNED_OUT')
-   sh('login');
- }
+ev=>{
+if(ev==='SIGNED_OUT')
+sh('login');
+}
 );
 
 
 (async()=>{
 
- try{
+try{
 
-  let {
-   data
-  }=
-  await s.auth.getSession();
+const{data}=
+await s.auth.getSession();
 
-  if(data.session)
-   await route();
+if(data.session)
+await route();
 
- }catch(x){
+}catch(x){
 
-  try{
-   await s.auth.signOut()
-  }catch{}
+await s.auth.signOut().catch(()=>{});
 
-  sh('login');
+sh('login');
 
-  st(
-   'loginMsg',
-   '❌ '+x.message
-  );
+st(
+'loginMsg',
+'❌ '+x.message
+);
 
- }
+}
 
 })();
 
