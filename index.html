@@ -2,44 +2,2342 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KAS FAM SOS — 19/08/26</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0b10">
+<title>KAS FAM SOS</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-:root{--bg:#0b0b10;--card:#14141c;--line:#292936;--text:#f4f4f7;--muted:#9d9daa;--accent:#a855f7}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0%,#2a1238 0,#0b0b10 38%),#0b0b10;color:var(--text);font:14px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
-.wrap{max-width:1000px;margin:auto;padding:20px}header{padding:22px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(135deg,#18151f,#101016);box-shadow:0 20px 60px #0008}
-h1{margin:0;font-size:28px}.sub{color:var(--muted)}.badge{display:inline-block;margin-top:10px;padding:6px 10px;border-radius:999px;background:#261734;color:#d8b4fe}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}.stat b{font-size:22px;display:block}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}input,button{border:1px solid var(--line);background:#121219;color:var(--text);padding:11px 13px;border-radius:12px}button.active{background:#6d28d9}
-.card{background:#101017;border:1px solid var(--line);border-radius:18px;overflow:hidden}table{width:100%;border-collapse:collapse}th,td{padding:11px;border-bottom:1px solid #22222d;text-align:left}th{color:#aaa;background:#15151d;position:sticky;top:0}.pos{color:#7ee2a8}.neg{color:#ff7272}.zero{color:#ffd66b}.note{color:#aaa}.warn{margin:14px 0;padding:12px 14px;border:1px solid #5a3b12;background:#241b0d;border-radius:14px;color:#ffd98a}
-@media(max-width:650px){.wrap{padding:12px}h1{font-size:23px}.stats{grid-template-columns:1fr 1fr}table{font-size:12px}th,td{padding:9px 7px}th:nth-child(1),td:nth-child(1){display:none}}
+:root{
+  --bg:#09090d;
+  --panel:#111118;
+  --panel2:#171720;
+  --line:#2b2b36;
+  --text:#f7f7fb;
+  --muted:#a7a7b4;
+  --accent:#a855f7;
+  --green:#62e6a2;
+  --red:#ff7070;
+  --yellow:#ffd76a;
+  --blue:#77b8ff;
+  --drawer:330px;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html,body{
+  margin:0;
+  min-height:100%;
+  background:
+    radial-gradient(circle at 15% 0,#35134b 0,#09090d 38%);
+  color:var(--text);
+  font:14px/1.5 system-ui,-apple-system,BlinkMacSystemFont,
+  "Segoe UI",sans-serif;
+}
+
+body{
+  overflow-x:hidden;
+}
+
+button,input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar{
+  height:72px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 16px;
+  position:sticky;
+  top:0;
+  z-index:30;
+
+  background:#0b0b10e8;
+  border-bottom:1px solid var(--line);
+
+  backdrop-filter:blur(16px);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  font-weight:800;
+  font-size:18px;
+}
+
+.brand-mark{
+  width:42px;
+  height:42px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:13px;
+
+  background:
+    linear-gradient(135deg,#7c3aed,#c026d3);
+
+  box-shadow:0 8px 30px #7c3aed44;
+}
+
+.menu{
+  width:44px;
+  height:44px;
+
+  border:1px solid var(--line);
+  border-radius:13px;
+
+  background:var(--panel2);
+  color:var(--text);
+
+  font-size:21px;
+}
+
+.top-actions{
+  margin-left:auto;
+
+  display:flex;
+  gap:8px;
+}
+
+.top-actions button{
+  height:42px;
+
+  border:1px solid var(--line);
+  border-radius:12px;
+
+  background:var(--panel2);
+  color:var(--text);
+
+  padding:0 13px;
+}
+
+/* =========================
+   DRAWER
+========================= */
+
+.drawer{
+  position:fixed;
+  z-index:50;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:min(var(--drawer),88vw);
+
+  padding:18px;
+
+  background:
+    linear-gradient(180deg,#15121c,#0d0d12);
+
+  border-right:1px solid var(--line);
+
+  transform:translateX(-105%);
+  transition:transform .25s ease;
+
+  box-shadow:25px 0 80px #0008;
+}
+
+.drawer.open{
+  transform:translateX(0);
+}
+
+.drawer-head{
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  margin-bottom:24px;
+}
+
+.drawer-head .close{
+  margin-left:auto;
+
+  width:40px;
+  height:40px;
+
+  border:1px solid var(--line);
+  border-radius:12px;
+
+  background:var(--panel2);
+  color:var(--text);
+}
+
+.drawer-user{
+  padding:15px;
+
+  border:1px solid var(--line);
+  border-radius:18px;
+
+  background:#ffffff06;
+
+  margin-bottom:18px;
+}
+
+.drawer-user b{
+  display:block;
+  font-size:15px;
+}
+
+.drawer-user span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.nav{
+  display:grid;
+  gap:8px;
+}
+
+.nav button{
+  display:flex;
+  align-items:center;
+  gap:13px;
+
+  width:100%;
+
+  padding:14px;
+
+  border:1px solid transparent;
+  border-radius:15px;
+
+  background:transparent;
+  color:var(--text);
+
+  text-align:left;
+}
+
+.nav button:hover,
+.nav button.active{
+  background:#a855f714;
+  border-color:#a855f744;
+}
+
+.nav .ico{
+  width:30px;
+  text-align:center;
+  font-size:18px;
+}
+
+.drawer-foot{
+  position:absolute;
+
+  left:18px;
+  right:18px;
+  bottom:18px;
+}
+
+.logout{
+  width:100%;
+
+  padding:13px;
+
+  border:1px solid #5b2525;
+  border-radius:13px;
+
+  background:#2a1515;
+  color:#ffaaaa;
+}
+
+.scrim{
+  position:fixed;
+  z-index:40;
+
+  inset:0;
+
+  background:#0009;
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:.2s;
+}
+
+.scrim.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+  max-width:1180px;
+
+  margin:auto;
+
+  padding:22px 16px 48px;
+}
+
+.hero{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:flex-end;
+
+  padding:24px;
+
+  border:1px solid var(--line);
+  border-radius:24px;
+
+  background:
+    linear-gradient(135deg,#18141f,#101016);
+
+  box-shadow:0 20px 60px #0007;
+}
+
+.hero h1{
+  margin:0 0 5px;
+
+  font-size:30px;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.badge{
+  display:inline-flex;
+
+  margin-top:10px;
+  padding:7px 11px;
+
+  border-radius:999px;
+
+  background:#261734;
+  color:#dfc3ff;
+
+  font-size:12px;
+}
+
+/* =========================
+   STAT
+========================= */
+
+.grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:12px;
+
+  margin:14px 0;
+}
+
+.stat{
+  padding:16px;
+
+  border:1px solid var(--line);
+  border-radius:18px;
+
+  background:var(--panel);
+}
+
+.stat span{
+  display:block;
+
+  color:var(--muted);
+  font-size:12px;
+}
+
+.stat b{
+  display:block;
+
+  font-size:24px;
+
+  margin-top:4px;
+}
+
+.green{
+  color:var(--green);
+}
+
+.red{
+  color:var(--red);
+}
+
+.yellow{
+  color:var(--yellow);
+}
+
+.blue{
+  color:var(--blue);
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+  margin-top:14px;
+
+  padding:18px;
+
+  border:1px solid var(--line);
+  border-radius:20px;
+
+  background:#101017;
+}
+
+.section-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:12px;
+
+  margin-bottom:14px;
+}
+
+.section h2{
+  font-size:17px;
+  margin:0;
+}
+
+.toolbar{
+  display:flex;
+
+  gap:8px;
+
+  flex-wrap:wrap;
+}
+
+.toolbar input{
+  min-width:210px;
+  flex:1;
+
+  padding:11px 13px;
+
+  border:1px solid var(--line);
+  border-radius:12px;
+
+  background:#0d0d13;
+  color:var(--text);
+}
+
+.toolbar button{
+  padding:10px 13px;
+
+  border:1px solid var(--line);
+  border-radius:12px;
+
+  background:#14141c;
+  color:var(--text);
+}
+
+.toolbar button.active{
+  background:#6d28d9;
+  border-color:#8b5cf6;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrap{
+  overflow:auto;
+
+  border:1px solid var(--line);
+  border-radius:15px;
+}
+
+table{
+  width:100%;
+
+  border-collapse:collapse;
+
+  min-width:650px;
+}
+
+th,
+td{
+  padding:12px;
+
+  border-bottom:1px solid #24242e;
+
+  text-align:left;
+}
+
+th{
+  color:#aaa;
+
+  background:#15151d;
+
+  position:sticky;
+  top:0;
+}
+
+tr:last-child td{
+  border-bottom:0;
+}
+
+.amount{
+  font-weight:800;
+}
+
+.empty{
+  padding:28px;
+
+  text-align:center;
+
+  color:var(--muted);
+}
+
+/* =========================
+   NOTICE
+========================= */
+
+.notice{
+  padding:13px 15px;
+
+  border-radius:14px;
+
+  border:1px solid #5a3b12;
+
+  background:#241b0d;
+
+  color:#ffd98a;
+
+  margin:14px 0;
+}
+
+.success{
+  border-color:#20583e;
+  background:#10251b;
+  color:#a8f5ca;
+}
+
+.danger{
+  border-color:#612b2b;
+  background:#271313;
+  color:#ffb1b1;
+}
+
+.loading{
+  padding:35px;
+
+  text-align:center;
+
+  color:var(--muted);
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.login{
+  min-height:100vh;
+
+  display:grid;
+  place-items:center;
+
+  padding:20px;
+}
+
+.login-card{
+  width:min(440px,100%);
+
+  padding:24px;
+
+  border:1px solid var(--line);
+  border-radius:25px;
+
+  background:
+    linear-gradient(145deg,#17131f,#101016);
+
+  box-shadow:0 25px 80px #0008;
+}
+
+.login-card h1{
+  margin:0;
+
+  font-size:28px;
+}
+
+.login-card form{
+  display:grid;
+
+  gap:11px;
+
+  margin-top:20px;
+}
+
+.login-card label{
+  color:var(--muted);
+
+  font-size:12px;
+}
+
+.login-card input{
+  width:100%;
+
+  padding:13px;
+
+  border:1px solid var(--line);
+  border-radius:13px;
+
+  background:#0d0d13;
+
+  color:var(--text);
+}
+
+.primary{
+  padding:13px;
+
+  border:0;
+  border-radius:13px;
+
+  background:
+    linear-gradient(135deg,#7c3aed,#a855f7);
+
+  color:white;
+
+  font-weight:800;
+}
+
+.secondary{
+  padding:11px 13px;
+
+  border:1px solid var(--line);
+  border-radius:12px;
+
+  background:var(--panel2);
+  color:var(--text);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:800px){
+
+  .grid{
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+  .hero{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .hero h1{
+    font-size:25px;
+  }
+
+}
+
+@media(max-width:520px){
+
+  .content{
+    padding:14px 10px 34px;
+  }
+
+  .topbar{
+    height:64px;
+
+    padding:9px 10px;
+  }
+
+  .brand{
+    font-size:16px;
+  }
+
+  .brand-mark{
+    width:38px;
+    height:38px;
+  }
+
+  .grid{
+    gap:8px;
+  }
+
+  .stat{
+    padding:13px;
+  }
+
+  .stat b{
+    font-size:21px;
+  }
+
+  .section{
+    padding:13px;
+  }
+
+  .toolbar input{
+    min-width:100%;
+  }
+
+  table{
+    min-width:600px;
+  }
+
+}
+
+@media(min-width:521px){
+
+  .refresh-icon{
+    display:none;
+  }
+
+}
+
+@media(max-width:520px){
+
+  .refresh-label{
+    display:none;
+  }
+
+}
 </style>
 </head>
-<body><main class="wrap">
-<header><h1>📒 KAS FAM SOS</h1><div class="sub">Recap acuan • 19/08/26</div><span class="badge">MODE RECAP • 45 ANGGOTA</span></header>
-<div class="warn">⚠️ <b>Catatan sinkronisasi:</b> pemeriksaan Supabase menemukan 0 member aktif/terlihat pada tabel <code>members</code>. Karena itu file ini memakai recap 19/08/26 yang Anda berikan sebagai sumber tampilan dan <b>tidak menulis/mengubah database</b> secara otomatis. Aturan ADM terbaru: member lama lunas, member baru dikenakan ADM 10K.</div>
-<section class="stats">
-<div class="stat"><span>🔴 Tunggakan</span><b>20</b></div>
-<div class="stat"><span>🟢 Saldo positif</span><b>23</b></div>
-<div class="stat"><span>⚠️ Bayar hari ini</span><b>2</b></div>
-</section>
-<div class="toolbar"><input id="q" placeholder="Cari nama member..." oninput="filterRows()"><button class="active" onclick="setFilter('all',this)">Semua</button><button onclick="setFilter('green',this)">🟢 Aman</button><button onclick="setFilter('red',this)">🔴 Minus</button><button onclick="setFilter('today',this)">⚠️ Hari ini</button></div>
-<div class="card"><table><thead><tr><th>No</th><th>Member</th><th>Saldo</th><th>Keterangan</th></tr></thead><tbody id="rows"><tr data-name="ajo_rmc" data-status="red"><td>01</td><td><b>🔴 Ajo_Rmc</b></td><td class="amt neg">-6K</td><td>Belum bayar dari 14/08/26</td></tr><tr data-name="arlott_flame" data-status="green"><td>02</td><td><b>🟢 Arlott_Flame</b></td><td class="amt pos">+27K</td><td>NP 15/09/26</td></tr><tr data-name="augustoraul_rodriguest" data-status="red"><td>03</td><td><b>🔴 Augustoraul_Rodriguest</b></td><td class="amt neg">-1K</td><td>Belum bayar dari 18/08/26</td></tr><tr data-name="babybellens_style" data-status="green"><td>04</td><td><b>🟢 Babybellens_Style</b></td><td class="amt pos">+22K</td><td>NP 11/09/26</td></tr><tr data-name="bambang_sugeni" data-status="green"><td>05</td><td><b>🟢 Bambang_Sugeni</b></td><td class="amt pos">+3K</td><td>NP 22/08/26</td></tr><tr data-name="biancaa_style" data-status="green"><td>06</td><td><b>🟢 Biancaa_Style</b></td><td class="amt pos">+6K</td><td>NP 25/08/26</td></tr><tr data-name="carlos_reno" data-status="green"><td>07</td><td><b>🟢 Carlos_Reno</b></td><td class="amt pos">+4K</td><td>NP 23/08/26</td></tr><tr data-name="chipay_djfm" data-status="green"><td>08</td><td><b>🟢 Chipay_Djfm</b></td><td class="amt pos">+12K</td><td>NP 01/09/26</td></tr><tr data-name="evelyn_cavindish" data-status="green"><td>09</td><td><b>🟢 Evelyn_Cavindish</b></td><td class="amt pos">+4K</td><td>NP 23/08/26</td></tr><tr data-name="ezaaa_style" data-status="today"><td>10</td><td><b>⚠️ Ezaaa_Style</b></td><td class="amt zero">0K</td><td>NP 19/08/26</td></tr><tr data-name="franssisko_messi" data-status="red"><td>11</td><td><b>🔴 Franssisko_Messi</b></td><td class="amt neg">-2K</td><td>Belum bayar dari 16/08/26</td></tr><tr data-name="gregorius_yantomaja" data-status="red"><td>12</td><td><b>🔴 Gregorius_Yantomaja</b></td><td class="amt neg">-1K</td><td>Belum bayar dari 17/08/26</td></tr><tr data-name="hanzz_skandal" data-status="red"><td>13</td><td><b>🔴 Hanzz_Skandal</b></td><td class="amt neg">-3K</td><td>Belum bayar dari 15/08/26</td></tr><tr data-name="janger_style" data-status="red"><td>14</td><td><b>🔴 Janger_Style</b></td><td class="amt neg">-6K</td><td>Belum bayar dari 14/08/26</td></tr><tr data-name="jennifer_kim" data-status="green"><td>15</td><td><b>🟢 Jennifer_Kim</b></td><td class="amt pos">+4K</td><td>NP 23/08/26</td></tr><tr data-name="kevin_julioi" data-status="green"><td>16</td><td><b>🟢 Kevin_Julioi</b></td><td class="amt pos">+3K</td><td>NP 22/08/26</td></tr><tr data-name="kiel_antari" data-status="green"><td>17</td><td><b>🟢 Kiel_Antari</b></td><td class="amt pos">+1K</td><td>NP 20/08/26</td></tr><tr data-name="kray_acman" data-status="green"><td>18</td><td><b>🟢 Kray_Acman</b></td><td class="amt pos">+53K</td><td>NP 12/10/26</td></tr><tr data-name="kyliv_son" data-status="red"><td>19</td><td><b>🔴 Kyliv_Son</b></td><td class="amt neg">-5K</td><td>Belum bayar dari 14/08/26</td></tr><tr data-name="leon_brosen" data-status="red"><td>20</td><td><b>🔴 Leon_Brosen</b></td><td class="amt neg">-6K</td><td>Belum bayar dari 14/08/26</td></tr><tr data-name="memet_gengater" data-status="green"><td>21</td><td><b>🟢 Memet_Gengater</b></td><td class="amt pos">+2K</td><td>NP 21/08/26</td></tr><tr data-name="murayama_kazeo" data-status="red"><td>22</td><td><b>🔴 Murayama_Kazeo</b></td><td class="amt neg">-1K</td><td>Belum bayar dari 18/08/26</td></tr><tr data-name="patrickigor_silvestric" data-status="red"><td>23</td><td><b>🔴 Patrickigor_Silvestric</b></td><td class="amt neg">-3K</td><td>Belum bayar dari 15/08/26</td></tr><tr data-name="patricktiago_fernandes" data-status="green"><td>24</td><td><b>🟢 Patricktiago_Fernandes</b></td><td class="amt pos">+2K</td><td>NP 21/08/26</td></tr><tr data-name="piraa_anjayyy" data-status="green"><td>25</td><td><b>🟢 Piraa_Anjayyy</b></td><td class="amt pos">+20K</td><td>NP 09/09/26</td></tr><tr data-name="queen_style" data-status="red"><td>26</td><td><b>🔴 Queen_Style</b></td><td class="amt neg">-3K</td><td>Belum bayar dari 15/08/26</td></tr><tr data-name="rey_alexander" data-status="green"><td>27</td><td><b>🟢 Rey_Alexander</b></td><td class="amt pos">+6K</td><td>NP 25/08/26</td></tr><tr data-name="riel_aja" data-status="red"><td>28</td><td><b>🔴 Riel_Aja</b></td><td class="amt neg">-1K</td><td>Belum bayar dari 18/08/26</td></tr><tr data-name="samuel_bandito" data-status="red"><td>29</td><td><b>🔴 Samuel_Bandito</b></td><td class="amt neg">-2K</td><td>Belum bayar dari 16/08/26</td></tr><tr data-name="satria_rizt" data-status="red"><td>30</td><td><b>🔴 Satria_Rizt</b></td><td class="amt neg">-2K</td><td>Belum bayar dari 16/08/26</td></tr><tr data-name="senri_defans" data-status="green"><td>31</td><td><b>🟢 Senri_defans</b></td><td class="amt pos">+1K</td><td>NP 21/08/26</td></tr><tr data-name="seraphine_style" data-status="green"><td>32</td><td><b>🟢 Seraphine_Style</b></td><td class="amt pos">+4K</td><td>NP 23/08/26</td></tr><tr data-name="skyler_style" data-status="green"><td>33</td><td><b>🟢 Skyler_Style</b></td><td class="amt pos">+7K</td><td>NP 27/08/26</td></tr><tr data-name="tony_montana" data-status="red"><td>34</td><td><b>🔴 Tony_Montana</b></td><td class="amt neg">-1K</td><td>Belum bayar dari 17/08/26</td></tr><tr data-name="twilight_void" data-status="red"><td>35</td><td><b>🔴 Twilight_Void</b></td><td class="amt neg">-3K</td><td>Belum bayar dari 15/08/26</td></tr><tr data-name="venzz_bdough" data-status="red"><td>36</td><td><b>🔴 Venzz_Bdough</b></td><td class="amt neg">-5K</td><td>Belum bayar dari 14/08/26</td></tr><tr data-name="victor_camp" data-status="red"><td>37</td><td><b>🔴 Victor_Camp</b></td><td class="amt neg">-3K</td><td>Belum bayar dari 15/08/26</td></tr><tr data-name="xyrill_nkl" data-status="today"><td>38</td><td><b>⚠️ Xyrill_Nkl</b></td><td class="amt zero">0K</td><td>NP 19/08/26</td></tr><tr data-name="yanzz_hopkinss" data-status="green"><td>39</td><td><b>🟢 Yanzz_Hopkinss</b></td><td class="amt pos">+6K</td><td>NP 25/08/26</td></tr><tr data-name="zul_one" data-status="red"><td>40</td><td><b>🔴 Zul_One</b></td><td class="amt neg">-1K</td><td>Belum bayar dari 18/08/26</td></tr><tr data-name="roy_setiawan" data-status="green"><td>41</td><td><b>🟢 Roy_Setiawan</b></td><td class="amt pos">+2K</td><td>NP 21/08/26</td></tr><tr data-name="davi_molo" data-status="red"><td>42</td><td><b>🔴 Davi_Molo</b></td><td class="amt neg">-1K</td><td>Belum bayar dari 18/08/26</td></tr><tr data-name="jarot_limadantas" data-status="green"><td>43</td><td><b>🟢 Jarot_Limadantas</b></td><td class="amt pos">+1K</td><td>NP 21/08/26</td></tr><tr data-name="berry_olyne" data-status="green"><td>44</td><td><b>🟢 Berry_Olyne</b></td><td class="amt pos">+8K</td><td>NP 27/08/26</td></tr><tr data-name="alex_armda" data-status="green"><td>45</td><td><b>🟢 Alex_Armda</b></td><td class="amt pos">+2K</td><td>NP 21/08/26</td></tr></tbody></table></div>
-<section style="margin-top:18px">
-<h3>🧾 ADM</h3>
-<div class="card">
-<table>
-<tr><td>✅</td><td><b>Semua member lama</b></td><td class="pos">LUNAS</td></tr>
-<tr><td>🆕</td><td><b>Member baru</b></td><td>ADM 10K</td></tr>
-</table>
+
+<body>
+
+<!-- =========================
+     LOGIN
+========================= -->
+
+<div id="loginView" class="login">
+
+  <div class="login-card">
+
+    <div class="brand">
+      <div class="brand-mark">📒</div>
+      <span>KAS FAM SOS</span>
+    </div>
+
+    <h1 style="margin-top:18px">
+      Masuk ke KAS SOS
+    </h1>
+
+    <p class="muted">
+      Website terhubung langsung ke Supabase.
+      Data transaksi dan saldo tetap berada di backend.
+    </p>
+
+    <div id="loginMsg" class="notice hidden"></div>
+
+    <form id="loginForm">
+
+      <div>
+        <label>Email</label>
+
+        <input
+          id="email"
+          type="email"
+          autocomplete="email"
+          required
+        >
+      </div>
+
+      <div>
+        <label>Password</label>
+
+        <input
+          id="password"
+          type="password"
+          autocomplete="current-password"
+          required
+        >
+      </div>
+
+      <button
+        class="primary"
+        type="submit"
+      >
+        Masuk
+      </button>
+
+    </form>
+
+  </div>
+
 </div>
-<p class="sub">Aturan terbaru: seluruh member yang sudah terdaftar dianggap ADM lunas. ADM Rp10K hanya diterapkan saat member baru ditambahkan melalui website.</p>
-</section>
-<p class="sub">🟢 Saldo aman / ada saldo • 🔴 Tunggakan / saldo minus • ⚠️ Bayar hari ini • 📌 NP = NextPay</p>
-</main>
+
+
+<!-- =========================
+     MAIN APP
+========================= -->
+
+<div id="appView" class="app hidden">
+
+  <!-- DRAWER -->
+
+  <aside id="drawer" class="drawer">
+
+    <div class="drawer-head">
+
+      <div class="brand">
+
+        <div class="brand-mark">
+          📒
+        </div>
+
+        <span>KAS SOS</span>
+
+      </div>
+
+      <button
+        class="close"
+        onclick="closeDrawer()"
+      >
+        ✕
+      </button>
+
+    </div>
+
+
+    <div class="drawer-user">
+
+      <b id="drawerName">
+        Memuat...
+      </b>
+
+      <span id="drawerRole">
+        Member
+      </span>
+
+    </div>
+
+
+    <nav
+      id="nav"
+      class="nav"
+    ></nav>
+
+
+    <div class="drawer-foot">
+
+      <button
+        class="logout"
+        onclick="logout()"
+      >
+        ↪ Keluar
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <div
+    id="scrim"
+    class="scrim"
+    onclick="closeDrawer()"
+  ></div>
+
+
+  <!-- TOP BAR -->
+
+  <header class="topbar">
+
+    <button
+      class="menu"
+      onclick="openDrawer()"
+    >
+      ☰
+    </button>
+
+    <div class="brand">
+
+      <div class="brand-mark">
+        📒
+      </div>
+
+      <span>KAS FAM SOS</span>
+
+    </div>
+
+    <div class="top-actions">
+
+      <button
+        onclick="loadDashboard()"
+      >
+        <span class="refresh-label">
+          ↻ Refresh
+        </span>
+
+        <span class="refresh-icon">
+          ↻
+        </span>
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- CONTENT -->
+
+  <main class="content">
+
+    <div
+      id="appMsg"
+      class="notice hidden"
+    ></div>
+
+    <div id="page"></div>
+
+  </main>
+
+</div>
+
+
 <script>
-let current='all';
-function setFilter(f,btn){current=f;document.querySelectorAll('button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');filterRows()}
-function filterRows(){const q=document.getElementById('q').value.toLowerCase();document.querySelectorAll('#rows tr').forEach(r=>{r.style.display=(current==='all'||r.dataset.status===current)&&r.dataset.name.includes(q)?'':'none'})}
+
+/* =====================================================
+   SUPABASE CONFIG
+===================================================== */
+
+const SUPABASE_URL =
+  'https://nwfodyefdxdsmdrxzfby.supabase.co';
+
+const SUPABASE_KEY =
+  'sb_publishable_M6BDC3TNoLQTTW3XSOgvyQ_6Y_0l0BD';
+
+const sb =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* =====================================================
+   GLOBAL STATE
+===================================================== */
+
+let currentUser = null;
+
+let isAdmin = false;
+
+let finance = null;
+
+let adm = null;
+
+let history = [];
+
+let adminRows = [];
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+const $ =
+  id => document.getElementById(id);
+
+
+function money(n){
+
+  n = Number(n || 0);
+
+  return `${n < 0 ? '-' : '+'}${Math.abs(n) / 1000}K`;
+
+}
+
+
+function esc(s){
+
+  return String(s ?? '')
+    .replace(
+      /[&<>"']/g,
+      m => ({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#39;'
+      }[m])
+    );
+
+}
+
+
+function msg(text,type=''){
+
+  const e = $('appMsg');
+
+  e.textContent = text;
+
+  e.className =
+    'notice ' + type;
+
+}
+
+
+function clearMsg(){
+
+  $('appMsg').className =
+    'notice hidden';
+
+}
+
+
+/* =====================================================
+   DRAWER
+===================================================== */
+
+function openDrawer(){
+
+  $('drawer')
+    .classList
+    .add('open');
+
+  $('scrim')
+    .classList
+    .add('open');
+
+}
+
+
+function closeDrawer(){
+
+  $('drawer')
+    .classList
+    .remove('open');
+
+  $('scrim')
+    .classList
+    .remove('open');
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function setNav(active){
+
+  document
+    .querySelectorAll('#nav button')
+    .forEach(
+      b =>
+        b.classList.toggle(
+          'active',
+          b.dataset.page === active
+        )
+    );
+
+}
+
+
+function buildNav(){
+
+  const items = [
+
+    [
+      'dashboard',
+      '🏠',
+      'Dashboard'
+    ],
+
+    [
+      'saldo',
+      '💰',
+      'Saldo & NextPay'
+    ],
+
+    [
+      'history',
+      '🧾',
+      'Riwayat Saya'
+    ],
+
+    [
+      'payment',
+      '💳',
+      'Pengajuan Pembayaran'
+    ]
+
+  ];
+
+
+  if(isAdmin){
+
+    items.push(
+      [
+        'admin',
+        '🛠️',
+        'Admin'
+      ]
+    );
+
+  }
+
+
+  $('nav').innerHTML =
+    items
+      .map(
+        x => `
+          <button
+            data-page="${x[0]}"
+            onclick="showPage('${x[0]}')"
+          >
+
+            <span class="ico">
+              ${x[1]}
+            </span>
+
+            ${x[2]}
+
+          </button>
+        `
+      )
+      .join('');
+
+}
+
+
+/* =====================================================
+   AUTH
+===================================================== */
+
+async function login(){
+
+  const {
+    data,
+    error
+  } =
+    await sb.auth.getSession();
+
+
+  if(
+    error ||
+    !data.session
+  ){
+
+    $('loginView')
+      .classList
+      .remove('hidden');
+
+    $('appView')
+      .classList
+      .add('hidden');
+
+    return;
+
+  }
+
+
+  currentUser =
+    data.session.user;
+
+
+  $('loginView')
+    .classList
+    .add('hidden');
+
+  $('appView')
+    .classList
+    .remove('hidden');
+
+
+  await loadDashboard();
+
+}
+
+
+/* =====================================================
+   LOGIN FORM
+===================================================== */
+
+$('loginForm')
+  .addEventListener(
+    'submit',
+    async e => {
+
+      e.preventDefault();
+
+
+      const m =
+        $('loginMsg');
+
+
+      m.className =
+        'notice hidden';
+
+
+      const {
+        error
+      } =
+        await sb.auth.signInWithPassword({
+
+          email:
+            $('email')
+              .value
+              .trim(),
+
+          password:
+            $('password')
+              .value
+
+        });
+
+
+      if(error){
+
+        m.textContent =
+          error.message;
+
+        m.className =
+          'notice danger';
+
+        return;
+
+      }
+
+
+      await login();
+
+    }
+  );
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+async function logout(){
+
+  await sb.auth.signOut();
+
+  currentUser = null;
+
+  closeDrawer();
+
+  await login();
+
+}
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+sb.auth.onAuthStateChange(
+  (_event,session) => {
+
+    if(
+      session &&
+      !currentUser
+    ){
+
+      currentUser =
+        session.user;
+
+      login();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   SUPABASE RPC
+===================================================== */
+
+async function rpc(
+  name,
+  args = {}
+){
+
+  const {
+    data,
+    error
+  } =
+    await sb.rpc(
+      name,
+      args
+    );
+
+
+  if(error)
+    throw error;
+
+
+  return data || [];
+
+}
+
+
+/* =====================================================
+   LOAD DASHBOARD
+===================================================== */
+
+async function loadDashboard(){
+
+  clearMsg();
+
+
+  $('page').innerHTML = `
+    <div class="loading">
+      ⏳ Mengambil data KAS SOS dari Supabase...
+    </div>
+  `;
+
+
+  try{
+
+    isAdmin =
+      await rpc('is_admin');
+
+
+    finance =
+      (
+        await rpc(
+          'member_financial_summary'
+        )
+      )?.[0] || null;
+
+
+    adm =
+      (
+        await rpc(
+          'member_adm_summary'
+        )
+      )?.[0] || null;
+
+
+    history =
+      await rpc(
+        'member_payment_history'
+      );
+
+
+    if(isAdmin){
+
+      try{
+
+        adminRows =
+          await rpc(
+            'admin_get_ledger_summary'
+          );
+
+      }catch(e){
+
+        adminRows = [];
+
+      }
+
+    }
+
+
+    $('drawerName')
+      .textContent =
+        finance?.member_name ||
+        currentUser?.email ||
+        'Member';
+
+
+    $('drawerRole')
+      .textContent =
+        isAdmin
+          ? 'Administrator'
+          : 'Member';
+
+
+    buildNav();
+
+
+    showPage(
+      'dashboard'
+    );
+
+
+  }catch(e){
+
+    $('page').innerHTML =
+      '';
+
+    msg(
+      'Gagal membaca data Supabase: ' +
+      e.message,
+      'danger'
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   PAGE ROUTER
+===================================================== */
+
+function showPage(page){
+
+  closeDrawer();
+
+  setNav(page);
+
+
+  if(page === 'dashboard')
+    return renderDashboard();
+
+
+  if(page === 'saldo')
+    return renderSaldo();
+
+
+  if(page === 'history')
+    return renderHistory();
+
+
+  if(page === 'payment')
+    return renderPayment();
+
+
+  if(page === 'admin')
+    return renderAdmin();
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+function renderDashboard(){
+
+  const f =
+    finance || {};
+
+
+  const status =
+    f.status_code || '';
+
+
+  const cls =
+    f.balance > 0
+      ? 'green'
+      : f.balance < 0
+        ? 'red'
+        : 'yellow';
+
+
+  $('page').innerHTML = `
+
+    <section class="hero">
+
+      <div>
+
+        <h1>
+          Halo,
+          ${esc(
+            f.member_name ||
+            'Member'
+          )}
+          👋
+        </h1>
+
+        <div class="muted">
+          Dashboard KAS SOS •
+          data live dari Supabase
+        </div>
+
+        <span class="badge">
+          ${esc(
+            f.status_text ||
+            status ||
+            'AKTIF'
+          )}
+        </span>
+
+      </div>
+
+      <div class="muted">
+
+        Per
+        ${esc(
+          f.as_of_date ||
+          new Date()
+            .toISOString()
+            .slice(0,10)
+        )}
+
+      </div>
+
+    </section>
+
+
+    <section class="grid">
+
+      <div class="stat">
+
+        <span>
+          Saldo
+        </span>
+
+        <b class="${cls}">
+          ${money(
+            f.balance || 0
+          )}
+        </b>
+
+      </div>
+
+
+      <div class="stat">
+
+        <span>
+          NextPay
+        </span>
+
+        <b>
+
+          ${
+            f.next_pay_date
+              ? new Date(
+                  f.next_pay_date +
+                  'T00:00:00'
+                )
+                .toLocaleDateString(
+                  'id-ID',
+                  {
+                    day:'2-digit',
+                    month:'2-digit',
+                    year:'numeric'
+                  }
+                )
+              : '-'
+          }
+
+        </b>
+
+      </div>
+
+
+      <div class="stat">
+
+        <span>
+          Tunggakan
+        </span>
+
+        <b class="red">
+          ${money(
+            -(f.arrears || 0)
+          )}
+        </b>
+
+      </div>
+
+
+      <div class="stat">
+
+        <span>
+          ADM
+        </span>
+
+        <b class="${
+          adm?.adm_balance > 0
+            ? 'yellow'
+            : 'green'
+        }">
+
+          ${money(
+            adm?.adm_balance || 0
+          )}
+
+        </b>
+
+      </div>
+
+    </section>
+
+
+    <section class="section">
+
+      <div class="section-head">
+
+        <h2>
+          Ringkasan
+        </h2>
+
+        <button
+          class="secondary"
+          onclick="showPage('saldo')"
+        >
+          Lihat detail
+        </button>
+
+      </div>
+
+      <p class="muted">
+
+        KAS, NextPay, ADM,
+        dan riwayat tetap bersumber
+        dari backend.
+
+        UI ini tidak mengubah
+        transaksi atau struktur
+        database.
+
+      </p>
+
+    </section>
+
+  `;
+
+}
+
+
+/* =====================================================
+   SALDO
+===================================================== */
+
+function renderSaldo(){
+
+  $('page').innerHTML = `
+
+    <section class="hero">
+
+      <div>
+
+        <h1>
+          Saldo & NextPay
+        </h1>
+
+        <div class="muted">
+          Rincian finansial akun
+          yang sedang login
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="grid">
+
+      <div class="stat">
+
+        <span>
+          Saldo
+        </span>
+
+        <b class="${
+          finance?.balance > 0
+            ? 'green'
+            : finance?.balance < 0
+              ? 'red'
+              : 'yellow'
+        }">
+
+          ${money(
+            finance?.balance || 0
+          )}
+
+        </b>
+
+      </div>
+
+
+      <div class="stat">
+
+        <span>
+          Total Kewajiban
+        </span>
+
+        <b>
+          ${money(
+            finance?.total_due || 0
+          )}
+        </b>
+
+      </div>
+
+
+      <div class="stat">
+
+        <span>
+          Total Dibayar
+        </span>
+
+        <b class="green">
+          ${money(
+            finance?.total_paid || 0
+          )}
+        </b>
+
+      </div>
+
+
+      <div class="stat">
+
+        <span>
+          Hari Terlambat
+        </span>
+
+        <b class="${
+          finance?.overdue_days
+            ? 'red'
+            : 'green'
+        }">
+
+          ${
+            finance?.overdue_days ||
+            0
+          }
+
+        </b>
+
+      </div>
+
+    </section>
+
+
+    <section class="section">
+
+      <div class="section-head">
+
+        <h2>
+          NextPay
+        </h2>
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <tbody>
+
+            <tr>
+
+              <th>
+                Status
+              </th>
+
+              <td>
+                ${esc(
+                  finance?.status_text ||
+                  '-'
+                )}
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <th>
+                NextPay
+              </th>
+
+              <td>
+                ${esc(
+                  finance?.next_pay_date ||
+                  '-'
+                )}
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <th>
+                Jarak Hari
+              </th>
+
+              <td>
+                ${
+                  finance?.next_pay_days ??
+                  '-'
+                }
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <th>
+                ADM
+              </th>
+
+              <td>
+
+                ${money(
+                  adm?.adm_balance || 0
+                )}
+
+                •
+                ${esc(
+                  adm?.adm_status ||
+                  '-'
+                )}
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  `;
+
+}
+
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+function renderHistory(){
+
+  const rows =
+    history || [];
+
+
+  $('page').innerHTML = `
+
+    <section class="hero">
+
+      <div>
+
+        <h1>
+          Riwayat Saya
+        </h1>
+
+        <div class="muted">
+          Hanya riwayat akun
+          yang sedang login
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="section">
+
+      <div class="table-wrap">
+
+        ${
+          rows.length
+
+          ?
+
+          `
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Tanggal
+                </th>
+
+                <th>
+                  Jenis
+                </th>
+
+                <th>
+                  Nominal
+                </th>
+
+                <th>
+                  Status
+                </th>
+
+                <th>
+                  Catatan
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              ${rows.map(
+                r => `
+
+                <tr>
+
+                  <td>
+
+                    ${
+                      r.submitted_at
+                        ? new Date(
+                            r.submitted_at
+                          )
+                          .toLocaleDateString(
+                            'id-ID'
+                          )
+                        : '-'
+                    }
+
+                  </td>
+
+
+                  <td>
+                    ${esc(
+                      r.payment_type
+                    )}
+                  </td>
+
+
+                  <td>
+
+                    ${money(
+                      r.amount
+                    )}
+
+                  </td>
+
+
+                  <td>
+
+                    ${esc(
+                      r.status
+                    )}
+
+                  </td>
+
+
+                  <td>
+
+                    ${esc(
+                      r.notes ||
+                      r.rejection_reason ||
+                      '-'
+                    )}
+
+                  </td>
+
+                </tr>
+
+              `
+              ).join('')}
+
+            </tbody>
+
+          </table>
+
+          `
+
+          :
+
+          `
+
+          <div class="empty">
+
+            Belum ada
+            riwayat pembayaran.
+
+          </div>
+
+          `
+
+        }
+
+      </div>
+
+    </section>
+
+  `;
+
+}
+
+
+/* =====================================================
+   PAYMENT
+===================================================== */
+
+function renderPayment(){
+
+  $('page').innerHTML = `
+
+    <section class="hero">
+
+      <div>
+
+        <h1>
+          Pengajuan Pembayaran
+        </h1>
+
+        <div class="muted">
+          Pengajuan tetap diproses
+          melalui backend Supabase
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="section">
+
+      <div class="notice">
+
+        Form pengajuan mengikuti
+        fungsi backend Supabase
+        yang sudah ada.
+
+        Upload bukti dan proses
+        approval tidak mengubah
+        transaksi lama.
+
+      </div>
+
+
+      <div class="grid">
+
+        <div class="stat">
+
+          <span>
+            Saldo KAS
+          </span>
+
+          <b>
+            ${money(
+              finance?.balance || 0
+            )}
+          </b>
+
+        </div>
+
+
+        <div class="stat">
+
+          <span>
+            ADM
+          </span>
+
+          <b>
+            ${money(
+              adm?.adm_balance || 0
+            )}
+          </b>
+
+        </div>
+
+      </div>
+
+
+      <div class="section">
+
+        <h2>
+          Pengajuan KAS
+        </h2>
+
+        <p class="muted">
+
+          Gunakan aplikasi/backend
+          yang sudah terhubung untuk
+          mengirim nominal dan bukti
+          pembayaran.
+
+        </p>
+
+        <div class="notice success">
+
+          Backend
+          <b>
+            submit_kas_payment
+          </b>
+          dan
+          <b>
+            submit_adm_payment
+          </b>
+          tetap tersedia.
+
+        </div>
+
+      </div>
+
+    </section>
+
+  `;
+
+}
+
+
+/* =====================================================
+   ADMIN
+===================================================== */
+
+function renderAdmin(){
+
+  if(!isAdmin){
+
+    $('page').innerHTML = `
+
+      <div class="notice danger">
+
+        Akses admin diperlukan.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const rows =
+    adminRows || [];
+
+
+  $('page').innerHTML = `
+
+    <section class="hero">
+
+      <div>
+
+        <h1>
+          Admin • Ledger
+        </h1>
+
+        <div class="muted">
+
+          Ringkasan member
+          dari fungsi admin Supabase
+
+        </div>
+
+      </div>
+
+
+      <span class="badge">
+
+        ${rows.length}
+        MEMBER
+
+      </span>
+
+    </section>
+
+
+    <section class="section">
+
+      <div class="toolbar">
+
+        <input
+          id="adminSearch"
+          placeholder="Cari member..."
+          oninput="filterAdmin()"
+        >
+
+        <button class="active">
+          Semua
+        </button>
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>
+                Member
+              </th>
+
+              <th>
+                Saldo
+              </th>
+
+              <th>
+                NextPay
+              </th>
+
+              <th>
+                Status
+              </th>
+
+              <th>
+                Tunggakan
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody id="adminRows">
+
+            ${rows
+              .map(
+                r => adminRow(r)
+              )
+              .join('')}
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  `;
+
+}
+
+
+/* =====================================================
+   ADMIN ROW
+===================================================== */
+
+function adminRow(r){
+
+  const cls =
+    r.balance > 0
+      ? 'green'
+      : r.balance < 0
+        ? 'red'
+        : 'yellow';
+
+
+  return `
+
+    <tr
+      data-name="${
+        esc(
+          (r.member_name || '')
+            .toLowerCase()
+        )
+      }"
+    >
+
+      <td>
+
+        <b>
+          ${esc(
+            r.member_name
+          )}
+        </b>
+
+      </td>
+
+
+      <td
+        class="amount ${cls}"
+      >
+
+        ${money(
+          r.balance
+        )}
+
+      </td>
+
+
+      <td>
+
+        ${esc(
+          r.next_pay_date ||
+          '-'
+        )}
+
+      </td>
+
+
+      <td>
+
+        ${esc(
+          r.status_text ||
+          r.status_code ||
+          '-'
+        )}
+
+      </td>
+
+
+      <td class="red">
+
+        ${money(
+          -(r.arrears || 0)
+        )}
+
+      </td>
+
+    </tr>
+
+  `;
+
+}
+
+
+/* =====================================================
+   ADMIN SEARCH
+===================================================== */
+
+function filterAdmin(){
+
+  const q =
+    $('adminSearch')
+      .value
+      .toLowerCase();
+
+
+  document
+    .querySelectorAll(
+      '#adminRows tr'
+    )
+    .forEach(
+      r => {
+
+        r.style.display =
+          (
+            r.dataset.name || ''
+          ).includes(q)
+            ? ''
+            : 'none';
+
+      }
+    );
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+login();
+
 </script>
-</body></html>
+
+</body>
+</html>
