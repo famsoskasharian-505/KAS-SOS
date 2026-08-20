@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="id">
+<head data-build="KAS-SOS-FINAL-RECAP-SYNC-2026-08-20">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#09090d">
+<title>KAS FAM SOS</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#09090d;--card:#111118;--card2:#171720;--line:#2a2a35;--txt:#f7f7fb;--muted:#a6a6b3;--purple:#a855f7;--green:#5ee69a;--red:#ff7373;--yellow:#ffd66b;--blue:#75b7ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0,#341247 0,#09090d 40%);color:var(--txt);font:14px/1.5 system-ui,-apple-system,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+.top{height:66px;position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;padding:9px 14px;background:#0b0b10ee;border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:9px;font-weight:850;font-size:17px}.logo{width:39px;height:39px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,#7c3aed,#c026d3);box-shadow:0 8px 30px #7c3aed44}
+.iconbtn,.secondary{border:1px solid var(--line);background:var(--card2);color:var(--txt);border-radius:12px;padding:10px 12px}.iconbtn{width:42px;height:42px;font-size:20px}.right{margin-left:auto}
+.drawer{position:fixed;z-index:60;inset:0 auto 0 0;width:min(340px,90vw);padding:17px;background:#111017;border-right:1px solid var(--line);transform:translateX(-105%);transition:.24s;box-shadow:25px 0 80px #0009}.drawer.open{transform:translateX(0)}
+.scrim{position:fixed;z-index:50;inset:0;background:#0009;opacity:0;pointer-events:none;transition:.2s}.scrim.open{opacity:1;pointer-events:auto}
+.drawerhead{display:flex;align-items:center}.close{margin-left:auto}.profile{margin:18px 0;padding:14px;border:1px solid var(--line);border-radius:16px;background:#ffffff06}.profile b{display:block}.profile small{color:var(--muted)}
+.nav{display:grid;gap:6px}.nav button{border:1px solid transparent;background:transparent;color:var(--txt);padding:13px;border-radius:13px;text-align:left}.nav button.active,.nav button:hover{background:#a855f714;border-color:#a855f744}.logout{position:absolute;left:17px;right:17px;bottom:17px;border:1px solid #632b2b;background:#2a1414;color:#ffaaaa;padding:12px;border-radius:12px}
+main{max-width:1180px;margin:auto;padding:17px 14px 55px}.hero{display:flex;justify-content:space-between;gap:18px;align-items:end;padding:22px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(135deg,#18141f,#101016);box-shadow:0 20px 60px #0007}.hero h1{margin:0 0 5px;font-size:28px}.muted{color:var(--muted)}.badge{display:inline-block;margin-top:9px;padding:5px 9px;border-radius:999px;background:#281737;color:#e1c8ff;font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}.stat{padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--card)}.stat span{display:block;color:var(--muted);font-size:12px}.stat b{display:block;font-size:22px;margin-top:3px}.green{color:var(--green)}.red{color:var(--red)}.yellow{color:var(--yellow)}.blue{color:var(--blue)}
+.section{margin-top:12px;padding:16px;border:1px solid var(--line);border-radius:18px;background:#101017}.head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.head h2{margin:0;font-size:17px}
+.notice{padding:11px 13px;border-radius:12px;border:1px solid #5b4114;background:#241c0c;color:#ffda82;margin:10px 0}.notice.ok{border-color:#205a3f;background:#10261b;color:#a8f4ca}.notice.bad{border-color:#632d2d;background:#281414;color:#ffb0b0}
+.table{overflow:auto;border:1px solid var(--line);border-radius:13px}.table table{border-collapse:collapse;width:100%;min-width:680px}.table th,.table td{padding:10px;border-bottom:1px solid #25252e;text-align:left}.table th{color:#aaa;background:#15151d}.empty,.loading{text-align:center;padding:28px;color:var(--muted)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:11px}.toolbar input,.field input,.field select,.field textarea,.login input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:#0d0d13;color:var(--txt)}.toolbar input{flex:1;min-width:200px}
+.primary{width:100%;padding:12px;border:0;border-radius:12px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-weight:800}.field{display:grid;gap:6px;margin-bottom:11px}.field label{color:var(--muted);font-size:12px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#272730;font-size:11px}.pending{color:var(--yellow)}.approved{color:var(--green)}.rejected{color:var(--red)}
+.login{min-height:100vh;display:grid;place-items:center;padding:18px}.loginbox{width:min(440px,100%);padding:24px;border:1px solid var(--line);border-radius:23px;background:linear-gradient(145deg,#17131f,#101016);box-shadow:0 25px 80px #0008}.loginbox form{display:grid;gap:10px;margin-top:18px}
+.modal{position:fixed;z-index:90;inset:0;background:#000b;display:grid;place-items:center;padding:14px}.modalbox{width:min(520px,100%);max-height:92vh;overflow:auto;padding:19px;border:1px solid var(--line);border-radius:19px;background:#111118}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:1fr}.hero{align-items:flex-start;flex-direction:column}}
+@media(max-width:520px){main{padding:12px 8px 40px}.hero{padding:17px}.hero h1{font-size:24px}.section{padding:13px}.stat{padding:12px}.stat b{font-size:19px}}
+</style>
+</head>
+<body>
+
+<div id="login" class="login">
+  <div class="loginbox">
+    <div class="brand"><div class="logo">📒</div><span>KAS FAM SOS</span></div>
+    <h1>Masuk ke KAS SOS</h1>
+    <p class="muted">Client KAS SOS • data finansial tetap berasal dari Supabase.</p>
+    <div id="loginMsg" class="notice hidden"></div>
+    <form id="loginForm">
+      <div class="field"><label>Email</label><input id="email" type="email" required autocomplete="username"></div>
+      <div class="field"><label>Password</label><input id="password" type="password" required autocomplete="current-password"></div>
+      <button class="primary">Masuk</button>
+    </form>
+  </div>
+</div>
+
+<div id="app" class="hidden">
+  <aside id="drawer" class="drawer">
+    <div class="drawerhead"><div class="brand"><div class="logo">📒</div><span>KAS SOS</span></div><button class="iconbtn close" onclick="closeDrawer()">✕</button></div>
+    <div class="profile"><b id="profileName">Memuat...</b><small id="profileRole">Member</small></div>
+    <nav id="nav" class="nav"></nav>
+    <button class="logout" onclick="logout()">↪ Keluar</button>
+  </aside>
+  <div id="scrim" class="scrim" onclick="closeDrawer()"></div>
+  <header class="top">
+    <button class="iconbtn" onclick="openDrawer()">☰</button>
+    <div class="brand"><div class="logo">📒</div><span>KAS FAM SOS</span></div>
+    <div class="right"><button class="secondary" onclick="refreshAll()">↻ <span class="refreshText">Refresh</span></button></div>
+  </header>
+  <main>
+    <div id="msg" class="notice hidden"></div>
+    <div id="page"></div>
+  </main>
+</div>
+
+<div id="modal" class="modal hidden"></div>
+
+<script>
+const SUPABASE_URL="https://nwfodyefdxdsmdrxzfby.supabase.co";
+const SUPABASE_ANON_KEY="sb_publishable_M6BDC3TNoLQTTW3XSOgvyQ_6Y_0l0BD";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+
+let currentUser=null,isAdmin=false,finance={},adm={},history=[],ledger=[],requests=[],currentPage="dashboard";
+
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const money=n=>{n=Number(n||0);return `${n<0?"-":"+"}${Math.abs(n)/1000}K`};
+const dateToday=()=>new Date().toISOString().slice(0,10);
+
+function showMsg(text,type=""){const e=$("msg");e.textContent=text;e.className="notice "+type}
+function hideMsg(){$("msg").className="notice hidden"}
+function openDrawer(){$("drawer").classList.add("open");$("scrim").classList.add("open")}
+function closeDrawer(){$("drawer").classList.remove("open");$("scrim").classList.remove("open")}
+
+async function rpc(name,args={}){
+  const {data,error}=await db.rpc(name,args);
+  if(error) throw error;
+  return data ?? [];
+}
+
+async function getOne(name,args={}){
+  const d=await rpc(name,args);
+  return Array.isArray(d)?(d[0]||{}):(d||{});
+}
+
+function buildNav(active){
+  const items=[
+    ["dashboard","🏠","Dashboard"],
+    ["saldo","💰","Saldo & NextPay"],
+    ["history","🧾","Riwayat Saya"],
+    ["payment","💳","Pengajuan Pembayaran"],
+    ["members","👥","Daftar Member"]
+  ];
+  if(isAdmin) items.push(["admin","🛠️","Admin"]);
+  $("nav").innerHTML=items.map(i=>`<button class="${active===i[0]?"active":""}" onclick="go('${i[0]}')">${i[1]} ${i[2]}</button>`).join("");
+}
+
+async function refreshAll(){
+  try{
+    hideMsg();
+    $("page").innerHTML='<div class="loading">⏳ Sinkronisasi KAS SOS...</div>';
+
+    try{isAdmin=!!(await rpc("is_admin"));}catch(_){isAdmin=false}
+    try{finance=await getOne("member_financial_summary");}catch(_){finance={}}
+    try{adm=await getOne("member_adm_summary");}catch(_){adm={}}
+    try{history=await rpc("member_payment_history");}catch(_){history=[]}
+
+    if(isAdmin){
+      try{ledger=await rpc("admin_get_ledger_summary");}catch(_){ledger=[]}
+      try{requests=await rpc("admin_get_payment_requests");}catch(_){requests=[]}
+    }
+
+    $("profileName").textContent=finance.member_name||currentUser?.email||"Member";
+    $("profileRole").textContent=isAdmin?"Administrator":"Member";
+    buildNav(currentPage);
+    render(currentPage);
+  }catch(e){
+    showMsg("Gagal memuat data: "+e.message,"bad");
+    $("page").innerHTML='<div class="empty">Data belum dapat dimuat.</div>';
+  }
+}
+
+function go(p){currentPage=p;closeDrawer();buildNav(p);render(p)}
+function render(p){
+  if(p==="dashboard")renderDashboard();
+  else if(p==="saldo")renderSaldo();
+  else if(p==="history")renderHistory();
+  else if(p==="payment")renderPayment();
+  else if(p==="members")renderMembers();
+  else if(p==="admin")renderAdmin();
+}
+
+function renderDashboard(){
+  const f=finance||{};
+  const balance=Number(f.balance||0);
+  $("page").innerHTML=`
+  <section class="hero">
+    <div><h1>Halo, ${esc(f.member_name||"Member")} 👋</h1><div class="muted">Dashboard live KAS SOS</div><span class="badge">${esc(f.status_text||"AKTIF")}</span></div>
+    <div class="muted">${esc(f.as_of_date||dateToday())}</div>
+  </section>
+  <section class="grid">
+    <div class="stat"><span>Saldo</span><b class="${balance>0?"green":balance<0?"red":"yellow"}">${money(balance)}</b></div>
+    <div class="stat"><span>📌 NextPay</span><b>${esc(f.next_pay_date||"-")}</b></div>
+    <div class="stat"><span>Tunggakan</span><b class="red">${money(-(f.arrears||0))}</b></div>
+    <div class="stat"><span>ADM</span><b class="yellow">${money(adm.adm_balance||0)}</b></div>
+  </section>
+  <section class="section">
+    <div class="head"><h2>Status KAS</h2><button class="secondary" onclick="go('saldo')">Detail</button></div>
+    <p class="muted">Saldo, NextPay, kewajiban, ADM, dan riwayat dibaca dari backend Supabase.</p>
+  </section>`;
+}
+
+function renderSaldo(){
+  const f=finance||{};
+  $("page").innerHTML=`
+  <section class="hero"><div><h1>💰 Saldo & NextPay</h1><div class="muted">Sinkron dengan backend KAS SOS</div></div></section>
+  <section class="grid">
+    <div class="stat"><span>Saldo</span><b class="${f.balance>0?"green":f.balance<0?"red":"yellow"}">${money(f.balance)}</b></div>
+    <div class="stat"><span>Total Kewajiban</span><b>${money(f.total_due)}</b></div>
+    <div class="stat"><span>Total Dibayar</span><b class="green">${money(f.total_paid)}</b></div>
+    <div class="stat"><span>Terlambat</span><b class="red">${esc(f.overdue_days||0)} hari</b></div>
+  </section>
+  <section class="section"><div class="table"><table><tbody>
+    <tr><th>Status</th><td>${esc(f.status_text||"-")}</td></tr>
+    <tr><th>📌 NextPay</th><td>${esc(f.next_pay_date||"-")}</td></tr>
+    <tr><th>Jarak NextPay</th><td>${esc(f.next_pay_days??"-")} hari</td></tr>
+    <tr><th>ADM</th><td>${money(adm.adm_balance||0)} • ${esc(adm.adm_status||"-")}</td></tr>
+  </tbody></table></div></section>`;
+}
+
+function renderHistory(){
+  const rows=history||[];
+  $("page").innerHTML=`
+  <section class="hero"><div><h1>🧾 Riwayat Saya</h1><div class="muted">Hanya riwayat akun yang sedang login</div></div></section>
+  <section class="section"><div class="table">${rows.length?`
+  <table><thead><tr><th>Tanggal</th><th>Jenis</th><th>Nominal</th><th>Status</th><th>Catatan</th></tr></thead>
+  <tbody>${rows.map(x=>`<tr><td>${esc(x.submitted_at||"-")}</td><td>${esc(x.payment_type||"-")}</td><td>${money(x.amount)}</td><td>${esc(x.status||"-")}</td><td>${esc(x.notes||x.rejection_reason||"-")}</td></tr>`).join("")}</tbody></table>`
+  :'<div class="empty">Belum ada riwayat pembayaran.</div>'}</div></section>`;
+}
+
+function renderPayment(){
+  $("page").innerHTML=`
+  <section class="hero"><div><h1>💳 Pengajuan Pembayaran</h1><div class="muted">Ajukan KAS atau ADM beserta bukti pembayaran</div></div></section>
+  <section class="section">
+    <div class="cards">
+      <div>
+        <div class="field"><label>Jenis Pembayaran</label>
+          <select id="payType"><option value="kas">KAS</option><option value="adm">ADM</option></select>
+        </div>
+        <div class="field"><label>Nominal (K)</label><input id="payAmount" type="number" min="1" step="1" placeholder="Contoh: 5"></div>
+        <div class="field"><label>Catatan</label><textarea id="payNotes" rows="3" placeholder="Opsional"></textarea></div>
+        <div class="field"><label>Bukti pembayaran</label><input id="payProof" type="file" accept="image/*,application/pdf"></div>
+        <div id="payMsg"></div>
+        <button class="primary" onclick="submitPayment()">Kirim Pengajuan</button>
+      </div>
+      <div>
+        <div class="stat"><span>Saldo KAS</span><b>${money(finance.balance)}</b></div>
+        <div class="stat"><span>Saldo ADM</span><b>${money(adm.adm_balance||0)}</b></div>
+        <div class="notice">Pengajuan berstatus <b>pending</b> sampai diproses admin. Tanggal transaksi ditentukan oleh backend saat approval.</div>
+      </div>
+    </div>
+  </section>`;
+}
+
+async function submitPayment(){
+  const type=$("payType").value;
+  const amountK=Number($("payAmount").value);
+  const amount=amountK*1000;
+  const notes=$("payNotes").value.trim();
+  const file=$("payProof").files[0];
+  const box=$("payMsg");
+
+  if(!amountK||amountK<=0){box.innerHTML='<div class="notice bad">Nominal tidak valid.</div>';return}
+  if(!file){box.innerHTML='<div class="notice bad">Bukti pembayaran wajib diunggah.</div>';return}
+  if(file.size>5*1024*1024){box.innerHTML='<div class="notice bad">Ukuran bukti maksimal 5 MB.</div>';return}
+
+  try{
+    box.innerHTML='<div class="notice">⏳ Mengunggah bukti...</div>';
+    const ext=(file.name.split(".").pop()||"bin").toLowerCase();
+    const path=`${currentUser.id}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+
+    /*
+      Nama bucket mengikuti konfigurasi backend yang telah disiapkan.
+      Jika project Anda memakai nama bucket berbeda, ubah hanya konstanta
+      PAYMENT_BUCKET di bawah script ini.
+    */
+    const up=await db.storage.from(PAYMENT_BUCKET).upload(path,file,{upsert:false,contentType:file.type||undefined});
+    if(up.error)throw up.error;
+
+    const args={
+      p_amount:amount,
+      p_notes:notes,
+      p_proof_storage_path:path
+    };
+    const fn=type==="kas"?"submit_kas_payment":"submit_adm_payment";
+    await rpc(fn,args);
+
+    box.innerHTML='<div class="notice ok">✅ Pengajuan berhasil dikirim. Menunggu approval admin.</div>';
+    $("payAmount").value="";
+    $("payNotes").value="";
+    $("payProof").value="";
+    await refreshAll();
+    go("history");
+  }catch(e){
+    box.innerHTML='<div class="notice bad">Gagal mengirim pengajuan: '+esc(e.message)+'</div>';
+  }
+}
+
+const PAYMENT_BUCKET="Bukti oembayaran kas";
+
+function renderMembers(){
+  if(!isAdmin && !ledger.length){
+    $("page").innerHTML=`<section class="hero"><div><h1>👥 Daftar Member</h1><div class="muted">Daftar lengkap hanya tersedia untuk admin.</div></div></section><div class="notice">Menu ini membutuhkan akses admin.</div>`;
+    return;
+  }
+  $("page").innerHTML=`
+  <section class="hero"><div><h1>👥 Daftar Member</h1><div class="muted">Ringkasan ledger KAS SOS</div></div></section>
+  <section class="section">
+    <div class="toolbar"><input id="memberSearch" placeholder="Cari nama member..." oninput="filterMembers()"><button class="secondary active" onclick="filterMembers('all')">Semua</button><button class="secondary" onclick="filterMembers('arrears')">🔴 Tunggakan</button></div>
+    <div class="table"><table><thead><tr><th>Member</th><th>Saldo</th><th>NextPay</th><th>Status</th><th>Tunggakan</th></tr></thead><tbody id="memberRows">${(ledger||[]).map(memberRow).join("")}</tbody></table></div>
+  </section>`;
+}
+
+function memberRow(x){
+  const b=Number(x.balance||0),a=Number(x.arrears||0);
+  return `<tr data-name="${esc(String(x.member_name||"").toLowerCase())}" data-arrears="${a}">
+    <td><b>${esc(x.member_name||"-")}</b></td><td class="${b>0?"green":b<0?"red":"yellow"}">${money(b)}</td>
+    <td>${esc(x.next_pay_date||"-")}</td><td>${esc(x.status_text||x.status_code||"-")}</td><td class="red">${money(-a)}</td>
+  </tr>`;
+}
+function filterMembers(mode){
+  const q=($("memberSearch")?.value||"").toLowerCase();
+  document.querySelectorAll("#memberRows tr").forEach(r=>{
+    const okName=(r.dataset.name||"").includes(q);
+    const okMode=mode==="arrears"?Number(r.dataset.arrears||0)>=7000:true;
+    r.style.display=okName&&okMode?"":"none";
+  });
+}
+
+function renderAdmin(){
+  if(!isAdmin){$("page").innerHTML='<div class="notice bad">Akses admin diperlukan.</div>';return}
+  const rows=ledger||[];
+  const overdue7=rows.filter(x=>Number(x.arrears||0)>=7000).length;
+  const positive=rows.filter(x=>Number(x.balance||0)>0).length;
+
+  $("page").innerHTML=`
+  <section class="hero"><div><h1>🛠️ Admin KAS SOS</h1><div class="muted">Monitoring member, tunggakan dan pengajuan</div></div><span class="badge">${rows.length} MEMBER</span></section>
+  <section class="grid">
+    <div class="stat"><span>Total Member</span><b>${rows.length}</b></div>
+    <div class="stat"><span>Tunggakan 7K+</span><b class="red">${overdue7}</b></div>
+    <div class="stat"><span>Saldo Positif</span><b class="green">${positive}</b></div>
+    <div class="stat"><span>Pengajuan</span><b class="yellow">${requests.length}</b></div>
+  </section>
+  <section class="section">
+    <div class="head"><h2>💳 Pengajuan Pembayaran</h2><button class="secondary" onclick="refreshAll()">↻ Refresh</button></div>
+    <div class="table">${requests.length?`<table><thead><tr><th>Member</th><th>Jenis</th><th>Nominal</th><th>Status</th><th>Tanggal</th><th>Aksi</th></tr></thead><tbody>${requests.map(requestRow).join("")}</tbody></table>`:'<div class="empty">Tidak ada pengajuan yang terbaca.</div>'}</div>
+  </section>
+  <section class="section"><div class="head"><h2>👥 Semua Member</h2><button class="secondary" onclick="go('members')">Buka daftar</button></div><p class="muted">Gunakan daftar member untuk mencari saldo, NextPay, status dan tunggakan.</p></section>`;
+}
+
+function requestRow(x){
+  const status=String(x.status||"").toLowerCase();
+  return `<tr><td>${esc(x.member_name||x.email||"-")}</td><td>${esc(x.payment_type||x.type||"-")}</td><td>${money(x.amount)}</td>
+  <td><span class="pill ${status==="pending"?"pending":status==="approved"?"approved":"rejected"}">${esc(x.status||"-")}</span></td>
+  <td>${esc(x.submitted_at||"-")}</td>
+  <td>${status==="pending"?`<button class="secondary" onclick="reviewRequest('${esc(x.id)}')">Review</button>`:"-"}</td></tr>`;
+}
+
+async function reviewRequest(id){
+  const r=requests.find(x=>String(x.id)===String(id)); if(!r)return;
+  openReviewModal(r);
+}
+function openReviewModal(r){
+  $("modal").classList.remove("hidden");
+  $("modal").innerHTML=`<div class="modalbox">
+    <div class="head"><h2>Review Pengajuan</h2><button class="iconbtn" onclick="closeModal()">✕</button></div>
+    <p><b>Member:</b> ${esc(r.member_name||r.email||"-")}</p>
+    <p><b>Jenis:</b> ${esc(r.payment_type||r.type||"-")}</p>
+    <p><b>Nominal:</b> ${money(r.amount)}</p>
+    <p><b>Tanggal:</b> ${esc(r.submitted_at||"-")}</p>
+    <p><b>Catatan:</b> ${esc(r.notes||"-")}</p>
+    <div class="field"><label>Alasan/catatan admin</label><textarea id="reviewReason" rows="3" placeholder="Opsional"></textarea></div>
+    <div class="cards"><button class="primary" onclick="processRequest('${esc(r.id)}',true)">✅ Approve</button><button class="secondary" onclick="processRequest('${esc(r.id)}',false)">❌ Reject</button></div>
+  </div>`;
+}
+function closeModal(){$("modal").classList.add("hidden");$("modal").innerHTML=""}
+
+async function processRequest(id,approve){
+  const reason=$("reviewReason")?.value.trim()||"";
+  try{
+    const fn=approve?"admin_approve_payment_request":"admin_reject_payment_request";
+    const args=approve?{p_payment_request_id:id}:{p_payment_request_id:id,p_rejection_reason:reason};
+    await rpc(fn,args);
+    closeModal();
+    showMsg(approve?"✅ Pengajuan disetujui.":"❌ Pengajuan ditolak.","ok");
+    await refreshAll();
+  }catch(e){
+    showMsg("Gagal memproses pengajuan: "+e.message,"bad");
+  }
+}
+
+$("loginForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const box=$("loginMsg");
+  box.className="notice";
+  box.textContent="⏳ Masuk...";
+  try{
+    const {error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});
+    if(error)throw error;
+    box.className="notice hidden";
+  }catch(err){box.className="notice bad";box.textContent=err.message}
+});
+
+async function logout(){await db.auth.signOut();location.reload()}
+
+db.auth.onAuthStateChange((_event,session)=>{
+  if(session&&!currentUser){currentUser=session.user;startApp()}
+});
+
+async function startApp(){
+  currentUser=(await db.auth.getUser()).data.user;
+  if(!currentUser)return;
+  $("login").classList.add("hidden");
+  $("app").classList.remove("hidden");
+  await refreshAll();
+}
+
+(async()=>{
+  const {data}=await db.auth.getSession();
+  if(data.session){currentUser=data.session.user;await startApp()}
+})();
+</script>
+
+<script>
+/* KAS SOS FINAL PATCH: delete-member UUID resolver */
+window.kasSOSResolveMemberUUID = async function(memberRef) {
+  if (!memberRef) throw new Error("Member wajib dipilih.");
+  const value = String(memberRef).trim();
+  if (/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)) return value;
+  const { data, error } = await supabaseClient
+    .from("members").select("id").eq("member_name", value).maybeSingle();
+  if (error) throw error;
+  if (!data?.id) throw new Error("Member tidak ditemukan: " + value);
+  return data.id;
+};
+</script>
+
+</body>
+</html>
